@@ -1,0 +1,148 @@
+/**
+\* Created with IntelliJ IDEA.
+\* User: 彭诗杰
+\* Date: 2018/7/27
+\* Time: 8:52
+\* Description: 智能检测主页组件
+\*/
+<template>
+  <el-container>
+    <el-header height="100px" class="header">
+      <el-row class="topbar-wrap">
+        <el-col :span="2" class="topbar-logo">
+          <a href="/"><img src=""></a>
+        </el-col>
+        <el-col :span="4" class="topbar-title">
+          <span style="font-size: 25px;color: #fff;">智能环保监控管理系统</span>
+        </el-col>
+        <el-col :push="11" :span="7" class="topbar-dropdown">
+          <el-dropdown class="header-dropdown-menu">
+            <span><i class="icon iconfont station-duanxin"></i></span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>黄金糕</el-dropdown-item>
+              <el-dropdown-item>狮子头</el-dropdown-item>
+              <el-dropdown-item>螺蛳粉</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+          <el-dropdown class="header-dropdown-menu">
+            <span><i class="icon iconfont station-lingdang"></i></span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>黄金糕</el-dropdown-item>
+              <el-dropdown-item>狮子头</el-dropdown-item>
+              <el-dropdown-item>螺蛳粉</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+          <el-dropdown class="header-dropdown-menu">
+            <span><i class="icon iconfont station-iconsvggchakantarenrenwu"></i></span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>黄金糕</el-dropdown-item>
+              <el-dropdown-item>狮子头</el-dropdown-item>
+              <el-dropdown-item>螺蛳粉</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+
+          <el-dropdown class="header-dropdown-menu">
+            <span><i class="icon iconfont station-sangedian"></i></span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>黄金糕</el-dropdown-item>
+              <el-dropdown-item>狮子头</el-dropdown-item>
+              <el-dropdown-item>螺蛳粉</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+
+          <el-dropdown class="header-dropdown-menu">
+            <span><i class="icon iconfont station-tuichu"></i></span>
+          </el-dropdown>
+        </el-col>
+      </el-row>
+    </el-header>
+
+    <el-container>
+      <el-aside class="aside">
+        <el-row class="nav-area">
+          <!--<el-menu defaultActive="currentNavIndex" router mode="vertical">-->
+            <!--<template v-for="(item, index) in $router.options.routes" v-if="item.menuShow">-->
+              <!--<el-submenu v-if="!item.leaf" :index="index+''">-->
+                <!--<template slot="title"><i :class="item.iconCls"></i><span slot="title">{{item.label}}</span></template>-->
+                <!--<el-menu-item v-for="term in item.children" :key="term.path" :index="term.path" v-if="term.menuShow"-->
+                              <!--:class="$route.path===term.path?'is-active':''">-->
+                  <!--<span slot="title">{{term.label}}</span>-->
+                <!--</el-menu-item>-->
+              <!--</el-submenu>-->
+              <!--<el-menu-item v-else-if="item.leaf&&item.children&&item.children.length" :index="item.children[0].path"-->
+                            <!--:class="$route.path===item.children[0].path?'is-active':''">-->
+                <!--<i :class="item.iconCls"></i><span slot="title">&nbsp;&nbsp;{{item.children[0].label}}</span>-->
+              <!--</el-menu-item>-->
+            <!--</template>-->
+          <!--</el-menu>-->
+        </el-row>
+      </el-aside>
+      <el-container>
+        <el-main>
+          <section class="content-container">
+            <el-col :span="24" class="content-wrapper">
+              <router-view></router-view>
+            </el-col>
+          </section>
+        </el-main>
+      </el-container>
+    </el-container>
+
+  </el-container>
+</template>
+
+
+<script>
+  export default {
+    name: 'Home',
+    data() {
+      return {
+        currentNavIndex: '1'
+      }
+    }
+  }
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss">
+  .header {
+    background: deepskyblue;
+    padding: 0px;
+
+    .topbar-wrap {
+      height: 100%;
+    }
+
+    .topbar-logo {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .topbar-title {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .topbar-dropdown {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+
+      .header-dropdown-menu {
+        margin-left: 30px;
+      }
+    }
+  }
+
+  .aside {
+    border-right: 1px gray solid;
+    height: 800px;
+
+    .user-area {
+      background-color: gray;
+      height: 100px;
+    }
+  }
+</style>
