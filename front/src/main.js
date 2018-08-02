@@ -7,6 +7,7 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import '@/assets/iconfont.css'
 import '@/assets/styles/main.scss'
+import store from "./store";
 
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
@@ -15,5 +16,6 @@ new Vue({
   el: '#app',
   router,
   components: {App},
-  template: '<App/>'
+  template: '<App/>',
+  store
 })

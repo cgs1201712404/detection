@@ -18,7 +18,7 @@
         <el-col :push="11" :span="7" class="topbar-dropdown">
           <el-dropdown class="header-dropdown-menu">
             <span><i class="icon iconfont station-duanxin"></i></span>
-            <el-dropdown-menu slot="dropdown">
+            <el-dropdown-menu>
               <el-dropdown-item>黄金糕</el-dropdown-item>
               <el-dropdown-item>狮子头</el-dropdown-item>
               <el-dropdown-item>螺蛳粉</el-dropdown-item>
@@ -26,7 +26,7 @@
           </el-dropdown>
           <el-dropdown class="header-dropdown-menu">
             <span><i class="icon iconfont station-lingdang"></i></span>
-            <el-dropdown-menu slot="dropdown">
+            <el-dropdown-menu>
               <el-dropdown-item>黄金糕</el-dropdown-item>
               <el-dropdown-item>狮子头</el-dropdown-item>
               <el-dropdown-item>螺蛳粉</el-dropdown-item>
@@ -34,7 +34,7 @@
           </el-dropdown>
           <el-dropdown class="header-dropdown-menu">
             <span><i class="icon iconfont station-iconsvggchakantarenrenwu"></i></span>
-            <el-dropdown-menu slot="dropdown">
+            <el-dropdown-menu>
               <el-dropdown-item>黄金糕</el-dropdown-item>
               <el-dropdown-item>狮子头</el-dropdown-item>
               <el-dropdown-item>螺蛳粉</el-dropdown-item>
@@ -43,7 +43,7 @@
 
           <el-dropdown class="header-dropdown-menu">
             <span><i class="icon iconfont station-sangedian"></i></span>
-            <el-dropdown-menu slot="dropdown">
+            <el-dropdown-menu>
               <el-dropdown-item>黄金糕</el-dropdown-item>
               <el-dropdown-item>狮子头</el-dropdown-item>
               <el-dropdown-item>螺蛳粉</el-dropdown-item>
@@ -60,32 +60,31 @@
     <el-container>
       <el-aside class="aside">
         <el-row class="nav-area">
-          <!--<el-menu defaultActive="currentNavIndex" router mode="vertical">-->
-            <!--<template v-for="(item, index) in $router.options.routes" v-if="item.menuShow">-->
-              <!--<el-submenu v-if="!item.leaf" :index="index+''">-->
-                <!--<template slot="title"><i :class="item.iconCls"></i><span slot="title">{{item.label}}</span></template>-->
-                <!--<el-menu-item v-for="term in item.children" :key="term.path" :index="term.path" v-if="term.menuShow"-->
-                              <!--:class="$route.path===term.path?'is-active':''">-->
-                  <!--<span slot="title">{{term.label}}</span>-->
-                <!--</el-menu-item>-->
-              <!--</el-submenu>-->
-              <!--<el-menu-item v-else-if="item.leaf&&item.children&&item.children.length" :index="item.children[0].path"-->
-                            <!--:class="$route.path===item.children[0].path?'is-active':''">-->
-                <!--<i :class="item.iconCls"></i><span slot="title">&nbsp;&nbsp;{{item.children[0].label}}</span>-->
-              <!--</el-menu-item>-->
-            <!--</template>-->
-          <!--</el-menu>-->
+          <!--导航菜单-->
+          <el-menu default-active="0" router>
+            <template v-for="(item,index) in $router.options.routes" v-if="item.menuShow">
+              <el-submenu v-if="!item.leaf" :index="index+''">
+                <template slot="title"><i :class="item.iconCls"></i><span slot="title">{{item.label}}</span></template>
+                <el-menu-item v-for="term in item.children" :key="term.path" :index="term.path" v-if="term.menuShow"
+                              :class="$route.path==term.path?'is-active':''">
+                  <i :class="term.iconCls"></i><span slot="title">{{term.label}}</span>
+                </el-menu-item>
+              </el-submenu>
+              <el-menu-item v-else-if="item.leaf&&item.children&&item.children.length" :index="item.children[0].path"
+                            :class="$route.path==item.children[0].path?'is-active':''">
+                <i :class="item.iconCls"></i><span slot="title">{{item.children[0].label}}</span>
+              </el-menu-item>
+            </template>
+          </el-menu>
         </el-row>
       </el-aside>
-      <el-container>
-        <el-main>
-          <section class="content-container">
-            <el-col :span="24" class="content-wrapper">
-              <router-view></router-view>
-            </el-col>
-          </section>
-        </el-main>
-      </el-container>
+      <el-main>
+        <section class="content-container">
+          <el-col :span="24">
+            <router-view></router-view>
+          </el-col>
+        </section>
+      </el-main>
     </el-container>
 
   </el-container>
@@ -106,7 +105,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
   .header {
-    background: deepskyblue;
+    background: #00bfff;
     padding: 0px;
 
     .topbar-wrap {
@@ -143,6 +142,9 @@
     .user-area {
       background-color: gray;
       height: 100px;
+    }
+    .nav-area {
+      margin-top: 3em;
     }
   }
 </style>
