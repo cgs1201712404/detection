@@ -61,7 +61,7 @@
       <el-aside class="aside">
         <el-row class="nav-area">
           <!--导航菜单-->
-          <el-menu default-active="0" router>
+          <el-menu router>
             <template v-for="(item,index) in $router.options.routes" v-if="item.menuShow">
               <el-submenu v-if="!item.leaf" :index="index+''">
                 <template slot="title"><i :class="item.iconCls"></i><span slot="title">{{item.label}}</span></template>
@@ -144,6 +144,7 @@
       height: 100px;
     }
     .nav-area {
+      text-align: center;
       margin-top: 3em;
     }
   }

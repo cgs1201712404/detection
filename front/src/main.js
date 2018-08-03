@@ -8,6 +8,20 @@ import 'element-ui/lib/theme-chalk/index.css';
 import '@/assets/iconfont.css'
 import '@/assets/styles/main.scss'
 import store from "./store";
+import VueLogger from 'vuejs-logger';
+const isProduction = process.env.NODE_ENV === 'production';
+
+const options = {
+  isEnabled: true,
+  logLevel : isProduction ? 'error' : 'debug',
+  stringifyArguments : false,
+  showLogLevel : false,
+  showMethodName : false,
+  separator: '|',
+  showConsoleColors: false
+};
+
+Vue.use(VueLogger, options);
 
 Vue.config.productionTip = false;
 Vue.use(ElementUI);

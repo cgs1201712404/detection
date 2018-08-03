@@ -13,15 +13,15 @@
       <div>
         <el-input
           placeholder="按服务区名称查询"
-          v-model="input">
+          v-model="searchInput">
         </el-input>
         <el-tree
           :data="serviceAreas"
+          :filter-node-method="filterNode"
           :props="{
           children: 'children',
           label: 'label'
-        }"
-          default-expand-all>
+        }" ref="tree">
         </el-tree>
       </div>
     </el-card>
@@ -33,16 +33,34 @@
     name: "searchBar",
     data: function () {
       return {
-        input: ''
+        searchInput: ''
       };
     },
     mounted() {
       this.getServiceAreas();
     },
+    watch: {
+      searchInput(val) {
+        this.$refs.tree.filter(val);
+      }
+    },
     methods: {
       getServiceAreas() {
         let params = {};
         this.$store.dispatch('getTreeList', params)
+      },
+      /**
+       * 搜索框回调函数
+       * @param value
+       * @param data
+       * @return {boolean}
+       */
+      filterNode(value, data) {
+        if (typeof data.label !== 'undefined') {
+          if (!value) return true;
+          return data.id.indexOf(value) !== -1;
+        }
+        return false;
       }
     },
     computed: {
