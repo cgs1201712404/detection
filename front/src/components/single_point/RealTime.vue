@@ -1,3 +1,4 @@
+import waste_gas from "../../store/modules/waste_gas";
 /**
 \* Created with IntelliJ IDEA.
 \* User: 彭诗杰
@@ -17,13 +18,14 @@
       </el-row>
       <el-row class="tab-row">
         <template>
-          <el-tabs v-model="activeTab" type="card">
+          <el-tabs v-model="activeTab" type="card" @tab-click="tabClicked">
             <el-tab-pane label="污水类" name="sewage">
               <sewage-tab>
               </sewage-tab>
             </el-tab-pane>
             <el-tab-pane label="大气类" name="wasteGas">
-              大气类
+              <waste-gas-tab ref="wasteGas">
+              </waste-gas-tab>
             </el-tab-pane>
             <el-tab-pane label="噪声类" name="noise">
               噪声类
@@ -40,15 +42,23 @@
 
 <script>
   import SearchBar from "../SearchBar";
-  import SewageTab from "../SewageTab";
+  import SewageTab from "./SewageTab";
+  import WasteGasTab from "./WasteGasTab";
 
   export default {
     name: "SinglePoint",
-    components: {SewageTab, SearchBar},
+    components: {WasteGasTab, SewageTab, SearchBar},
     data: function () {
       return {
         activeTab: 'sewage'
       };
+    },
+    methods: {
+      tabClicked(tab) {
+        if (tab && tab.name === 'wasteGas') {
+          this.$refs.wasteGas.refreshWasteChart();
+        }
+      }
     },
     computed: {
       serviceArea() {
