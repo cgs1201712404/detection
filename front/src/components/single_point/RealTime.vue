@@ -42,8 +42,8 @@ import waste_gas from "../../store/modules/waste_gas";
 
 <script>
   import SearchBar from "../SearchBar";
-  import SewageTab from "./SewageTab";
-  import WasteGasTab from "./WasteGasTab";
+  import SewageTab from "./real_time/SewageTab";
+  import WasteGasTab from "./real_time/WasteGasTab";
 
   export default {
     name: "SinglePoint",
