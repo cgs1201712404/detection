@@ -5,6 +5,8 @@ import createLogger from "vuex/dist/logger";
 import serviceArea from './modules/service_area'
 import sewage from './modules/sewage'
 import wasteGas from './modules/waste_gas'
+import noise from './modules/noise'
+import solid from './modules/solid'
 
 Vue.use(Vuex);
 
@@ -14,7 +16,9 @@ export default new Vuex.Store({
   modules: {
     serviceArea,
     sewage,
-    wasteGas
+    wasteGas,
+    noise,
+    solid
   },
   strict: debug,
   plugins: debug ? [createLogger()] : []

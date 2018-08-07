@@ -18,106 +18,98 @@ const state = {
 const getters = {};
 
 const actions = {
-  getWastePresentList({commit, state}, params) {
+  getGasPresentList({commit, state}, params) {
     let data = [
       {
         id: 1,
         sD: 7.0,  // 二氧化硫
-        nOX: 123, // 氮氧化物
+        nOZ: 123, // 二氧化氮
+        nO: 23, // 一氧化氮
         tCM: 48,  // 隧道一氧化碳
+        tSP: 12,  // TSP（总悬浮物）
+        pM1: 23, // PM1
+        pM25: 23,
+        pM10: 21,
+        temperature: 22.1, // 温度
+        humidity: 23, // 湿度
+        atmPress: 21, // 大气压
+        windSpeed: 5, // 风速
+        rainfall: 132, // 降雨量
         time: '2018-08-03 16:50:23'
       },
       {
         id: 2,
         sD: 7.0,  // 二氧化硫
-        nOX: 123, // 氮氧化物
+        nOZ: 123, // 二氧化氮
+        nO: 23, // 一氧化氮
         tCM: 48,  // 隧道一氧化碳
-        time: '2018-08-03 16:55:23'
+        tSP: 12,  // TSP（总悬浮物）
+        pM1: 23, // PM1
+        pM25: 23,
+        pM10: 21,
+        temperature: 22.1, // 温度
+        humidity: 23, // 湿度
+        atmPress: 21, // 大气压
+        windSpeed: 5, // 风速
+        rainfall: 132, // 降雨量
+        time: '2018-08-03 16:50:23'
       },
       {
         id: 3,
         sD: 7.0,  // 二氧化硫
-        nOX: 123, // 氮氧化物
+        nOZ: 123, // 二氧化氮
+        nO: 23, // 一氧化氮
         tCM: 48,  // 隧道一氧化碳
-        time: '2018-08-03 16:55:23'
-      }, {
+        tSP: 12,  // TSP（总悬浮物）
+        pM1: 23, // PM1
+        pM25: 23,
+        pM10: 21,
+        temperature: 22.1, // 温度
+        humidity: 23, // 湿度
+        atmPress: 21, // 大气压
+        windSpeed: 5, // 风速
+        rainfall: 132, // 降雨量
+        time: '2018-08-03 16:50:23'
+      },
+      {
         id: 4,
         sD: 7.0,  // 二氧化硫
-        nOX: 123, // 氮氧化物
+        nOZ: 123, // 二氧化氮
+        nO: 23, // 一氧化氮
         tCM: 48,  // 隧道一氧化碳
-        time: '2018-08-03 16:55:23'
-      },
-      {
-        id: 5,
-        sD: 7.0,  // 二氧化硫
-        nOX: 123, // 氮氧化物
-        tCM: 48,  // 隧道一氧化碳
-        time: '2018-08-03 16:55:23'
-      },
-      {
-        id: 6,
-        sD: 7.0,  // 二氧化硫
-        nOX: 123, // 氮氧化物
-        tCM: 48,  // 隧道一氧化碳
-        time: '2018-08-03 16:55:23'
-      },
-      {
-        id: 7,
-        sD: 7.0,  // 二氧化硫
-        nOX: 123, // 氮氧化物
-        tCM: 48,  // 隧道一氧化碳
-        time: '2018-08-03 16:55:23'
-      },
-      {
-        id: 8,
-        sD: 7.0,  // 二氧化硫
-        nOX: 123, // 氮氧化物
-        tCM: 48,  // 隧道一氧化碳
-        time: '2018-08-03 16:55:23'
-      },
-      {
-        id: 9,
-        sD: 7.0,  // 二氧化硫
-        nOX: 123, // 氮氧化物
-        tCM: 48,  // 隧道一氧化碳
-        time: '2018-08-03 16:55:23'
-      },
-      {
-        id: 10,
-        sD: 7.0,  // 二氧化硫
-        nOX: 123, // 氮氧化物
-        tCM: 48,  // 隧道一氧化碳
-        time: '2018-08-03 16:55:23'
-      },
-      {
-        id: 11,
-        sD: 7.0,  // 二氧化硫
-        nOX: 123, // 氮氧化物
-        tCM: 48,  // 隧道一氧化碳
-        time: '2018-08-03 16:55:23'
+        tSP: 12,  // TSP（总悬浮物）
+        pM1: 23, // PM1
+        pM25: 23,
+        pM10: 21,
+        temperature: 22.1, // 温度
+        humidity: 23, // 湿度
+        atmPress: 21, // 大气压
+        windSpeed: 5, // 风速
+        rainfall: 132, // 降雨量
+        time: '2018-08-03 16:50:23'
       },
     ];
-    commit('setWastePagination', {page: params.page, limit: params.limit, total: data.length});
+    commit('setGasPagination', {page: params.page, limit: params.limit, total: data.length});
     if (data.length > params.limit * params.page) {
-      commit('setWastePresentList', data.slice((params.page - 1) * params.limit, params.page * params.limit));
+      commit('setGasPresentList', data.slice((params.page - 1) * params.limit, params.page * params.limit));
     } else {
-      commit('setWastePresentList', data.slice((params.page - 1) * params.limit, data.length));
+      commit('setGasPresentList', data.slice((params.page - 1) * params.limit, data.length));
     }
 
   },
-  setWastePresentList({commit, state}, data) {
-    commit('setWastePresentList', data)
+  setGasPresentList({commit, state}, data) {
+    commit('setGasPresentList', data)
   },
-  setWastePagination({commit, state}, data) {
-    commit('setWastePagination', data)
+  setGasPagination({commit, state}, data) {
+    commit('setGasPagination', data)
   }
 };
 
 const mutations = {
-  setWastePresentList(state, entity) {
+  setGasPresentList(state, entity) {
     state.presentList = entity;
   },
-  setWastePagination(state, entity) {
+  setGasPagination(state, entity) {
     state.pagination = entity
   }
 };

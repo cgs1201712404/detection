@@ -28,10 +28,12 @@ import waste_gas from "../../store/modules/waste_gas";
               </waste-gas-tab>
             </el-tab-pane>
             <el-tab-pane label="噪声类" name="noise">
-              噪声类
+              <noise-tab ref="noise">
+              </noise-tab>
             </el-tab-pane>
-            <el-tab-pane label="固废类" name="solidWaste">
-              固废类
+            <el-tab-pane label="固废类" name="solid">
+              <solid-tab ref="solid">
+              </solid-tab>
             </el-tab-pane>
           </el-tabs>
         </template>
@@ -44,10 +46,12 @@ import waste_gas from "../../store/modules/waste_gas";
   import SearchBar from "../SearchBar";
   import SewageTab from "./real_time/SewageTab";
   import WasteGasTab from "./real_time/WasteGasTab";
+  import NoiseTab from "./real_time/NoiseTab";
+  import SolidTab from "./real_time/SolidTab";
 
   export default {
     name: "SinglePoint",
-    components: {WasteGasTab, SewageTab, SearchBar},
+    components: {SolidTab, NoiseTab, WasteGasTab, SewageTab, SearchBar},
     data: function () {
       return {
         activeTab: 'sewage'
@@ -56,7 +60,11 @@ import waste_gas from "../../store/modules/waste_gas";
     methods: {
       tabClicked(tab) {
         if (tab && tab.name === 'wasteGas') {
-          this.$refs.wasteGas.refreshWasteChart();
+          this.$refs.wasteGas.refreshGasChart();
+        } else if (tab && tab.name === 'noise') {
+          this.$refs.noise.refreshNoiseChart();
+        } else if (tab && tab.name === 'solid') {
+          this.$refs.solid.refreshSolidChart();
         }
       }
     },

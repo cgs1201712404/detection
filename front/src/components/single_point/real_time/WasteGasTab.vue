@@ -9,7 +9,7 @@
     <el-row>
       <el-col :md="24" :xl="24">
         <el-card shadow="never">
-          <div id="chartLineWaste" style="width:100%; height:500px;"></div>
+          <div id="chartLineGas" style="width:100%; height:500px;"></div>
         </el-card>
       </el-col>
     </el-row>
@@ -19,7 +19,7 @@
           <h3>实时数据</h3>
         </el-col>
         <el-col :md="24" :xl="24">
-          <el-table style="width: 100%" :data="tableWaste">
+          <el-table style="width: 100%" :data="tableGas">
             <el-table-column
               type="index">
             </el-table-column>
@@ -28,12 +28,52 @@
               label="二氧化硫">
             </el-table-column>
             <el-table-column
-              prop="nOX"
-              label="氮氧化物">
+              prop="nOZ"
+              label="二氧化氮">
+            </el-table-column>
+            <el-table-column
+              prop="nO"
+              label="一氧化氮">
             </el-table-column>
             <el-table-column
               prop="tCM"
               label="隧道一氧化碳">
+            </el-table-column>
+            <el-table-column
+              prop="tSP"
+              label="TSP（总悬浮物）">
+            </el-table-column>
+            <el-table-column
+              prop="pM1"
+              label="PM1">
+            </el-table-column>
+            <el-table-column
+              prop="pM25"
+              label="PM2.5">
+            </el-table-column>
+            <el-table-column
+              prop="pM10"
+              label="PM10">
+            </el-table-column>
+            <el-table-column
+              prop="temperature"
+              label="温度">
+            </el-table-column>
+            <el-table-column
+              prop="humidity"
+              label="湿度">
+            </el-table-column>
+            <el-table-column
+              prop="atmPress"
+              label="大气压">
+            </el-table-column>
+            <el-table-column
+              prop="windSpeed"
+              label="风速">
+            </el-table-column>
+            <el-table-column
+              prop="rainfall"
+              label="降雨量">
             </el-table-column>
             <el-table-column
               prop="time"
@@ -68,19 +108,19 @@
     },
     mounted() {
       this.getPresentList();
-      this.chartLine = echarts.init(document.getElementById('chartLineWaste'));
+      this.chartLine = echarts.init(document.getElementById('chartLineGas'));
       this.chartLine.setOption(this.chartWasteGas);
     },
     methods: {
       handleSizeChange(val) {
         let pagination = this.pagination;
         pagination.limit = val;
-        this.$store.dispatch('setWastePagination', pagination)
+        this.$store.dispatch('setGasPagination', pagination)
       },
-      refreshWasteChart() {
+      refreshGasChart() {
         let that = this;
         setTimeout(function () {
-          let chartLine = document.getElementById('chartLineWaste');
+          let chartLine = document.getElementById('chartLineGas');
           chartLine.removeAttribute("_echarts_instance_");//加上这句
           that.chartLine = echarts.init(chartLine);
           that.chartLine.setOption(that.chartWasteGas);
@@ -88,11 +128,11 @@
       },
       flipOver(page) {
         let params = {page: page, limit: this.pagination.limit};
-        this.$store.dispatch('getWastePresentList', params)
+        this.$store.dispatch('getGasPresentList', params)
       },
       getPresentList() {
         let params = {page: 1, limit: this.pagination.limit};
-        this.$store.dispatch('getWastePresentList', params)
+        this.$store.dispatch('getGasPresentList', params)
       }
     },
     computed: {
@@ -101,14 +141,44 @@
         let xData = presentList.map(function (wasteGas) {
           return wasteGas.time;
         });
-        let nOXs = presentList.map(function (wasteGas) {
-          return wasteGas.nOX;
-        });
         let sDs = presentList.map(function (wasteGas) {
           return wasteGas.sD;
         });
+        let nOZs = presentList.map(function (wasteGas) {
+          return wasteGas.nOZ;
+        });
+        let nOs = presentList.map(function (wasteGas) {
+          return wasteGas.nO;
+        });
         let tCMs = presentList.map(function (wasteGas) {
           return wasteGas.tCM;
+        });
+        let tSPa = presentList.map(function (wasteGas) {
+          return wasteGas.tSP;
+        });
+        let pM1s = presentList.map(function (wasteGas) {
+          return wasteGas.pM1;
+        });
+        let pM25s = presentList.map(function (wasteGas) {
+          return wasteGas.pM25;
+        });
+        let pM10s = presentList.map(function (wasteGas) {
+          return wasteGas.pM10;
+        });
+        let temperatures = presentList.map(function (wasteGas) {
+          return wasteGas.temperature;
+        });
+        let humiditys = presentList.map(function (wasteGas) {
+          return wasteGas.humidity;
+        });
+        let atmPresses = presentList.map(function (wasteGas) {
+          return wasteGas.atmPress;
+        });
+        let windSpeeds = presentList.map(function (wasteGas) {
+          return wasteGas.windSpeed;
+        });
+        let rainfalls = presentList.map(function (wasteGas) {
+          return wasteGas.rainfall;
         });
         let option = {
           title: {
@@ -118,7 +188,8 @@
             trigger: 'axis'
           },
           legend: {
-            data: ['二氧化硫', '氮氧化物', '隧道一氧化碳']
+            data: ['二氧化硫', '二氧化氮', '一氧化氮', '隧道一氧化碳', 'TSP（总悬浮物）', 'PM1', 'PM2.5', 'PM10', '温度',
+              '湿度', '大气压', '风速', '降雨量']
           },
           grid: {
             left: '3%',
@@ -144,25 +215,85 @@
               name: '二氧化硫',
               type: 'line',
               stack: '总量',
-              data: nOXs
+              data: sDs
             },
             {
-              name: '氮氧化物',
+              name: '二氧化氮',
               type: 'line',
               stack: '总量',
-              data: sDs
+              data: nOZs
+            },
+            {
+              name: '一氧化氮',
+              type: 'line',
+              stack: '总量',
+              data: nOs
             },
             {
               name: '隧道一氧化碳',
               type: 'line',
               stack: '总量',
               data: tCMs
+            },
+            {
+              name: 'TSP（总悬浮物）',
+              type: 'line',
+              stack: '总量',
+              data: tSPa
+            },
+            {
+              name: 'PM1',
+              type: 'line',
+              stack: '总量',
+              data: pM1s
+            },
+            {
+              name: 'PM2.5',
+              type: 'line',
+              stack: '总量',
+              data: pM25s
+            },
+            {
+              name: 'PM10',
+              type: 'line',
+              stack: '总量',
+              data: pM10s
+            },
+            {
+              name: '温度',
+              type: 'line',
+              stack: '总量',
+              data: temperatures
+            },
+            {
+              name: '湿度',
+              type: 'line',
+              stack: '总量',
+              data: humiditys
+            },
+            {
+              name: '大气压',
+              type: 'line',
+              stack: '总量',
+              data: atmPresses
+            },
+            {
+              name: '风速',
+              type: 'line',
+              stack: '总量',
+              data: windSpeeds
+            },
+            {
+              name: '降雨量',
+              type: 'line',
+              stack: '总量',
+              data: rainfalls
             }
           ]
         };
         return option;
       },
-      tableWaste() {
+      tableGas() {
         return this.$store.state.wasteGas.presentList;
       },
       pagination() {

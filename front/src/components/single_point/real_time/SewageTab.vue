@@ -40,8 +40,12 @@
               label="总磷">
             </el-table-column>
             <el-table-column
-              prop="sS"
-              label="悬浮物">
+              prop="oil"
+              label="水中油">
+            </el-table-column>
+            <el-table-column
+              prop="flow"
+              label="流量">
             </el-table-column>
             <el-table-column
               prop="time"
@@ -112,8 +116,11 @@
         let tPs = presentList.map(function (sewage) {
           return sewage.tP;
         });
-        let sSs = presentList.map(function (sewage) {
-          return sewage.sS;
+        let oils = presentList.map(function (sewage) {
+          return sewage.oil;
+        });
+        let flow = presentList.map(function (sewage) {
+          return sewage.flow;
         });
         let option = {
           title: {
@@ -123,7 +130,7 @@
             trigger: 'axis'
           },
           legend: {
-            data: ['PH', 'COD', '氨氮', '总磷', '悬浮物']
+            data: ['PH', 'COD', '氨氮', '总磷', '水中油', '流量']
           },
           grid: {
             left: '3%',
@@ -170,10 +177,16 @@
               data: tPs
             },
             {
-              name: '悬浮物',
+              name: '水中油',
               type: 'line',
               stack: '总量',
-              data: sSs
+              data: oils
+            },
+            {
+              name: '流量',
+              type: 'line',
+              stack: '总量',
+              data: flow
             }
           ]
         };
