@@ -7,6 +7,8 @@
 const state = {
   // 当天实时数据
   presentList: [],
+  // 历史数据
+  historyList: [],
   pagination: {
     page: 0,
     limit: 10,
@@ -94,8 +96,87 @@ const actions = {
     }
 
   },
+  getNoiseHistoryList({commit, state}, params) {
+    let data = [
+      {
+        id: 1,
+        intensity: 7.0,
+        frequency: 20,
+        time: '2018-08-03 16:50:23'
+      },
+      {
+        id: 1,
+        intensity: 7.0,
+        frequency: 20,
+        time: '2018-08-03 16:50:23'
+      },
+      {
+        id: 1,
+        intensity: 7.0,
+        frequency: 20,
+        time: '2018-08-03 16:50:23'
+      },
+      {
+        id: 1,
+        intensity: 7.0,
+        frequency: 20,
+        time: '2018-08-03 16:50:23'
+      },
+      {
+        id: 1,
+        intensity: 7.0,
+        frequency: 20,
+        time: '2018-08-03 16:50:23'
+      },
+      {
+        id: 1,
+        intensity: 7.0,
+        frequency: 20,
+        time: '2018-08-03 16:50:23'
+      },
+      {
+        id: 1,
+        intensity: 7.0,
+        frequency: 20,
+        time: '2018-08-03 16:50:23'
+      },
+      {
+        id: 1,
+        intensity: 7.0,
+        frequency: 20,
+        time: '2018-08-03 16:50:23'
+      },
+      {
+        id: 1,
+        intensity: 7.0,
+        frequency: 20,
+        time: '2018-08-03 16:50:23'
+      },
+      {
+        id: 1,
+        intensity: 7.0,
+        frequency: 20,
+        time: '2018-08-03 16:50:23'
+      },
+      {
+        id: 1,
+        intensity: 7.0,
+        frequency: 20,
+        time: '2018-08-03 16:50:23'
+      },
+    ];
+    commit('setNoisePagination', {page: params.page, limit: params.limit, total: data.length});
+    if (data.length > params.limit * params.page) {
+      commit('setNoiseHistoryList', data.slice((params.page - 1) * params.limit, params.page * params.limit));
+    } else {
+      commit('setNoiseHistoryList', data.slice((params.page - 1) * params.limit, data.length));
+    }
+  },
   setNoisePresentList({commit, state}, data) {
     commit('setNoisePresentList', data)
+  },
+  setNoiseHistoryList({commit, state}, data) {
+    commit('setNoiseHistoryList', data)
   },
   setNoisePagination({commit, state}, data) {
     commit('setNoisePagination', data)
@@ -105,6 +186,9 @@ const actions = {
 const mutations = {
   setNoisePresentList(state, entity) {
     state.presentList = entity;
+  },
+  setNoiseHistoryList(state, entity) {
+    state.historyList = entity;
   },
   setNoisePagination(state, entity) {
     state.pagination = entity
