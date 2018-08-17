@@ -34,21 +34,27 @@ const actions = {
   getTreeList({commit, state}, params) {
     let areas = [
       {
-        name: '测试1',
+        name: '设计院',
+        lat: 39.1128650215,
+        log: 117.2191704349,
         district: {
           province: '湖北',
           city: '武汉',
           county: '江汉'
         }
       }, {
-        name: '测试2',
+        name: '地质大学',
+        lat: 39.9967339449,
+        log: 116.3548912199,
         district: {
           province: '湖北',
           city: '武汉',
-          county: '江汉'
+          county: '洪山'
         }
       }, {
-        name: '测试3',
+        name: '武汉大学',
+        lat: 30.5441471993,
+        log: 114.3692234779,
         district: {
           province: '湖北',
           city: '武汉',
@@ -87,21 +93,30 @@ const actions = {
   getAreaList({commit, state}, params) {
     let areas = [
       {
-        name: '测试1',
+        name: '设计院',
+        lat: 30.6308522809,
+        log: 114.2504879481,
+        type: 'normal',
         district: {
           province: '湖北',
           city: '武汉',
           county: '江汉'
         }
       }, {
-        name: '测试2',
+        name: '地质大学',
+        lat: 30.5245586396,
+        log: 114.4065534568,
+        type: 'normal',
         district: {
           province: '湖北',
           city: '武汉',
-          county: '江汉'
+          county: '洪山'
         }
       }, {
-        name: '测试3',
+        name: '武汉大学',
+        lat: 30.5441471993,
+        log: 114.3692234779,
+        type: 'alarm',
         district: {
           province: '湖北',
           city: '武汉',
@@ -116,7 +131,7 @@ const actions = {
   },
   setATreeList({commit, state}, areas) {
     commit('setATreeList', areas);
-  }
+  },
 };
 
 const mutations = {

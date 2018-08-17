@@ -16,6 +16,7 @@
           v-model="searchInput">
         </el-input>
         <el-tree
+          @node-click="nodeClicked"
           :data="serviceAreas"
           :filter-node-method="filterNode"
           :props="{
@@ -45,6 +46,12 @@
       }
     },
     methods: {
+      nodeClicked(nodeData, node, component) {
+        if (node.isLeaf) {
+          let area = this.getAreaByName(nodeData.label)
+          this.$emit('findArea', area);
+        }
+      },
       getServiceAreas() {
         let params = {};
         this.$store.dispatch('getTreeList', params)
@@ -61,6 +68,14 @@
           return data.id.indexOf(value) !== -1;
         }
         return false;
+      },
+      getAreaByName(name) {
+        // 临时测试做法
+        let params = {};
+        this.$store.dispatch('getTreeList', params);
+        return this.$store.state.serviceArea.areaList.find(function (area) {
+          return area.name === name;
+        })
       }
     },
     computed: {
