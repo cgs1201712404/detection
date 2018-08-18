@@ -16,8 +16,8 @@
       </search-bar>
     </div>
     <div class="area-logo-div">
-      <el-button type="text"><i class="icon iconfont icon-house128-green"></i>数据正常</el-button>
-      <el-button type="text"><i class="icon iconfont icon-house128-red"></i>数据异常</el-button>
+      <el-button type="text" @click="showNormal"><i class="icon iconfont icon-house128-green"></i>数据正常</el-button>
+      <el-button type="text" @click="showAlarm"><i class="icon iconfont icon-house128-red"></i>数据异常</el-button>
     </div>
   </div>
 </template>
@@ -33,7 +33,8 @@
       return {
         loading: false,
         map: null,
-        markerLayers: [],
+        // 地图上logo标识层形式为{normal: Array, alarm: Array}
+        markerLayers: {},
       }
     },
     methods: {
@@ -43,7 +44,7 @@
         map.centerAndZoom(new BMap.Point(114.2929, 30.5905), 12);
         map.enableScrollWheelZoom();
         // 在地图中加载服务区marker
-        this.markerLayers = mapUtil.loadAreaLogo(map, this.serviceAreas);
+        this.markerLayers = mapUtil.initAreaLogo(map, this.serviceAreas);
         return map;
       },
       moveToArea(area) {
@@ -55,6 +56,24 @@
         let params = {};
         this.$store.dispatch('getAreaList', params)
       },
+      showNormal() {
+        let that = this;
+        this.markerLayers.alarm.forEach(function (marker) {
+          that.map.removeOverlay(marker);
+        });
+        this.markerLayers.normal.forEach(function (marker) {
+          that.map.addOverlay(marker);
+        });
+      },
+      showAlarm() {
+        let that = this;
+        this.markerLayers.normal.forEach(function (marker) {
+          that.map.removeOverlay(marker);
+        });
+        this.markerLayers.alarm.forEach(function (marker) {
+          that.map.addOverlay(marker);
+        });
+      }
     },
     computed: {
       serviceAreas() {
