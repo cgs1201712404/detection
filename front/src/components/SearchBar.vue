@@ -6,7 +6,7 @@
 \*/
 <template id="search-bar">
   <div>
-    <el-card shadow="never" style="width: 100%">
+    <el-card shadow="never" style="width: 100%; height: 100%">
       <div slot="header">
         <span>选择位置</span>
       </div>

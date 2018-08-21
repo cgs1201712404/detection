@@ -5,14 +5,25 @@
  \* Description:  地图组件辅助js文件
  \*/
 
+/**
+ * 服务区污水、大气等分类的仪表盘对话框
+ * @param context mapContext
+ * @param area
+ */
+function showGaugeDialog(context, area) {
+  context.setCurrentArea(area);
+  context.dialogVisible = true;
+}
+
 export default {
   /**
    * 初始化服务区的logo 标识
+   * @param context mapContext
    * @param map
    * @param areas
    * @returns {{normal: Array, alarm: Array}}
    */
-  initAreaLogo(map, areas) {
+  initAreaLogo(context, map, areas) {
     let normalMarkers = [];
     let alarmMarkers = [];
     areas.forEach(function (area) {
@@ -28,6 +39,9 @@ export default {
         alarmMarkers.push(marker);
       }
       map.addOverlay(marker);// 将标注添加到地图中
+      marker.addEventListener('click', function (event) {
+        showGaugeDialog(context, area);
+      })
     });
     return {normal: normalMarkers, alarm: alarmMarkers};
   }

@@ -6,6 +6,8 @@
  \*/
 
 const state = {
+  // 当天最新数据
+  latest: {},
   // 当天实时数据
   presentList: [],
   // 历史数据
@@ -210,6 +212,19 @@ const actions = {
       commit('setSewageHistoryList', data.slice((params.page - 1) * params.limit, data.length));
     }
   },
+  getSewageLatest({commit, state}, params) {
+    let data = {
+      id: 1,
+      pH: 7.0,
+      cod: 25,
+      nH3N: 48,
+      tP: 31,
+      oil: 50,
+      flow: 100,
+      time: '2018-08-03 16:50:23'
+    };
+    commit('setSewageLatest', data)
+  },
   setSewagePresentList({commit, state}, data) {
     commit('setSewagePresentList', data)
   },
@@ -218,6 +233,9 @@ const actions = {
   },
   setSewagePagination({commit, state}, data) {
     commit('setSewagePagination', data)
+  },
+  setSewageLatest({commit, state}, data) {
+    commit('setSewageLatest', data)
   }
 };
 
@@ -230,6 +248,9 @@ const mutations = {
   },
   setSewagePagination(state, entity) {
     state.pagination = entity
+  },
+  setSewageLatest(state, entity) {
+    state.latest = entity;
   }
 };
 

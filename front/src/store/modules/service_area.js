@@ -132,6 +132,9 @@ const actions = {
   setATreeList({commit, state}, areas) {
     commit('setATreeList', areas);
   },
+  setArea({commit, state}, area) {
+    commit('setArea', area)
+  }
 };
 
 const mutations = {
@@ -140,6 +143,9 @@ const mutations = {
   },
   setATreeList(state, entity) {
     state.areaTreeList = entity;
+  },
+  setArea(state, entity) {
+    state.area = entity;
   }
 };
 
