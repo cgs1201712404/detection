@@ -30,19 +30,19 @@
             <gauge :value="sewageLatest.pH" label="PH"></gauge>
           </el-col>
           <el-col :md="8" :xl="8">
-            <gauge :value="sewageLatest.cod" label="cod"></gauge>
+            <gauge :value="sewageLatest.cod" label="COD"></gauge>
           </el-col>
           <el-col :md="8" :xl="8">
-            <gauge :value="sewageLatest.nH3N" label="nH3N"></gauge>
+            <gauge :value="sewageLatest.nH3N" label="氨氮"></gauge>
           </el-col>
           <el-col :md="8" :xl="8">
-            <gauge :value="sewageLatest.tP" label="tP"></gauge>
+            <gauge :value="sewageLatest.tP" label="总磷"></gauge>
           </el-col>
           <el-col :md="8" :xl="8">
-            <gauge :value="sewageLatest.oil" label="oil"></gauge>
+            <gauge :value="sewageLatest.oil" label="水中油"></gauge>
           </el-col>
           <el-col :md="8" :xl="8">
-            <gauge :value="sewageLatest.flow" label="flow"></gauge>
+            <gauge :value="sewageLatest.flow" label="流量"></gauge>
           </el-col>
         </el-tab-pane>
         <el-tab-pane label="大气类" name="wasteGas">
