@@ -2,7 +2,7 @@
 \* Created with IntelliJ IDEA.
 \* User: 彭诗杰
 \* Date:  2018/7/27
-\* Description:
+\* Description: 地图展示组件
 \*/
 <template>
   <div v-loading="loading" element-loading-text="正在加载地图">
@@ -46,10 +46,58 @@
           </el-col>
         </el-tab-pane>
         <el-tab-pane label="大气类" name="wasteGas">
+          <el-col :md="6" :xl="6">
+            <gauge :value="gasLatest.sD" label="二氧化硫" ref="gaugeSD"></gauge>
+          </el-col>
+          <el-col :md="6" :xl="6">
+            <gauge :value="gasLatest.nOZ" label="二氧化氮" ref="gaugeNOZ"></gauge>
+          </el-col>
+          <el-col :md="6" :xl="6">
+            <gauge :value="gasLatest.nO" label="一氧化氮" ref="gaugeNO"></gauge>
+          </el-col>
+          <el-col :md="6" :xl="6">
+            <gauge :value="gasLatest.tCM" label="隧道一氧化碳" ref="gaugeTCM"></gauge>
+          </el-col>
+          <el-col :md="6" :xl="6">
+            <gauge :value="gasLatest.tSP" label="TSP（总悬浮物）" ref="gaugeTSP"></gauge>
+          </el-col>
+          <el-col :md="6" :xl="6">
+            <gauge :value="gasLatest.pM1" label="PM1" ref="gaugePM1"></gauge>
+          </el-col>
+          <el-col :md="6" :xl="6">
+            <gauge :value="gasLatest.pM25" label="PM25" ref="gaugePM25"></gauge>
+          </el-col>
+          <el-col :md="6" :xl="6">
+            <gauge :value="gasLatest.pM10" label="PM10" ref="gaugePM10"></gauge>
+          </el-col>
+          <el-col :md="6" :xl="6">
+            <gauge :value="gasLatest.temperature" label="温度" ref="gaugeTemp"></gauge>
+          </el-col>
+          <el-col :md="6" :xl="6">
+            <gauge :value="gasLatest.humidity" label="湿度" ref="gaugeHum"></gauge>
+          </el-col>
+          <el-col :md="6" :xl="6">
+            <gauge :value="gasLatest.atmPress" label="大气压" ref="gaugeAtm"></gauge>
+          </el-col>
+          <el-col :md="6" :xl="6">
+            <gauge :value="gasLatest.windSpeed" label="风速" ref="gaugeWind"></gauge>
+          </el-col>
+          <el-col :md="6" :xl="6">
+            <gauge :value="gasLatest.rainfall" label="降雨量" ref="gaugeRain"></gauge>
+          </el-col>
         </el-tab-pane>
         <el-tab-pane label="噪声类" name="noise">
+          <el-col :md="12" :xl="12">
+            <gauge :value="noiseLatest.intensity" label="噪声强度" ref="gaugeInte"></gauge>
+          </el-col>
+          <el-col :md="12" :xl="12">
+            <gauge :value="noiseLatest.frequency" label="噪声频率" ref="gaugeFreq"></gauge>
+          </el-col>
         </el-tab-pane>
         <el-tab-pane label="固废类" name="solid">
+          <el-col :md="12" :xl="12">
+            <gauge :value="solidLatest.capacity" label="垃圾压缩池池容" ref="gaugeCap"></gauge>
+          </el-col>
         </el-tab-pane>
       </el-tabs>
       <span slot="footer" class="dialog-footer">
@@ -116,16 +164,47 @@
         let params = {};
         this.$store.dispatch('getAreaList', params)
       },
+      setCurrentArea(area) {
+        this.$store.dispatch('setArea', area)
+      },
       getSewageLatest() {
         let params = {};
         this.$store.dispatch('getSewageLatest', params)
       },
-      setCurrentArea(area) {
-        this.$store.dispatch('setArea', area)
+      getGasLatest() {
+        let params = {};
+        this.$store.dispatch('getGasLatest', params)
+      },
+      getNoiseLatest() {
+        let params = {};
+        this.$store.dispatch('getNoiseLatest', params)
+      },
+      getSolidLatest() {
+        let params = {};
+        this.$store.dispatch('getSolidLatest', params)
       },
       //以下为事件回调函数
-      dialogTabClicked() {
-
+      dialogTabClicked(tab) {
+        if (tab && tab.name === 'wasteGas') {
+          this.$refs.gaugeSD.refreshGauge();
+          this.$refs.gaugeNOZ.refreshGauge();
+          this.$refs.gaugeNO.refreshGauge();
+          this.$refs.gaugeTCM.refreshGauge();
+          this.$refs.gaugeTSP.refreshGauge();
+          this.$refs.gaugePM1.refreshGauge();
+          this.$refs.gaugePM25.refreshGauge();
+          this.$refs.gaugePM10.refreshGauge();
+          this.$refs.gaugeTemp.refreshGauge();
+          this.$refs.gaugeHum.refreshGauge();
+          this.$refs.gaugeAtm.refreshGauge();
+          this.$refs.gaugeWind.refreshGauge();
+          this.$refs.gaugeRain.refreshGauge();
+        } else if (tab && tab.name === 'noise') {
+          this.$refs.gaugeInte.refreshGauge();
+          this.$refs.gaugeFreq.refreshGauge();
+        } else if (tab && tab.name === 'solid') {
+          this.$refs.gaugeCap.refreshGauge();
+        }
       }
     },
     computed: {
@@ -137,11 +216,23 @@
       },
       sewageLatest() {
         return this.$store.state.sewage.latest;
+      },
+      gasLatest() {
+        return this.$store.state.wasteGas.latest;
+      },
+      noiseLatest() {
+        return this.$store.state.noise.latest;
+      },
+      solidLatest() {
+        return this.$store.state.solid.latest;
       }
     },
     mounted() {
       this.getServiceAreas();
       this.getSewageLatest();
+      this.getGasLatest();
+      this.getNoiseLatest();
+      this.getSolidLatest();
       this.map = this.initMap();
     }
   }

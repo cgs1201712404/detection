@@ -6,7 +6,6 @@
 \*/
 <template id="gauge">
   <el-row>
-
     <el-card shadow="never">
       <div :id="label" style="width:100%; height:20em;"></div>
     </el-card>
@@ -50,7 +49,17 @@
         return option;
       }
     },
-    methods: {},
+    methods: {
+      refreshGauge() {
+        let that = this;
+        setTimeout(function () {
+          let gauge = document.getElementById(that.label);
+          gauge.removeAttribute("_echarts_instance_");//加上这句
+          that.gauge = echarts.init(gauge);
+          that.gauge.setOption(that.dataGauge);
+        }, 100)
+      }
+    },
     mounted() {
       this.chartGauge = echarts.init(document.getElementById(this.label));
       this.chartGauge.setOption(this.dataGauge);

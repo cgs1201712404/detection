@@ -5,6 +5,8 @@
  \* Description:  噪声类state
  \*/
 const state = {
+  // 当天最新数据
+  latest: {},
   // 当天实时数据
   presentList: [],
   // 历史数据
@@ -172,6 +174,15 @@ const actions = {
       commit('setNoiseHistoryList', data.slice((params.page - 1) * params.limit, data.length));
     }
   },
+  getNoiseLatest({commit, state}, params) {
+    let data = {
+      id: 1,
+      intensity: 70,
+      frequency: 20,
+      time: '2018-08-03 16:50:23'
+    };
+    commit('setNoiseLatest', data)
+  },
   setNoisePresentList({commit, state}, data) {
     commit('setNoisePresentList', data)
   },
@@ -192,6 +203,9 @@ const mutations = {
   },
   setNoisePagination(state, entity) {
     state.pagination = entity
+  },
+  setNoiseLatest(state, entity) {
+    state.latest = entity;
   }
 };
 
