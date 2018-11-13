@@ -29,7 +29,7 @@ export default new Router({
       redirect: '/map',
       leaf: true, // 只有一个节点
       menuShow: true,
-      iconCls: 'icon iconfont', // 图标样式class
+      iconCls: 'icon iconfont icon-ditujiankong',
       children: [
         {path: '/map', component: Map, name: 'map', label: '地图监控', menuShow: true}
       ]
@@ -41,10 +41,24 @@ export default new Router({
       label: '单点监测',
       leaf: false,
       menuShow: true,
-      iconCls: 'icon iconfont', // 图标样式class
+      iconCls: 'icon iconfont icon-dandianjianse',
       children: [
-        {path: '/realTime', component: RealTime, name: 'realTime', label: '实时数据', menuShow: true},
-        {path: '/history', component: History, name: 'history', label: '历史数据', menuShow: true}
+        {
+          path: '/realTime',
+          component: RealTime,
+          name: 'realTime',
+          label: '实时数据',
+          iconCls: 'icon iconfont icon-shishishuju',
+          menuShow: true
+        },
+        {
+          path: '/history',
+          component: History,
+          name: 'history',
+          label: '历史数据',
+          iconCls: 'icon iconfont icon-lishishuju',
+          menuShow: true
+        }
       ]
     },
     {
@@ -54,11 +68,32 @@ export default new Router({
       label: '设备管理',
       leaf: false,
       menuShow: true,
-      iconCls: 'icon iconfont', // 图标样式class
+      iconCls: 'icon iconfont icon-sheibeiguanli',
       children: [
-        {path: '/control', component: Control, name: 'control', label: '设备控制', menuShow: true},
-        {path: '/maintaining', component: Maintaining, name: 'maintaining', label: '设备维护', menuShow: true},
-        {path: '/surveillance', component: Surveillance, name: 'surveillance', label: '视频监控', menuShow: true},
+        {
+          path: '/control',
+          component: Control,
+          name: 'control',
+          label: '设备控制',
+          iconCls: 'icon iconfont icon-lishishuju',
+          menuShow: true
+        },
+        {
+          path: '/maintaining',
+          component: Maintaining,
+          name: 'maintaining',
+          label: '设备维护',
+          iconCls: 'icon iconfont icon-shebeiweihu',
+          menuShow: true
+        },
+        {
+          path: '/surveillance',
+          component: Surveillance,
+          name: 'surveillance',
+          label: '视频监控',
+          iconCls: 'icon iconfont icon-shipinjiankong',
+          menuShow: true
+        },
       ]
     },
     {
@@ -68,11 +103,32 @@ export default new Router({
       label: '报警管理',
       leaf: false,
       menuShow: true,
-      iconCls: 'icon iconfont', // 图标样式class
+      iconCls: 'icon iconfont icon-baojingguanli',
       children: [
-        {path: '/processing', component: Processing, name: 'processing', label: '报警处理', menuShow: true},
-        {path: '/configuration', component: Configuration, name: 'configuration', label: '报警配置', menuShow: true},
-        {path: '/notification', component: Notification, name: 'notification', label: '报警通知', menuShow: true},
+        {
+          path: '/processing',
+          component: Processing,
+          name: 'processing',
+          label: '报警处理',
+          iconCls: 'icon iconfont icon-baojingguanli',
+          menuShow: true
+        },
+        {
+          path: '/configuration',
+          component: Configuration,
+          name: 'configuration',
+          label: '报警配置',
+          iconCls: 'icon iconfont icon-baojingpeizhi',
+          menuShow: true
+        },
+        {
+          path: '/notification',
+          component: Notification,
+          name: 'notification',
+          label: '报警通知',
+          iconCls: 'icon iconfont icon-baijingtongzhi',
+          menuShow: true
+        },
       ]
     },
     {
@@ -82,11 +138,32 @@ export default new Router({
       label: '报表管理',
       leaf: false,
       menuShow: true,
-      iconCls: 'icon iconfont',
+      iconCls: 'icon iconfont icon-baobiaoguanli',
       children: [
-        {path: '/daily', component: Daily, name: 'daily', label: '日报', menuShow: true},
-        {path: '/monthly', component: Monthly, name: 'monthly', label: '月报', menuShow: true},
-        {path: '/analysis', component: Analysis, name: 'analysis', label: '报表分析', menuShow: true},
+        {
+          path: '/daily',
+          component: Daily,
+          name: 'daily',
+          label: '日报',
+          iconCls: 'icon iconfont icon-ribao',
+          menuShow: true
+        },
+        {
+          path: '/monthly',
+          component: Monthly,
+          name: 'monthly',
+          label: '月报',
+          iconCls: 'icon iconfont icon-yuebao',
+          menuShow: true
+        },
+        {
+          path: '/analysis',
+          component: Analysis,
+          name: 'analysis',
+          label: '报表分析',
+          iconCls: 'icon iconfont icon-baobiaofenxi',
+          menuShow: true
+        },
       ]
     },
     {
@@ -96,12 +173,24 @@ export default new Router({
       label: '系统管理',
       leaf: false,
       menuShow: true,
-      iconCls: 'icon iconfont',
+      iconCls: 'icon iconfont icon-xitongkongzhi',
       children: [
-        {path: '/user', component: User, name: 'user', label: '用户管理', menuShow: true},
-        {path: '/role', component: Role, name: 'role', label: '角色管理', menuShow: true},
-        {path: '/permission', component: Permission, name: 'permission', label: '权限管理', menuShow: true},
-        {path: '/logger', component: Logger, name: 'logger', label: '日志管理', menuShow: true}
+        {
+          path: '/user', component: User, name: 'user', label: '用户管理',
+          iconCls: 'icon iconfont icon-yonghuguanli', menuShow: true
+        },
+        {
+          path: '/role', component: Role, name: 'role', label: '角色管理',
+          iconCls: 'icon iconfont icon-jiaoseguanli', menuShow: true
+        },
+        {
+          path: '/permission', component: Permission, name: 'permission', label: '权限管理',
+          iconCls: 'icon iconfont icon-quanxianguanli', menuShow: true
+        },
+        {
+          path: '/logger', component: Logger, name: 'logger', label: '日志管理',
+          iconCls: 'icon iconfont icon-rizhiguanli', menuShow: true
+        }
       ]
     },
   ]

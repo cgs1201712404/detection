@@ -7,6 +7,7 @@ import sewage from './modules/sewage'
 import wasteGas from './modules/waste_gas'
 import noise from './modules/noise'
 import solid from './modules/solid'
+import device from './modules/device'
 
 Vue.use(Vuex);
 
@@ -18,7 +19,8 @@ export default new Vuex.Store({
     sewage,
     wasteGas,
     noise,
-    solid
+    solid,
+    device
   },
   strict: debug,
   plugins: debug ? [createLogger()] : []

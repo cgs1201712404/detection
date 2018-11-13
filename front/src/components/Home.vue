@@ -64,15 +64,15 @@
           <el-menu router unique-opened>
             <template v-for="(item,index) in $router.options.routes" v-if="item.menuShow">
               <el-submenu v-if="!item.leaf" :index="index+''">
-                <template slot="title"><i :class="item.iconCls"></i><span slot="title">{{item.label}}</span></template>
+                <template slot="title"><i :class="item.iconCls"></i><span slot="title">&nbsp;{{item.label}}</span></template>
                 <el-menu-item v-for="term in item.children" :key="term.path" :index="term.path" v-if="term.menuShow"
                               :class="$route.path==term.path?'is-active':''">
-                  <i :class="term.iconCls"></i><span slot="title">{{term.label}}</span>
+                  <i :class="term.iconCls"></i><span slot="title">&nbsp;{{term.label}}</span>
                 </el-menu-item>
               </el-submenu>
               <el-menu-item v-else-if="item.leaf&&item.children&&item.children.length" :index="item.children[0].path"
                             :class="$route.path==item.children[0].path?'is-active':''">
-                <i :class="item.iconCls"></i><span slot="title">{{item.children[0].label}}</span>
+                <i :class="item.iconCls"></i><span slot="title">&nbsp;{{item.children[0].label}}</span>
               </el-menu-item>
             </template>
           </el-menu>

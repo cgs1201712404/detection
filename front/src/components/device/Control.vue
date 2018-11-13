@@ -41,7 +41,7 @@
         </el-row>
       </el-row>
       <el-row>
-        <el-table style="width: 100%;margin-top: 2em">
+        <el-table style="width: 100%;margin-top: 2em" :data="maintenances">
           <el-table-column
             type="index">
           </el-table-column>
@@ -90,12 +90,13 @@
     computed: {
       ...mapGetters([
         'area',
-        'deviceControls'
+        'maintenances'
       ])
     },
     methods: {
       ...mapActions([
         'setCurrentArea',
+        'initMaintenances'
       ]),
       showDetail(index, row) {
         console.log(row)
@@ -111,7 +112,7 @@
       }
     },
     mounted() {
-
+      this.initMaintenances();
     },
     created() {
       // 初始化当前area
