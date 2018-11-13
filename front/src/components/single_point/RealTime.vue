@@ -48,6 +48,7 @@ import waste_gas from "../../store/modules/waste_gas";
   import WasteGasTab from "./real_time/WasteGasTab";
   import NoiseTab from "./real_time/NoiseTab";
   import SolidTab from "./real_time/SolidTab";
+  import {mapActions, mapGetters} from 'vuex';
 
   export default {
     name: "SinglePoint",
@@ -58,6 +59,9 @@ import waste_gas from "../../store/modules/waste_gas";
       };
     },
     methods: {
+      ...mapActions([
+        'setCurrentArea',
+      ]),
       tabClicked(tab) {
         if (tab && tab.name === 'wasteGas') {
           this.$refs.wasteGas.refreshGasChart();
@@ -72,6 +76,17 @@ import waste_gas from "../../store/modules/waste_gas";
       serviceArea() {
         return this.$store.state.serviceArea.area;
       }
+    },
+    mounted() {
+      this.setCurrentArea({
+        name: '常青花园服务区',
+        district: {
+          province: '湖北',
+          city: '武汉',
+          county: '江汉',
+          detail: '武汉市江汉区常青三路122号'
+        }
+      });
     }
   }
 </script>

@@ -10,13 +10,13 @@ import util from '../../common/util'
 
 const state = {
   area: {
-    name: '常青花园服务区',
-    district: {
-      province: '湖北',
-      city: '武汉',
-      county: '江汉',
-      detail: '武汉市江汉区常青三路122号'
-    }
+    // name: '常青花园服务区',
+    // district: {
+    //   province: '湖北',
+    //   city: '武汉',
+    //   county: '江汉',
+    //   detail: '武汉市江汉区常青三路122号'
+    // }
   },
   pagination: {
     page: 1,
@@ -28,7 +28,11 @@ const state = {
   areaTreeList: []
 };
 
-const getters = {};
+const getters = {
+  area: state => {
+    return state.area;
+  }
+};
 
 const actions = {
   getTreeList({commit, state}, params) {
@@ -68,19 +72,18 @@ const actions = {
       let children = city.counties.map(function (county) {
         let label = county;
         let id = county;
-        let children = areas.map(function (area) {
+        let children = [];
+        for (let area of areas) {
           if (area.district.city === city.name && area.district.county === county) {
-            return {id: area.name + county + city.name, label: area.name}
-          } else {
-            return {}
-          }
-        });
-        for (let index = 0; index < children.length; index++) {
-          if (!children[index].id) {
-            children.splice(index, 1);
+            children.push({id: area.name + county + city.name, label: area.name});
           }
         }
         if (children) {
+          for (let index = 0; index < children.length; index++) {
+            if (children[index] && !children[index].id) {
+              children.splice(index, 1);
+            }
+          }
           return {id: id + city.name, label: label, children: children};
         }
       });
@@ -132,7 +135,16 @@ const actions = {
   setATreeList({commit, state}, areas) {
     commit('setATreeList', areas);
   },
-  setArea({commit, state}, area) {
+  setCurrentArea({commit, state}, area) {
+    // let area = {
+    //   name: '常青花园服务区',
+    //   district: {
+    //     province: '湖北',
+    //     city: '武汉',
+    //     county: '江汉',
+    //     detail: '武汉市江汉区常青三路122号'
+    //   }
+    // };
     commit('setArea', area)
   }
 };

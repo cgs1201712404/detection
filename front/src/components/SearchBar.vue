@@ -16,6 +16,7 @@
           v-model="searchInput">
         </el-input>
         <el-tree
+          accordion
           @node-click="nodeClicked"
           :data="serviceAreas"
           :filter-node-method="filterNode"
@@ -72,7 +73,7 @@
       getAreaByName(name) {
         // 临时测试做法
         let params = {};
-        this.$store.dispatch('getTreeList', params);
+        // this.$store.dispatch('getTreeList', params);
         return this.$store.state.serviceArea.areaList.find(function (area) {
           return area.name === name;
         })
