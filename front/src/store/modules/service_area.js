@@ -31,6 +31,9 @@ const state = {
 const getters = {
   area: state => {
     return state.area;
+  },
+  areaList: state => {
+    return state.areaList
   }
 };
 

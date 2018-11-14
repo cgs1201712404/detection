@@ -20,10 +20,7 @@
           <el-form :inline="true" :model="filters">
             <el-form-item label="监测类型">
               <el-select v-model="filters.type" placeholder="请选择">
-                <el-option label="污水类" value="sewage"></el-option>
-                <el-option label="大气类" value="gas"></el-option>
-                <el-option label="噪声类" value="noise"></el-option>
-                <el-option label="固废类" value="solid"></el-option>
+                <el-option v-for="entry in classifications" :label="entry.label" :value="entry.value"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="监测因子">
@@ -36,12 +33,11 @@
         </el-row>
         <el-row style="margin-top: .5em">
           <el-button type="primary" icon="el-icon-search">查询</el-button>
-          <el-button type="primary" icon="el-icon-edit">维护</el-button>
           <el-button type="primary" icon="el-icon-download">导出</el-button>
         </el-row>
       </el-row>
       <el-row>
-        <el-table style="width: 100%;margin-top: 2em" :data="maintenances">
+        <el-table border class="table-row" :data="deviceControls">
           <el-table-column
             type="index">
           </el-table-column>
@@ -62,8 +58,8 @@
             label="设备名称">
           </el-table-column>
           <el-table-column
-            prop="record"
-            label="维护记录">
+            prop="status"
+            label="当前状态">
           </el-table-column>
           <el-table-column
             prop="time"
@@ -71,10 +67,22 @@
           </el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
-              <el-button size="small" type="primary" @click="showDetail(scope.$index,scope.row)">详情</el-button>
+              <el-button size="small" type="success" @click="showDetail(scope.$index,scope.row)">启动</el-button>
+              <el-button size="small" type="danger" @click="showDetail(scope.$index,scope.row)">停止</el-button>
             </template>
           </el-table-column>
         </el-table>
+      </el-row>
+      <el-row class="pagination-row">
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="flipOver"
+          :current-page="pagination.page"
+          :page-sizes="[10, 20, 30, 40]"
+          :page-size="pagination.limit"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="pagination.total">
+        </el-pagination>
       </el-row>
     </el-col>
   </el-row>
@@ -83,6 +91,7 @@
 <script>
   import {mapActions, mapGetters} from 'vuex';
   import SearchBar from "../SearchBar";
+  import constants from '../../common/constants'
 
   export default {
     name: "Device",
@@ -90,29 +99,41 @@
     computed: {
       ...mapGetters([
         'area',
-        'maintenances'
+        'deviceControls'
       ])
     },
     methods: {
       ...mapActions([
         'setCurrentArea',
-        'initMaintenances'
+        'initControls'
       ]),
       showDetail(index, row) {
         console.log(row)
+      },
+      handleSizeChange() {
+
+      },
+      flipOver() {
+
       }
     },
     data() {
       return{
+        classifications: constants.classifications,
         filters: {
           type:'',
           factor: '',
           deviceName: ''
+        },
+        pagination: {
+          page: 1,
+          limit: 10,
+          total: 100
         }
       }
     },
     mounted() {
-      this.initMaintenances();
+      this.initControls();
     },
     created() {
       // 初始化当前area

@@ -8,6 +8,121 @@
 
 export default {
 
+  classifications: [
+    {
+      label: '污水类',
+      value: 'sewage',
+      factors: [
+        {
+          value: 'pH',
+          label: 'PH'
+        },
+        {
+          value: 'cod',
+          label: 'COD'
+        },
+        {
+          value: 'nH3N',
+          label: '氨氮'
+        },
+        {
+          value: 'tP',
+          label: '总磷'
+        },
+        {
+          value: 'oil',
+          label: '水中油'
+        },
+        {
+          value: 'flow',
+          label: '流量'
+        },
+      ]
+    },
+    {
+      label: '大气类',
+      value: 'gas',
+      factors: [
+        {
+          value: 'sD',
+          label: '二氧化硫'
+        },
+        {
+          value: 'nOZ',
+          label: '二氧化氮'
+        },
+        {
+          value: 'nO',
+          label: '一氧化氮'
+        },
+        {
+          value: 'tCM',
+          label: '隧道一氧化碳'
+        },
+        {
+          value: 'tSP',
+          label: 'TSP（总悬浮物）'
+        },
+        {
+          value: 'pM1',
+          label: 'PM1'
+        },
+        {
+          value: 'pM25',
+          label: 'PM2.5'
+        },
+        {
+          value: 'pM10',
+          label: 'PM10'
+        },
+        {
+          value: 'temperature',
+          label: '温度'
+        },
+        {
+          value: 'humidity',
+          label: '湿度'
+        },
+        {
+          value: 'atmPress',
+          label: '大气压'
+        },
+        {
+          value: 'windSpeed',
+          label: '风速'
+        },
+        {
+          value: 'rainfall',
+          label: '降雨量'
+        },
+      ]
+    },
+    {
+      label: '噪声类',
+      value: 'noise',
+      factors: [
+        {
+          value: 'intensity',
+          label: '噪声强度'
+        },
+        {
+          value: 'frequency',
+          label: '噪声频率'
+        },
+      ]
+    },
+    {
+      label: '固废类',
+      value: 'solid',
+      factors: [
+        {
+          value: 'capacity',
+          label: '垃圾压缩池池容'
+        }
+      ]
+    }
+  ],
+
   cities: [
     {
       name: "武汉",

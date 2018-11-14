@@ -41,7 +41,7 @@
         </el-row>
       </el-row>
       <el-row>
-        <el-table style="width: 100%;margin-top: 2em" :data="maintenances">
+        <el-table border class="table-row" :data="maintenances">
           <el-table-column
             type="index">
           </el-table-column>
@@ -76,6 +76,17 @@
           </el-table-column>
         </el-table>
       </el-row>
+      <el-row class="pagination-row">
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="flipOver"
+          :current-page="pagination.page"
+          :page-sizes="[10, 20, 30, 40]"
+          :page-size="pagination.limit"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="pagination.total">
+        </el-pagination>
+      </el-row>
     </el-col>
   </el-row>
 </template>
@@ -108,6 +119,11 @@
           type:'',
           factor: '',
           deviceName: ''
+        },
+        pagination: {
+          page: 1,
+          limit: 10,
+          total: 100
         }
       }
     },

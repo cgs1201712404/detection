@@ -75,7 +75,7 @@ export default new Router({
           component: Control,
           name: 'control',
           label: '设备控制',
-          iconCls: 'icon iconfont icon-lishishuju',
+          iconCls: 'icon iconfont icon-xitongkongzhi',
           menuShow: true
         },
         {
