@@ -11,7 +11,7 @@
         <el-form :inline="true" :model="filters">
           <el-form-item label="服务区名称">
             <el-select v-model="filters.areaName" placeholder="请选择">
-              <el-option v-for="area in areaList" :label="area.name" :value="area.name"></el-option>
+              <el-option v-for="area in areaList" :key="area.name" :label="area.name" :value="area.name"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="开始时间">

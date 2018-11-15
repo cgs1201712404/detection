@@ -1,22 +1,41 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
-import Map from '@/components/map/Map'
-import History from '@/components/single_point/History'
-import RealTime from '@/components/single_point/RealTime'
-import Control from '@/components/device/Control'
-import Maintaining from '@/components/device/Maintaining'
-import Surveillance from '@/components/device/Surveillance'
-import Processing from '@/components/alarm/Processing'
-import Configuration from '@/components/alarm/Configuration'
-import Notification from '@/components/alarm/Notification'
-import Analysis from '@/components/report/Analysis'
-import Daily from '@/components/report/Daily'
-import Monthly from '@/components/report/Monthly'
-import User from '@/components/system/User'
-import Role from '@/components/system/Role'
-import Permission from '@/components/system/Permission'
+
+// import Map from '@/components/map/Map'
+// import History from '@/components/single_point/History'
+// import RealTime from '@/components/single_point/RealTime'
+// import Control from '@/components/device/Control'
+// import Maintaining from '@/components/device/Maintaining'
+// import Surveillance from '@/components/device/Surveillance'
+// import Processing from '@/components/alarm/Processing'
+// import Configuration from '@/components/alarm/Configuration'
+// import Notification from '@/components/alarm/Notification'
+// import Analysis from '@/components/report/Analysis'
+// import Daily from '@/components/report/Daily'
+// import Monthly from '@/components/report/Monthly'
+// import User from '@/components/system/User'
+// import Role from '@/components/system/Role'
+// import Permission from '@/components/system/Permission'
+// import Logger from '@/components/system/Logger'
+const Map = resolve => require(['@/components/map/Map'], resolve);
+const History = resolve => require(['@/components/single_point/History'], resolve);
+const RealTime = resolve => require(['@/components/single_point/RealTime'], resolve);
+const Control = resolve => require(['@/components/device/Control'], resolve);
+const Maintaining = resolve => require(['@/components/device/Maintaining'], resolve);
+const Surveillance = resolve => require(['@/components/device/Surveillance'], resolve);
+const Processing = resolve => require(['@/components/alarm/Processing'], resolve);
+const Configuration = resolve => require(['@/components/alarm/Configuration'], resolve);
+const Notification = resolve => require(['@/components/alarm/Notification'], resolve);
+const Analysis = resolve => require(['@/components/report/Analysis'], resolve);
+const Daily = resolve => require(['@/components/report/Daily'], resolve);
+const Monthly = resolve => require(['@/components/report/Monthly'], resolve);
+const User = resolve => require(['@/components/system/User'], resolve);
+const Role = resolve => require(['@/components/system/Role'], resolve);
+const Privilege = resolve => require(['@/components/system/Privilege'], resolve);
+
 import Logger from '@/components/system/Logger'
+
 
 Vue.use(Router)
 
@@ -184,7 +203,7 @@ export default new Router({
           iconCls: 'icon iconfont icon-jiaoseguanli', menuShow: true
         },
         {
-          path: '/permission', component: Permission, name: 'permission', label: '权限管理',
+          path: '/privilege', component: Privilege, name: 'privilege', label: '权限管理',
           iconCls: 'icon iconfont icon-quanxianguanli', menuShow: true
         },
         {

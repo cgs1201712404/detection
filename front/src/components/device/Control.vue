@@ -19,12 +19,14 @@
         <el-row>
           <el-form :inline="true" :model="filters">
             <el-form-item label="监测类型">
-              <el-select v-model="filters.type" placeholder="请选择">
+              <el-select v-model="filters.type" placeholder="请选择" clearable @change="classificationChange">
                 <el-option v-for="entry in classifications" :label="entry.label" :value="entry.value"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="监测因子">
-              <el-input v-model="filters.factor"></el-input>
+              <el-select v-model="filters.factor" placeholder="请选择" clearable>
+                <el-option v-for="factor in factors" :label="factor.label" :value="factor.value"></el-option>
+              </el-select>
             </el-form-item>
             <el-form-item label="设备名称">
               <el-input v-model="filters.deviceName"></el-input>
@@ -115,11 +117,20 @@
       },
       flipOver() {
 
+      },
+      classificationChange(value) {
+        let that =this;
+        that.classifications.forEach(function (classification, index) {
+          if (value === classification.value) {
+            that.factors = classification.factors;
+          }
+        })
       }
     },
     data() {
       return{
         classifications: constants.classifications,
+        factors: [],
         filters: {
           type:'',
           factor: '',

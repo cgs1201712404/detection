@@ -100,8 +100,53 @@ const actions = {
         time: '2018-11-14'
       },
     ];
-    commit('setProcessingPagination', {page: 1, limit: 10, total: 100})
+    commit('setProcessingPagination', {page: 1, limit: 10, total: 100});
     commit('setAlarmProcessings', processings)
+  },
+
+  initAlarmConfigs({commit, state}) {
+    let configs = [
+      {
+        type: '污水类',
+        factor: 'ph',
+        normalLimit: '1-10',
+        trigger: '12',
+        enabled: '已启用',
+        time: '2018-11-14'
+      },
+      {
+        type: '污水类',
+        factor: 'cod',
+        normalLimit: '1-10',
+        trigger: '12',
+        enabled: '已启用',
+        time: '2018-11-14'
+      },
+      {
+        type: '污水类',
+        factor: 'nH3N',
+        normalLimit: '1-10',
+        trigger: '12',
+        enabled: '未启用',
+        time: '2018-11-14'
+      },
+      {
+        type: '污水类',
+        factor: 'tP',
+        normalLimit: '1-10',
+        trigger: '12',
+        enabled: '未启用',
+      },
+      {
+        type: '大气类',
+        factor: 'sD',
+        normalLimit: '1-10',
+        trigger: '12',
+        enabled: '未启用',
+      },
+    ];
+    commit('setAlarmConfigs', configs);
+    commit('setConfigsPagination', {page: 1, limit: 10, total: 100})
   }
 };
 
