@@ -37,7 +37,7 @@ const Permission = resolve => require(['@/components/system/Permission'], resolv
 import Logger from '@/components/system/Logger'
 
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [

@@ -15,45 +15,6 @@
         <el-col :span="4" class="topbar-title">
           <span style="font-size: 25px;color: #fff;">智能环保监控管理系统</span>
         </el-col>
-        <!--<el-col :push="11" :span="7" class="topbar-dropdown">-->
-        <!--<el-dropdown class="header-dropdown-menu">-->
-        <!--<span><i class="icon iconfont station-duanxin"></i></span>-->
-        <!--<el-dropdown-menu>-->
-        <!--<el-dropdown-item>黄金糕</el-dropdown-item>-->
-        <!--<el-dropdown-item>狮子头</el-dropdown-item>-->
-        <!--<el-dropdown-item>螺蛳粉</el-dropdown-item>-->
-        <!--</el-dropdown-menu>-->
-        <!--</el-dropdown>-->
-        <!--<el-dropdown class="header-dropdown-menu">-->
-        <!--<span><i class="icon iconfont station-lingdang"></i></span>-->
-        <!--<el-dropdown-menu>-->
-        <!--<el-dropdown-item>黄金糕</el-dropdown-item>-->
-        <!--<el-dropdown-item>狮子头</el-dropdown-item>-->
-        <!--<el-dropdown-item>螺蛳粉</el-dropdown-item>-->
-        <!--</el-dropdown-menu>-->
-        <!--</el-dropdown>-->
-        <!--<el-dropdown class="header-dropdown-menu">-->
-        <!--<span><i class="icon iconfont station-iconsvggchakantarenrenwu"></i></span>-->
-        <!--<el-dropdown-menu>-->
-        <!--<el-dropdown-item>黄金糕</el-dropdown-item>-->
-        <!--<el-dropdown-item>狮子头</el-dropdown-item>-->
-        <!--<el-dropdown-item>螺蛳粉</el-dropdown-item>-->
-        <!--</el-dropdown-menu>-->
-        <!--</el-dropdown>-->
-
-        <!--<el-dropdown class="header-dropdown-menu">-->
-        <!--<span><i class="icon iconfont station-sangedian"></i></span>-->
-        <!--<el-dropdown-menu>-->
-        <!--<el-dropdown-item>黄金糕</el-dropdown-item>-->
-        <!--<el-dropdown-item>狮子头</el-dropdown-item>-->
-        <!--<el-dropdown-item>螺蛳粉</el-dropdown-item>-->
-        <!--</el-dropdown-menu>-->
-        <!--</el-dropdown>-->
-
-        <!--<el-dropdown class="header-dropdown-menu">-->
-        <!--<span><i class="icon iconfont station-tuichu"></i></span>-->
-        <!--</el-dropdown>-->
-        <!--</el-col>-->
       </el-row>
     </el-header>
 
@@ -98,6 +59,13 @@
       return {
         currentNavIndex: '1'
       }
+    },
+    beforeCreate() {
+      /**
+       *  根据权限列表数据渲染侧边栏菜单
+       *  将路由列表中元素的menuShow属性设置为false，即为不显示
+       */
+
     }
   }
 </script>
