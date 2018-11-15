@@ -29,6 +29,12 @@ const getters = {
   }
 };
 
+const actions = {
+  mockPermissionList({commit, state}) {
+    
+  }
+};
+
 const mutations = {
   setCurrentUser(state, entity) {
     state.currentUser = entity

@@ -9,16 +9,6 @@ export default {
 
 }
 
-let data = [
-  {
-    path: '/',
-    name: 'home',
-  },
-  {
-    path: '/map',
-    name: 'map'
-  }
-];
 
 
 

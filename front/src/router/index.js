@@ -32,7 +32,7 @@ const Daily = resolve => require(['@/components/report/Daily'], resolve);
 const Monthly = resolve => require(['@/components/report/Monthly'], resolve);
 const User = resolve => require(['@/components/system/User'], resolve);
 const Role = resolve => require(['@/components/system/Role'], resolve);
-const Privilege = resolve => require(['@/components/system/Privilege'], resolve);
+const Permission = resolve => require(['@/components/system/Permission'], resolve);
 
 import Logger from '@/components/system/Logger'
 
@@ -203,7 +203,7 @@ export default new Router({
           iconCls: 'icon iconfont icon-jiaoseguanli', menuShow: true
         },
         {
-          path: '/privilege', component: Privilege, name: 'privilege', label: '权限管理',
+          path: '/permission', component: Permission, name: 'permission', label: '权限管理',
           iconCls: 'icon iconfont icon-quanxianguanli', menuShow: true
         },
         {
