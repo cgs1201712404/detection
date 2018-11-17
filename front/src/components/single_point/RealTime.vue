@@ -77,7 +77,7 @@ import waste_gas from "../../store/modules/waste_gas";
         return this.$store.state.serviceArea.area;
       }
     },
-    mounted() {
+    created() {
       this.setCurrentArea({
         name: '常青花园服务区',
         district: {

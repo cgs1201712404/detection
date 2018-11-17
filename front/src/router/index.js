@@ -39,7 +39,7 @@ import Logger from '@/components/system/Logger'
 
 Vue.use(Router);
 
-export default new Router({
+let router = new Router({
   routes: [
     {
       path: '/',
@@ -47,7 +47,7 @@ export default new Router({
       component: Home,
       redirect: '/map',
       leaf: true, // 只有一个节点
-      menuShow: true,
+      menuShow: false,
       iconCls: 'icon iconfont icon-ditujiankong',
       children: [
         {path: '/map', component: Map, name: 'map', label: '地图监控', menuShow: true}
@@ -59,7 +59,7 @@ export default new Router({
       component: Home,
       label: '单点监测',
       leaf: false,
-      menuShow: true,
+      menuShow: false,
       iconCls: 'icon iconfont icon-dandianjianse',
       children: [
         {
@@ -68,7 +68,7 @@ export default new Router({
           name: 'realTime',
           label: '实时数据',
           iconCls: 'icon iconfont icon-shishishuju',
-          menuShow: true
+          menuShow: false
         },
         {
           path: '/history',
@@ -76,7 +76,7 @@ export default new Router({
           name: 'history',
           label: '历史数据',
           iconCls: 'icon iconfont icon-lishishuju',
-          menuShow: true
+          menuShow: false
         }
       ]
     },
@@ -86,7 +86,7 @@ export default new Router({
       component: Home,
       label: '设备管理',
       leaf: false,
-      menuShow: true,
+      menuShow: false,
       iconCls: 'icon iconfont icon-sheibeiguanli',
       children: [
         {
@@ -95,7 +95,7 @@ export default new Router({
           name: 'control',
           label: '设备控制',
           iconCls: 'icon iconfont icon-xitongkongzhi',
-          menuShow: true
+          menuShow: false
         },
         {
           path: '/maintaining',
@@ -103,7 +103,7 @@ export default new Router({
           name: 'maintaining',
           label: '设备维护',
           iconCls: 'icon iconfont icon-shebeiweihu',
-          menuShow: true
+          menuShow: false
         },
         {
           path: '/surveillance',
@@ -111,7 +111,7 @@ export default new Router({
           name: 'surveillance',
           label: '视频监控',
           iconCls: 'icon iconfont icon-shipinjiankong',
-          menuShow: true
+          menuShow: false
         },
       ]
     },
@@ -121,7 +121,7 @@ export default new Router({
       component: Home,
       label: '报警管理',
       leaf: false,
-      menuShow: true,
+      menuShow: false,
       iconCls: 'icon iconfont icon-baojingguanli',
       children: [
         {
@@ -130,7 +130,7 @@ export default new Router({
           name: 'processing',
           label: '报警处理',
           iconCls: 'icon iconfont icon-baojingguanli',
-          menuShow: true
+          menuShow: false
         },
         {
           path: '/configuration',
@@ -138,7 +138,7 @@ export default new Router({
           name: 'configuration',
           label: '报警配置',
           iconCls: 'icon iconfont icon-baojingpeizhi',
-          menuShow: true
+          menuShow: false
         },
         {
           path: '/notification',
@@ -146,7 +146,7 @@ export default new Router({
           name: 'notification',
           label: '报警通知',
           iconCls: 'icon iconfont icon-baijingtongzhi',
-          menuShow: true
+          menuShow: false
         },
       ]
     },
@@ -156,7 +156,7 @@ export default new Router({
       component: Home,
       label: '报表管理',
       leaf: false,
-      menuShow: true,
+      menuShow: false,
       iconCls: 'icon iconfont icon-baobiaoguanli',
       children: [
         {
@@ -165,7 +165,7 @@ export default new Router({
           name: 'daily',
           label: '日报',
           iconCls: 'icon iconfont icon-ribao',
-          menuShow: true
+          menuShow: false
         },
         {
           path: '/monthly',
@@ -173,7 +173,7 @@ export default new Router({
           name: 'monthly',
           label: '月报',
           iconCls: 'icon iconfont icon-yuebao',
-          menuShow: true
+          menuShow: false
         },
         {
           path: '/analysis',
@@ -181,7 +181,7 @@ export default new Router({
           name: 'analysis',
           label: '报表分析',
           iconCls: 'icon iconfont icon-baobiaofenxi',
-          menuShow: true
+          menuShow: false
         },
       ]
     },
@@ -191,26 +191,28 @@ export default new Router({
       component: Home,
       label: '系统管理',
       leaf: false,
-      menuShow: true,
+      menuShow: false,
       iconCls: 'icon iconfont icon-xitongkongzhi',
       children: [
         {
           path: '/user', component: User, name: 'user', label: '用户管理',
-          iconCls: 'icon iconfont icon-yonghuguanli', menuShow: true
+          iconCls: 'icon iconfont icon-yonghuguanli', menuShow: false
         },
         {
           path: '/role', component: Role, name: 'role', label: '角色管理',
-          iconCls: 'icon iconfont icon-jiaoseguanli', menuShow: true
+          iconCls: 'icon iconfont icon-jiaoseguanli', menuShow: false
         },
         {
           path: '/permission', component: Permission, name: 'permission', label: '权限管理',
-          iconCls: 'icon iconfont icon-quanxianguanli', menuShow: true
+          iconCls: 'icon iconfont icon-quanxianguanli', menuShow: false
         },
         {
           path: '/logger', component: Logger, name: 'logger', label: '日志管理',
-          iconCls: 'icon iconfont icon-rizhiguanli', menuShow: true
+          iconCls: 'icon iconfont icon-rizhiguanli', menuShow: false
         }
       ]
     },
   ]
-})
+});
+
+export default router

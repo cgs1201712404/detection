@@ -111,6 +111,12 @@
       ]),
       showDetail(index, row) {
         console.log(row)
+      },
+      handleSizeChange() {
+
+      },
+      flipOver() {
+
       }
     },
     data() {

@@ -8,6 +8,7 @@ import noise from './modules/noise'
 import solid from './modules/solid'
 import device from './modules/device'
 import alarm from './modules/alarm'
+import user from  './modules/user'
 
 Vue.use(Vuex);
 
@@ -21,7 +22,8 @@ export default new Vuex.Store({
     noise,
     solid,
     device,
-    alarm
+    alarm,
+    user
   },
   strict: debug,
   plugins: debug ? [createLogger()] : []
