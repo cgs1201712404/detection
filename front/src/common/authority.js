@@ -12,10 +12,10 @@ export default {
    */
   renderHomeMenu(context) {
     let routes = context.$router.options.routes;
-    if (context.currentUser && context.currentUser.privilegeGroup) {
+    if (context.currentUser && context.currentUser.permissionGroup) {
       for (let firstRoute of routes) {
         for (let secondRoute of firstRoute.children) {
-          for (let privilege of context.currentUser.privilegeGroup) {
+          for (let privilege of context.currentUser.permissionGroup) {
             if (secondRoute.name === privilege.name) {
               secondRoute.menuShow = true;
               firstRoute.menuShow = true;
@@ -33,7 +33,7 @@ export default {
     home.$router.beforeEach((to, from, next) => {
       setDataPermission(home.$router, home.currentUser.privilegeGroup);
       let isPermission = false;
-      home.currentUser.privilegeGroup.forEach((permission) => {
+      home.currentUser.permissionGroup.forEach((permission) => {
         if (permission.path === to.fullPath) {
           isPermission = true
         }
