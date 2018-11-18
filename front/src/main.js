@@ -23,6 +23,18 @@ const options = {
 
 Vue.use(VueLogger, options);
 
+/**
+ * 数据级权限命令hasPermission的定义，暂时必须放置在main.js中
+ */
+Vue.directive('hasPermission', {
+  bind(el, binding, vnode) {
+    let permissionList = vnode.context.$route.meta.permission;
+    if (permissionList && permissionList.length && !permissionList.includes(binding.value)) {
+      el.parentNode.removeChild(el)
+    }
+  }
+});
+
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
 /* eslint-disable no-new */

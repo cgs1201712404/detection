@@ -36,8 +36,8 @@
         </el-row>
         <el-row style="margin-top: .5em">
           <el-button type="primary" icon="el-icon-search">查询</el-button>
-          <el-button type="primary" icon="el-icon-edit">维护</el-button>
-          <el-button type="primary" icon="el-icon-download">导出</el-button>
+          <el-button type="primary" v-hasPermission="'edit'" icon="el-icon-edit">维护</el-button>
+          <el-button type="primary" v-hasPermission="'export'" icon="el-icon-download">导出</el-button>
         </el-row>
       </el-row>
       <el-row>

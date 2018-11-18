@@ -118,7 +118,8 @@ const actions = {
         },
         {
           path: '/maintaining',
-          name: 'maintaining'
+          name: 'maintaining',
+          permission: ['edit','export']
         },
         {
           path: '/surveillance',

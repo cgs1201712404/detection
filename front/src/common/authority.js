@@ -31,6 +31,7 @@ export default {
    */
   navHook(home) {
     home.$router.beforeEach((to, from, next) => {
+      setDataPermission(home.$router, home.currentUser.privilegeGroup);
       let isPermission = false;
       home.currentUser.privilegeGroup.forEach((permission) => {
         if (permission.path === to.fullPath) {
@@ -46,6 +47,21 @@ export default {
         next();
       }
     })
+  }
+}
+
+/**
+ * 设置数据级权限，将权限permission数据插入到路由表中
+ * @param router 路由
+ * @param permissionGroup 权限组数据
+ */
+function setDataPermission(router, permissionGroup) {
+  for (let element of permissionGroup) {
+    let routeItem = router.match(element.path);
+    if (routeItem) {
+      // 将返回的所有数据都存到路由的meta信息中
+      routeItem.meta.permission = element.permission;
+    }
   }
 }
 
