@@ -31,7 +31,7 @@ export default {
    */
   navHook(home) {
     home.$router.beforeEach((to, from, next) => {
-      setDataPermission(home.$router, home.currentUser.privilegeGroup);
+      setDataPermission(home.$router, home.currentUser.permissionGroup);
       let isPermission = false;
       home.currentUser.permissionGroup.forEach((permission) => {
         if (permission.path === to.fullPath) {
