@@ -102,9 +102,71 @@ const actions = {
     };
     commit('setCurrentUser', currentUser);
   },
-  mockUsers({commit, state}) {
+  mockUsers({commit}) {
     let users = [
-      
+      {
+        userName: 'tracy4262',
+        password: '123456',
+        name: '彭诗杰',
+        gender: '男',
+        phone: '18673687350',
+        department: '研发中心',
+        position: '技术总监',
+      },
+      {
+        userName: 'tracy4262',
+        password: '123456',
+        name: '彭诗杰',
+        gender: '男',
+        phone: '18673687350',
+        department: '研发中心',
+        position: '技术总监',
+      },
+      {
+        userName: 'tracy4262',
+        password: '123456',
+        name: '彭诗杰',
+        gender: '男',
+        phone: '18673687350',
+        department: '研发中心',
+        position: '技术总监',
+      },
+      {
+        userName: 'tracy4262',
+        password: '123456',
+        name: '彭诗杰',
+        gender: '男',
+        phone: '18673687350',
+        department: '研发中心',
+        position: '技术总监',
+      },
+      {
+        userName: 'tracy4262',
+        password: '123456',
+        name: '彭诗杰',
+        gender: '男',
+        phone: '18673687350',
+        department: '研发中心',
+        position: '技术总监',
+      },
+      {
+        userName: 'tracy4262',
+        password: '123456',
+        name: '彭诗杰',
+        gender: '男',
+        phone: '18673687350',
+        department: '研发中心',
+        position: '技术总监',
+      },
+      {
+        userName: 'tracy4262',
+        password: '123456',
+        name: '彭诗杰',
+        gender: '男',
+        phone: '18673687350',
+        department: '研发中心',
+        position: '技术总监',
+      }
     ];
     commit('setUsers', users)
   }
