@@ -8,12 +8,17 @@
 const state = {
   // 当前用户
   currentUser: {
-  }
+  },
+  // 用户列表分页
+  users: []
 };
 
 const getters = {
   currentUser: state => {
     return state.currentUser;
+  },
+  users: state => {
+    return state.users;
   }
 };
 
@@ -96,12 +101,21 @@ const actions = {
       ]
     };
     commit('setCurrentUser', currentUser);
+  },
+  mockUsers({commit, state}) {
+    let users = [
+      
+    ];
+    commit('setUsers', users)
   }
 };
 
 const mutations = {
   setCurrentUser(state, entity) {
     state.currentUser = entity
+  },
+  setUsers(state, entity) {
+    state.users = entity
   }
 };
 

@@ -9,7 +9,7 @@
     <filter-area>
     </filter-area>
     <el-row class="table-row" >
-      <el-table border>
+      <el-table border :data="dailies">
         <el-table-column
           type="index">
         </el-table-column>
@@ -61,6 +61,7 @@
 <script>
   import FilterArea from "./FilterArea.vue";
   import ElRow from "element-ui/packages/row/src/row";
+  import {mapActions, mapGetters} from 'vuex';
 
   export default {
     components: {
@@ -68,6 +69,11 @@
       FilterArea
     },
     name: 'Daily',
+    computed: {
+      ...mapGetters([
+        'dailies'
+      ])
+    },
     data() {
       return {
         pagination: {
@@ -78,12 +84,18 @@
       }
     },
     methods: {
+      ...mapActions([
+        'initDailies'
+      ]),
       handleSizeChange() {
 
       },
       flipOver() {
 
       },
+    },
+    created() {
+      this.initDailies();
     }
   }
 </script>

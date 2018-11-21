@@ -9,6 +9,7 @@ import solid from './modules/solid'
 import device from './modules/device'
 import alarm from './modules/alarm'
 import user from  './modules/user'
+import report from './modules/report'
 
 Vue.use(Vuex);
 
@@ -23,7 +24,8 @@ export default new Vuex.Store({
     solid,
     device,
     alarm,
-    user
+    user,
+    report
   },
   strict: debug,
   plugins: debug ? [createLogger()] : []

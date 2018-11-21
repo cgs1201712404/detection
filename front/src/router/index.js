@@ -67,7 +67,7 @@ let router = new Router({
           component: RealTime,
           name: 'realTime',
           label: '实时数据',
-          iconCls: 'icon iconfont icon-shishishuju',
+          // iconCls: 'icon iconfont icon-shishishuju',
           menuShow: false
         },
         {
@@ -75,7 +75,7 @@ let router = new Router({
           component: History,
           name: 'history',
           label: '历史数据',
-          iconCls: 'icon iconfont icon-lishishuju',
+          // iconCls: 'icon iconfont icon-lishishuju',
           menuShow: false
         }
       ]
@@ -94,7 +94,7 @@ let router = new Router({
           component: Control,
           name: 'control',
           label: '设备控制',
-          iconCls: 'icon iconfont icon-xitongkongzhi',
+          // iconCls: 'icon iconfont icon-xitongkongzhi',
           menuShow: false
         },
         {
@@ -102,7 +102,7 @@ let router = new Router({
           component: Maintaining,
           name: 'maintaining',
           label: '设备维护',
-          iconCls: 'icon iconfont icon-shebeiweihu',
+          // iconCls: 'icon iconfont icon-shebeiweihu',
           menuShow: false
         },
         {
@@ -110,7 +110,7 @@ let router = new Router({
           component: Surveillance,
           name: 'surveillance',
           label: '视频监控',
-          iconCls: 'icon iconfont icon-shipinjiankong',
+          // iconCls: 'icon iconfont icon-shipinjiankong',
           menuShow: false
         },
       ]
@@ -129,7 +129,7 @@ let router = new Router({
           component: Processing,
           name: 'processing',
           label: '报警处理',
-          iconCls: 'icon iconfont icon-baojingguanli',
+          // iconCls: 'icon iconfont icon-baojingguanli',
           menuShow: false
         },
         {
@@ -137,7 +137,7 @@ let router = new Router({
           component: Configuration,
           name: 'configuration',
           label: '报警配置',
-          iconCls: 'icon iconfont icon-baojingpeizhi',
+          // iconCls: 'icon iconfont icon-baojingpeizhi',
           menuShow: false
         },
         {
@@ -145,7 +145,7 @@ let router = new Router({
           component: Notification,
           name: 'notification',
           label: '报警通知',
-          iconCls: 'icon iconfont icon-baijingtongzhi',
+          // iconCls: 'icon iconfont icon-baijingtongzhi',
           menuShow: false
         },
       ]
@@ -164,7 +164,7 @@ let router = new Router({
           component: Daily,
           name: 'daily',
           label: '日报',
-          iconCls: 'icon iconfont icon-ribao',
+          // iconCls: 'icon iconfont icon-ribao',
           menuShow: false
         },
         {
@@ -172,7 +172,7 @@ let router = new Router({
           component: Monthly,
           name: 'monthly',
           label: '月报',
-          iconCls: 'icon iconfont icon-yuebao',
+          // iconCls: 'icon iconfont icon-yuebao',
           menuShow: false
         },
         {
@@ -180,7 +180,7 @@ let router = new Router({
           component: Analysis,
           name: 'analysis',
           label: '报表分析',
-          iconCls: 'icon iconfont icon-baobiaofenxi',
+          // iconCls: 'icon iconfont icon-baobiaofenxi',
           menuShow: false
         },
       ]
@@ -195,20 +195,28 @@ let router = new Router({
       iconCls: 'icon iconfont icon-xitongkongzhi',
       children: [
         {
-          path: '/user', component: User, name: 'user', label: '用户管理',
-          iconCls: 'icon iconfont icon-yonghuguanli', menuShow: false
+          path: '/user', component: User, name: 'user',
+          label: '用户管理',
+          // iconCls: 'icon iconfont icon-yonghuguanli',
+          menuShow: false
         },
         {
-          path: '/role', component: Role, name: 'role', label: '角色管理',
-          iconCls: 'icon iconfont icon-jiaoseguanli', menuShow: false
+          path: '/role', component: Role, name: 'role',
+          label: '角色权限管理',
+          // iconCls: 'icon iconfont icon-jiaoseguanli',
+          menuShow: false
         },
+        // {
+        //   path: '/permission', component: Permission, name: 'permission',
+        //   label: '权限管理',
+        //   // iconCls: 'icon iconfont icon-quanxianguanli',
+        //   menuShow: false
+        // },
         {
-          path: '/permission', component: Permission, name: 'permission', label: '权限管理',
-          iconCls: 'icon iconfont icon-quanxianguanli', menuShow: false
-        },
-        {
-          path: '/logger', component: Logger, name: 'logger', label: '日志管理',
-          iconCls: 'icon iconfont icon-rizhiguanli', menuShow: false
+          path: '/logger', component: Logger, name: 'logger',
+          label: '日志管理',
+          // iconCls: 'icon iconfont icon-rizhiguanli',
+          menuShow: false
         }
       ]
     },

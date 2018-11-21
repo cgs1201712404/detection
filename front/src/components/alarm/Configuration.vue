@@ -27,8 +27,8 @@
         </el-form>
       </el-row>
       <el-row style="margin-top: .5em">
+        <el-button type="success" icon="el-icon-circle-plus-outline">新增</el-button>
         <el-button type="primary" icon="el-icon-search">查询</el-button>
-        <el-button type="primary" icon="el-icon-circle-plus-outline">新增</el-button>
       </el-row>
     </el-row>
     <el-row class="table-row">
