@@ -10,6 +10,7 @@ import device from './modules/device'
 import alarm from './modules/alarm'
 import user from  './modules/user'
 import report from './modules/report'
+import role from './modules/role'
 
 Vue.use(Vuex);
 
@@ -25,7 +26,8 @@ export default new Vuex.Store({
     device,
     alarm,
     user,
-    report
+    report,
+    role
   },
   strict: debug,
   plugins: debug ? [createLogger()] : []
