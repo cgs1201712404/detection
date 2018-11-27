@@ -7,8 +7,7 @@
 
 const state = {
   // 当前用户
-  currentUser: {
-  },
+  currentUser: {},
   // 用户列表分页
   users: []
 };
@@ -28,77 +27,82 @@ const actions = {
     let currentUser = {
       name: 'tracy4262',
       number: 18673687350,
-      permissionGroup: [
-        {
-          path: '/',
-          name: 'home',
-        },
-        {
-          path: '/map',
-          name: 'map'
-        },
-        {
-          path: '/realTime',
-          name: 'realTime',
-        },
-        {
-          path: '/history',
-          name: 'history'
-        },
-        {
-          path: '/control',
-          name: 'control'
-        },
-        {
-          path: '/maintaining',
-          name: 'maintaining',
-          permission: ['edit','export']
-        },
-        {
-          path: '/surveillance',
-          name: 'surveillance'
-        },
-        {
-          path: '/processing',
-          name: 'processing'
-        },
-        {
-          path: '/configuration',
-          name: 'configuration'
-        },
-        {
-          path: '/notification',
-          name: 'notification'
-        },
-        {
-          path: '/daily',
-          name: 'daily'
-        },
-        {
-          path: '/monthly',
-          name: 'monthly'
-        },
-        {
-          path: '/analysis',
-          name: 'analysis'
-        },
-        {
-          path: '/user',
-          name: 'user'
-        },
-        {
-          path: '/role',
-          name: 'role'
-        },
-        {
-          path: '/permission',
-          name: 'permission'
-        },
-        {
-          path: '/logger',
-          name: 'logger'
-        }
-      ]
+      role: {
+        id: '1',
+        roleName: '总经理',
+        note: '这是总经理的角色',
+        permissionGroup: [
+          {
+            path: '/',
+            name: 'home',
+          },
+          {
+            path: '/map',
+            name: 'map'
+          },
+          {
+            path: '/realTime',
+            name: 'realTime',
+          },
+          {
+            path: '/history',
+            name: 'history'
+          },
+          {
+            path: '/control',
+            name: 'control'
+          },
+          {
+            path: '/maintaining',
+            name: 'maintaining',
+            permission: ['edit', 'export']
+          },
+          {
+            path: '/surveillance',
+            name: 'surveillance'
+          },
+          {
+            path: '/processing',
+            name: 'processing'
+          },
+          {
+            path: '/configuration',
+            name: 'configuration'
+          },
+          {
+            path: '/notification',
+            name: 'notification'
+          },
+          {
+            path: '/daily',
+            name: 'daily'
+          },
+          {
+            path: '/monthly',
+            name: 'monthly'
+          },
+          {
+            path: '/analysis',
+            name: 'analysis'
+          },
+          {
+            path: '/user',
+            name: 'user'
+          },
+          {
+            path: '/role',
+            name: 'role'
+          },
+          {
+            path: '/permission',
+            name: 'permission'
+          },
+          {
+            path: '/logger',
+            name: 'logger'
+          }
+        ]
+      }
     };
     commit('setCurrentUser', currentUser);
   },

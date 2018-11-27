@@ -40,12 +40,14 @@
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button size="small" type="warning">分配权限</el-button>
+            <el-button size="small" type="warning" @click="grantPermissions(scope.$index,scope.row)">分配权限</el-button>
             <el-button size="small" type="success">编辑</el-button>
             <el-button size="small" type="danger">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
+      <authorization-dialog>
+      </authorization-dialog>
     </el-row>
     <el-row class="pagination-row">
       <el-pagination
@@ -63,9 +65,11 @@
 
 <script>
   import {mapActions, mapGetters} from 'vuex';
+  import AuthorizationDialog from "./AuthorizationDialog";
 
   export default {
     name: "Role",
+    components: {AuthorizationDialog},
     computed: {
       ...mapGetters([
         'roles'
@@ -82,13 +86,18 @@
     },
     methods: {
       ...mapActions([
-        'mockRoles'
+        'mockRoles',
+        'setRoleDialog'
       ]),
       handleSizeChange() {
 
       },
       flipOver() {
 
+      },
+      grantPermissions(index, row) {
+
+        console.log(row)
       }
     },
     created() {
