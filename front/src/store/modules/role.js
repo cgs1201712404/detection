@@ -10,6 +10,8 @@ const state = {
   roles: [],
   // 被选中分配权限的角色
   roleDialog: {},
+  // 该系统所能被分配的全部权限
+  wholePermissions: []
 };
 
 const getters = {
@@ -18,6 +20,9 @@ const getters = {
   },
   roleDialog: state => {
     return state.roleDialog
+  },
+  wholePermissions: state => {
+    return state.wholePermissions
   }
 };
 
@@ -30,71 +35,82 @@ const actions = {
         note: '这是拥有全部权限的角色',
         permissionGroup: [
           {
-            path: '/',
-            name: 'home',
-          },
-          {
             path: '/map',
-            name: 'map'
+            name: 'map',
+            label: '地图监控',
           },
           {
             path: '/realTime',
             name: 'realTime',
+            label: '实时数据',
           },
           {
             path: '/history',
-            name: 'history'
+            name: 'history',
+            label: '历史数据',
           },
           {
             path: '/control',
-            name: 'control'
+            name: 'control',
+            label: '设备控制',
           },
           {
             path: '/maintaining',
             name: 'maintaining',
-            permission: ['edit', 'export']
+            label: '设备维护',
+            permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
           },
           {
             path: '/surveillance',
             name: 'surveillance',
-            permission: ['edit', 'export']
+            label: '视频监控',
+            permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
           },
           {
             path: '/processing',
             name: 'processing',
-            permission: ['edit', 'export']
+            label: '报警处理',
+            permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
           },
           {
             path: '/configuration',
-            name: 'configuration'
+            name: 'configuration',
+            label: '报警配置',
           },
           {
             path: '/notification',
-            name: 'notification'
+            name: 'notification',
+            label: '报警通知',
           },
           {
             path: '/daily',
-            name: 'daily'
+            name: 'daily',
+            label: '日报',
           },
           {
             path: '/monthly',
-            name: 'monthly'
+            name: 'monthly',
+            label: '月报',
           },
           {
             path: '/analysis',
-            name: 'analysis'
+            name: 'analysis',
+            label: '报表分析',
           },
           {
             path: '/user',
-            name: 'user'
+            name: 'user',
+            label: '用户管理',
           },
           {
             path: '/role',
-            name: 'role'
+            name: 'role',
+            label: '角色权限管理',
           },
           {
             path: '/logger',
-            name: 'logger'
+            name: 'logger',
+            label: '日志管理',
           }
         ]
       },
@@ -104,84 +120,347 @@ const actions = {
         note: '这是总经理的角色',
         permissionGroup: [
           {
-            path: '/',
-            name: 'home',
-          },
-          {
             path: '/map',
-            name: 'map'
+            name: 'map',
+            label: '地图监控',
           },
           {
             path: '/realTime',
             name: 'realTime',
+            label: '实时数据',
           },
           {
             path: '/history',
-            name: 'history'
+            name: 'history',
+            label: '历史数据',
           },
           {
             path: '/control',
-            name: 'control'
+            name: 'control',
+            label: '设备控制',
           },
           {
             path: '/maintaining',
             name: 'maintaining',
-            permission: ['edit', 'export']
+            label: '设备维护',
+            permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
           },
           {
             path: '/surveillance',
-            name: 'surveillance'
+            name: 'surveillance',
+            label: '视频监控',
+            permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
           },
           {
             path: '/processing',
-            name: 'processing'
+            name: 'processing',
+            label: '报警处理',
+            permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
           },
           {
             path: '/configuration',
-            name: 'configuration'
+            name: 'configuration',
+            label: '报警配置',
           },
           {
             path: '/notification',
-            name: 'notification'
+            name: 'notification',
+            label: '报警通知',
           },
           {
             path: '/daily',
-            name: 'daily'
+            name: 'daily',
+            label: '日报',
           },
           {
             path: '/monthly',
-            name: 'monthly'
+            name: 'monthly',
+            label: '月报',
           },
           {
             path: '/analysis',
-            name: 'analysis'
+            name: 'analysis',
+            label: '报表分析',
           },
           {
             path: '/user',
-            name: 'user'
+            name: 'user',
+            label: '用户管理',
           },
           {
             path: '/role',
-            name: 'role'
+            name: 'role',
+            label: '角色权限管理',
           },
           {
             path: '/logger',
-            name: 'logger'
+            name: 'logger',
+            label: '日志管理',
           }
         ]
       },
       {
         id: '3',
         roleName: '运维人员',
-        note: '这是运维人员的角色'
+        note: '这是运维人员的角色',
+        permissionGroup: [
+          {
+            path: '/map',
+            name: 'map',
+            label: '地图监控',
+          },
+          {
+            path: '/realTime',
+            name: 'realTime',
+            label: '实时数据',
+          },
+          {
+            path: '/history',
+            name: 'history',
+            label: '历史数据',
+          },
+          {
+            path: '/control',
+            name: 'control',
+            label: '设备控制',
+          },
+          {
+            path: '/maintaining',
+            name: 'maintaining',
+            label: '设备维护',
+            permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
+          },
+          {
+            path: '/surveillance',
+            name: 'surveillance',
+            label: '视频监控',
+            permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
+          },
+          {
+            path: '/processing',
+            name: 'processing',
+            label: '报警处理',
+            permission: []
+          },
+          {
+            path: '/configuration',
+            name: 'configuration',
+            label: '报警配置',
+          },
+          {
+            path: '/notification',
+            name: 'notification',
+            label: '报警通知',
+          },
+          {
+            path: '/daily',
+            name: 'daily',
+            label: '日报',
+          },
+          {
+            path: '/monthly',
+            name: 'monthly',
+            label: '月报',
+          },
+          {
+            path: '/analysis',
+            name: 'analysis',
+            label: '报表分析',
+          },
+          {
+            path: '/user',
+            name: 'user',
+            label: '用户管理',
+          },
+          {
+            path: '/role',
+            name: 'role',
+            label: '角色权限管理',
+          },
+          {
+            path: '/logger',
+            name: 'logger',
+            label: '日志管理',
+          }
+        ]
       }
     ];
     if (state.roles && state.roles.length === 0) {
       commit('setRoles', roles)
     }
   },
-  setRoleDialog({commit, state}, role) {
-    commit('setRoleDialog', role);
+  setRoleDialog({commit, state}) {
+    let roleDialog = [
+      {
+        path: '/map',
+        name: 'map',
+        label: '地图监控',
+      },
+      {
+        path: '/realTime',
+        name: 'realTime',
+        label: '实时数据',
+      },
+      {
+        path: '/history',
+        name: 'history',
+        label: '历史数据',
+      },
+      {
+        path: '/control',
+        name: 'control',
+        label: '设备控制',
+      },
+      {
+        path: '/maintaining',
+        name: 'maintaining',
+        label: '设备维护',
+        permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
+      },
+      {
+        path: '/surveillance',
+        name: 'surveillance',
+        label: '视频监控',
+        permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
+      },
+      {
+        path: '/processing',
+        name: 'processing',
+        label: '报警处理',
+        permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
+      },
+      {
+        path: '/configuration',
+        name: 'configuration',
+        label: '报警配置',
+      },
+      {
+        path: '/notification',
+        name: 'notification',
+        label: '报警通知',
+      },
+      {
+        path: '/daily',
+        name: 'daily',
+        label: '日报',
+      },
+      {
+        path: '/monthly',
+        name: 'monthly',
+        label: '月报',
+      },
+      {
+        path: '/analysis',
+        name: 'analysis',
+        label: '报表分析',
+      },
+      {
+        path: '/user',
+        name: 'user',
+        label: '用户管理',
+      },
+      {
+        path: '/role',
+        name: 'role',
+        label: '角色权限管理',
+      },
+      {
+        path: '/logger',
+        name: 'logger',
+        label: '日志管理',
+      }
+    ];
+    commit('setRoleDialog', roleDialog);
+  },
+  initWholePermissions({commit}) {
+    let allPermissions = [
+      {
+        path: '/map',
+        name: 'map',
+        label: '地图监控',
+      },
+      {
+        path: '/realTime',
+        name: 'realTime',
+        label: '实时数据',
+      },
+      {
+        path: '/history',
+        name: 'history',
+        label: '历史数据',
+      },
+      {
+        path: '/control',
+        name: 'control',
+        label: '设备控制',
+        permission: [{value: 'manipulate', label: '操作'}]
+      },
+      {
+        path: '/maintaining',
+        name: 'maintaining',
+        label: '设备维护',
+        permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
+      },
+      {
+        path: '/surveillance',
+        name: 'surveillance',
+        label: '视频监控',
+        permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
+      },
+      {
+        path: '/processing',
+        name: 'processing',
+        label: '报警处理',
+        permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
+      },
+      {
+        path: '/configuration',
+        name: 'configuration',
+        label: '报警配置',
+        permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
+      },
+      {
+        path: '/notification',
+        name: 'notification',
+        label: '报警通知',
+        permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
+      },
+      {
+        path: '/daily',
+        name: 'daily',
+        label: '日报',
+        permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
+      },
+      {
+        path: '/monthly',
+        name: 'monthly',
+        label: '月报',
+        permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
+      },
+      {
+        path: '/analysis',
+        name: 'analysis',
+        label: '报表分析',
+      },
+      {
+        path: '/user',
+        name: 'user',
+        label: '用户管理',
+        permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'},{value: 'add', label: '新建'}]
+      },
+      {
+        path: '/role',
+        name: 'role',
+        label: '角色权限管理',
+      },
+      {
+        path: '/logger',
+        name: 'logger',
+        label: '日志管理',
+        permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
+      }
+    ];
+    commit('setWholePermissions', allPermissions)
   }
 };
 
@@ -191,6 +470,9 @@ const mutations = {
   },
   setRoleDialog(state, entity) {
     state.roleDialog = entity
+  },
+  setWholePermissions(state, entity) {
+    state.wholePermissions = entity;
   }
 };
 

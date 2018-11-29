@@ -5,19 +5,24 @@
 \* Description:
 \*/
 <template id="authorization-dialog">
-  <el-dialog>
-    <el-card shadow="never" v-for="menuPermission in currentRole.permissionGroup" :key="menuPermission.name">
+  <el-dialog :visible.sync="dialogVisible" title="权限分配">
+    <el-card shadow="never" v-for="menuPermission in wholePermissions" :key="menuPermission.name">
       <div slot="header">
-        <span>{{menuPermission.name}}</span>
-        <el-checkbox style="float: right; padding: 3px 0"></el-checkbox>
+        <span>{{menuPermission.label}}</span>
+        <el-checkbox style=" padding: 3px 0"></el-checkbox>
       </div>
       <el-row>
         <el-checkbox-group>
-          <el-checkbox v-for="dataPermission in menuPermission" :label="dataPermission.name"
-                       :key="dataPermission.name">{{dataPermission.name}}</el-checkbox>
+          <el-checkbox v-for="dataPermission in menuPermission.permission" :label="dataPermission.label"
+                       :key="dataPermission.value">{{dataPermission.label}}
+          </el-checkbox>
         </el-checkbox-group>
       </el-row>
     </el-card>
+    <span slot="footer">
+    <el-button @click="dialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+  </span>
   </el-dialog>
 </template>
 
@@ -29,18 +34,35 @@
     computed: {
       ...mapGetters([
         'roles',
-        'roleDialog'
+        'roleDialog',
+        'wholePermissions'
       ]),
     },
     data() {
       return {
+        dialogVisible: false,
+        // state roleDialog的临时变量
         currentRole: this.roleDialog
       }
     },
     methods: {
       ...mapActions([
-        'mockRoles'
+        'mockRoles',
+        'initWholePermissions'
       ]),
+      open() {
+        this.dialogVisible = true
+      },
+      close() {
+        this.dialogVisible = false
+      }
+    },
+    created() {
+      this.initWholePermissions();
+      this.currentRole = this.roleDialog;
+    },
+    updated() {
+      this.currentRole = this.roleDialog;
     }
   }
 </script>

@@ -46,7 +46,7 @@
           </template>
         </el-table-column>
       </el-table>
-      <authorization-dialog>
+      <authorization-dialog ref="auth">
       </authorization-dialog>
     </el-row>
     <el-row class="pagination-row">
@@ -96,8 +96,9 @@
 
       },
       grantPermissions(index, row) {
-
-        console.log(row)
+        console.log(row);
+        // this.setRoleDialog(row);
+        this.$refs.auth.open();
       }
     },
     created() {

@@ -97,10 +97,10 @@ const actions = {
             path: '/permission',
             name: 'permission'
           },
-          {
-            path: '/logger',
-            name: 'logger'
-          }
+          // {
+          //   path: '/logger',
+          //   name: 'logger'
+          // }
         ]
       }
     };
