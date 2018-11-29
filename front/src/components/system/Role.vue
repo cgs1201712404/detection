@@ -97,7 +97,7 @@
       },
       grantPermissions(index, row) {
         console.log(row);
-        // this.setRoleDialog(row);
+        this.setRoleDialog(row);
         this.$refs.auth.open();
       }
     },

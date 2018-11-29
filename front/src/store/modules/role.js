@@ -38,79 +38,106 @@ const actions = {
             path: '/map',
             name: 'map',
             label: '地图监控',
+            checked: true
           },
           {
             path: '/realTime',
             name: 'realTime',
             label: '实时数据',
+            checked: true
           },
           {
             path: '/history',
             name: 'history',
             label: '历史数据',
+            checked: true
           },
           {
             path: '/control',
             name: 'control',
             label: '设备控制',
+            checked: true
           },
           {
             path: '/maintaining',
             name: 'maintaining',
             label: '设备维护',
-            permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
+            checked: true,
+            permission: [{value: 'edit', label: '编辑', checked: true}, {value: 'export', label: '导出', checked: true}]
           },
           {
             path: '/surveillance',
             name: 'surveillance',
             label: '视频监控',
-            permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
+            checked: true,
+            permission: [{value: 'edit', label: '编辑', checked: true}, {value: 'export', label: '导出', checked: true}]
           },
           {
             path: '/processing',
             name: 'processing',
             label: '报警处理',
-            permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
+            checked: true,
+            permission: [{value: 'edit', label: '编辑', checked: true}, {value: 'export', label: '导出', checked: true}]
           },
           {
             path: '/configuration',
             name: 'configuration',
             label: '报警配置',
+            checked: true,
+            permission: [{value: 'remove', label: '删除', checked: true},
+              {value: 'add', label: '新增', checked: true},
+              {value: 'edit', label: '编辑', checked: true}]
           },
           {
             path: '/notification',
             name: 'notification',
             label: '报警通知',
+            checked: true,
           },
           {
             path: '/daily',
             name: 'daily',
             label: '日报',
+            checked: true,
+            permission: [{value: 'export', label: '导出', checked: true}]
           },
           {
             path: '/monthly',
             name: 'monthly',
             label: '月报',
+            checked: true,
+            permission: [{value: 'export', label: '导出', checked: true}]
           },
           {
             path: '/analysis',
             name: 'analysis',
             label: '报表分析',
+            checked: true,
           },
           {
             path: '/user',
             name: 'user',
             label: '用户管理',
+            checked: true,
+            permission: [{value: 'remove', label: '删除', checked: true},
+              {value: 'add', label: '新增', checked: true},
+              {value: 'edit', label: '编辑', checked: true}]
           },
           {
             path: '/role',
             name: 'role',
             label: '角色权限管理',
+            checked: true,
+            permission: [{value: 'remove', label: '删除', checked: true},
+              {value: 'add', label: '新增', checked: true},
+              {value: 'edit', label: '编辑', checked: true},
+              {value: 'grant', label: '分配权限', checked: true}]
           },
           {
             path: '/logger',
             name: 'logger',
             label: '日志管理',
+            checked: true,
           }
         ]
       },
@@ -123,79 +150,106 @@ const actions = {
             path: '/map',
             name: 'map',
             label: '地图监控',
+            checked: true,
           },
           {
             path: '/realTime',
             name: 'realTime',
             label: '实时数据',
+            checked: true,
           },
           {
             path: '/history',
             name: 'history',
             label: '历史数据',
+            checked: true,
           },
           {
             path: '/control',
             name: 'control',
             label: '设备控制',
+            checked: true,
           },
           {
             path: '/maintaining',
             name: 'maintaining',
             label: '设备维护',
-            permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
+            checked: true,
+            permission: [{value: 'edit', label: '编辑', checked: true}, {value: 'export', label: '导出', checked: true}]
           },
           {
             path: '/surveillance',
             name: 'surveillance',
             label: '视频监控',
-            permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
+            checked: true,
+            permission: [{value: 'edit', label: '编辑', checked: true}, {value: 'export', label: '导出', checked: true}]
           },
           {
             path: '/processing',
             name: 'processing',
             label: '报警处理',
-            permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
+            checked: true,
+            permission: [{value: 'edit', label: '编辑', checked: true}, {value: 'export', label: '导出', checked: true}]
           },
           {
             path: '/configuration',
             name: 'configuration',
             label: '报警配置',
+            checked: true,
+            permission: [{value: 'remove', label: '删除', checked: true},
+              {value: 'add', label: '新增', checked: true},
+              {value: 'edit', label: '编辑', checked: true}]
           },
           {
             path: '/notification',
             name: 'notification',
             label: '报警通知',
+            checked: true,
           },
           {
             path: '/daily',
             name: 'daily',
             label: '日报',
+            checked: true,
+            permission: [{value: 'export', label: '导出', checked: true}]
           },
           {
             path: '/monthly',
             name: 'monthly',
             label: '月报',
+            checked: true,
+            permission: [{value: 'export', label: '导出', checked: true}]
           },
           {
             path: '/analysis',
             name: 'analysis',
+            checked: true,
             label: '报表分析',
           },
           {
             path: '/user',
             name: 'user',
             label: '用户管理',
+            checked: true,
+            permission: [{value: 'remove', label: '删除', checked: false},
+              {value: 'add', label: '新增', checked: false},
+              {value: 'edit', label: '编辑', checked: false}]
           },
           {
             path: '/role',
             name: 'role',
             label: '角色权限管理',
+            checked: true,
+            permission: [{value: 'remove', label: '删除', checked: false},
+              {value: 'add', label: '新增', checked: false},
+              {value: 'edit', label: '编辑', checked: false},
+              {value: 'grant', label: '分配权限', checked: false}]
           },
           {
             path: '/logger',
             name: 'logger',
             label: '日志管理',
+            checked: true,
           }
         ]
       },
@@ -208,169 +262,118 @@ const actions = {
             path: '/map',
             name: 'map',
             label: '地图监控',
+            checked: true,
           },
           {
             path: '/realTime',
             name: 'realTime',
             label: '实时数据',
+            checked: true,
           },
           {
             path: '/history',
             name: 'history',
             label: '历史数据',
+            checked: true,
           },
           {
             path: '/control',
             name: 'control',
             label: '设备控制',
+            checked: true,
           },
           {
             path: '/maintaining',
             name: 'maintaining',
             label: '设备维护',
-            permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
+            checked: true,
+            permission: [{value: 'edit', label: '编辑', checked: true}, {value: 'export', label: '导出', checked: true}]
           },
           {
             path: '/surveillance',
             name: 'surveillance',
             label: '视频监控',
-            permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
+            checked: true,
+            permission: [{value: 'edit', label: '编辑', checked: true}, {value: 'export', label: '导出', checked: true}]
           },
           {
             path: '/processing',
             name: 'processing',
             label: '报警处理',
-            permission: []
+            checked: true,
+            permission: [{value: 'edit', label: '编辑', checked: true}, {value: 'export', label: '导出', checked: true}]
           },
           {
             path: '/configuration',
             name: 'configuration',
             label: '报警配置',
+            checked: true,
+            permission: [{value: 'remove', label: '删除', checked: true},
+              {value: 'add', label: '新增', checked: true},
+              {value: 'edit', label: '编辑', checked: true}]
           },
           {
             path: '/notification',
             name: 'notification',
             label: '报警通知',
+            checked: true,
           },
           {
             path: '/daily',
             name: 'daily',
             label: '日报',
+            checked: true,
+            permission: [{value: 'export', label: '导出', checked: true}]
           },
           {
             path: '/monthly',
             name: 'monthly',
             label: '月报',
+            checked: true,
+            permission: [{value: 'export', label: '导出', checked: true}]
           },
           {
             path: '/analysis',
             name: 'analysis',
             label: '报表分析',
+            checked: true,
           },
           {
             path: '/user',
             name: 'user',
             label: '用户管理',
+            checked: false,
+            permission: [{value: 'remove', label: '删除', checked: false},
+              {value: 'add', label: '新增', checked: false},
+              {value: 'edit', label: '编辑', checked: false}]
           },
           {
             path: '/role',
             name: 'role',
             label: '角色权限管理',
+            checked: false,
+            permission: [{value: 'remove', label: '删除', checked: false},
+              {value: 'add', label: '新增', checked: false},
+              {value: 'edit', label: '编辑', checked: false},
+              {value: 'grant', label: '分配权限', checked: false}]
           },
           {
             path: '/logger',
             name: 'logger',
             label: '日志管理',
+            checked: false,
           }
         ]
       }
     ];
     if (state.roles && state.roles.length === 0) {
-      commit('setRoles', roles)
+      commit('setRoles', roles);
+      commit('setRoleDialog', roles[0])
     }
   },
-  setRoleDialog({commit, state}) {
-    let roleDialog = [
-      {
-        path: '/map',
-        name: 'map',
-        label: '地图监控',
-      },
-      {
-        path: '/realTime',
-        name: 'realTime',
-        label: '实时数据',
-      },
-      {
-        path: '/history',
-        name: 'history',
-        label: '历史数据',
-      },
-      {
-        path: '/control',
-        name: 'control',
-        label: '设备控制',
-      },
-      {
-        path: '/maintaining',
-        name: 'maintaining',
-        label: '设备维护',
-        permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
-      },
-      {
-        path: '/surveillance',
-        name: 'surveillance',
-        label: '视频监控',
-        permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
-      },
-      {
-        path: '/processing',
-        name: 'processing',
-        label: '报警处理',
-        permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
-      },
-      {
-        path: '/configuration',
-        name: 'configuration',
-        label: '报警配置',
-      },
-      {
-        path: '/notification',
-        name: 'notification',
-        label: '报警通知',
-      },
-      {
-        path: '/daily',
-        name: 'daily',
-        label: '日报',
-      },
-      {
-        path: '/monthly',
-        name: 'monthly',
-        label: '月报',
-      },
-      {
-        path: '/analysis',
-        name: 'analysis',
-        label: '报表分析',
-      },
-      {
-        path: '/user',
-        name: 'user',
-        label: '用户管理',
-      },
-      {
-        path: '/role',
-        name: 'role',
-        label: '角色权限管理',
-      },
-      {
-        path: '/logger',
-        name: 'logger',
-        label: '日志管理',
-      }
-    ];
-    commit('setRoleDialog', roleDialog);
+
+  setRoleDialog({commit, state}, role) {
+    commit('setRoleDialog', role);
   },
   initWholePermissions({commit}) {
     let allPermissions = [
@@ -446,7 +449,7 @@ const actions = {
         path: '/user',
         name: 'user',
         label: '用户管理',
-        permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'},{value: 'add', label: '新建'}]
+        permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}, {value: 'add', label: '新建'}]
       },
       {
         path: '/role',

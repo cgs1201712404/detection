@@ -6,17 +6,15 @@
 \*/
 <template id="authorization-dialog">
   <el-dialog :visible.sync="dialogVisible" title="权限分配">
-    <el-card shadow="never" v-for="menuPermission in wholePermissions" :key="menuPermission.name">
+    <el-card shadow="never" v-for="menuPermission in currentRole.permissionGroup" :key="menuPermission.name">
       <div slot="header">
         <span>{{menuPermission.label}}</span>
-        <el-checkbox style=" padding: 3px 0"></el-checkbox>
+        <el-checkbox v-model="menuPermission.checked"></el-checkbox>
       </div>
       <el-row>
-        <el-checkbox-group>
-          <el-checkbox v-for="dataPermission in menuPermission.permission" :label="dataPermission.label"
-                       :key="dataPermission.value">{{dataPermission.label}}
-          </el-checkbox>
-        </el-checkbox-group>
+        <el-checkbox class="grant-box" v-for="dataPermission in menuPermission.permission" :label="dataPermission.label"
+                     :key="dataPermission.value" v-model="dataPermission.checked">
+        </el-checkbox>
       </el-row>
     </el-card>
     <span slot="footer">
@@ -37,12 +35,15 @@
         'roleDialog',
         'wholePermissions'
       ]),
+      // state roleDialog的临时变量
+      // currentRole: this.roleDialog
+      currentRole() {
+        return this.roleDialog;
+      }
     },
     data() {
       return {
         dialogVisible: false,
-        // state roleDialog的临时变量
-        currentRole: this.roleDialog
       }
     },
     methods: {
@@ -57,16 +58,17 @@
         this.dialogVisible = false
       }
     },
-    created() {
-      this.initWholePermissions();
-      this.currentRole = this.roleDialog;
-    },
-    updated() {
-      this.currentRole = this.roleDialog;
-    }
+    // created() {
+    //   this.currentRole = this.roleDialog;
+    // },
+    // updated() {
+    //   this.currentRole = this.roleDialog;
+    // }
   }
 </script>
 
 <style scoped>
-
+  .grant-box {
+    padding-left: .8em;
+  }
 </style>

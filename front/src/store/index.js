@@ -29,6 +29,8 @@ export default new Vuex.Store({
     report,
     role
   },
-  strict: debug,
+  // 不使用严格模式，vuex绑定checkbox中的坑
+  // strict: debug,
+  strict: false,
   plugins: debug ? [createLogger()] : []
 });
