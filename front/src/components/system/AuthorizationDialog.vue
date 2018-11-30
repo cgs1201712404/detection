@@ -19,7 +19,7 @@
     </el-card>
     <span slot="footer">
     <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+    <el-button type="primary" @click="authSubmit">确 定</el-button>
   </span>
   </el-dialog>
 </template>
@@ -49,13 +49,22 @@
     methods: {
       ...mapActions([
         'mockRoles',
-        'initWholePermissions'
+        'submitAuthorization'
       ]),
       open() {
         this.dialogVisible = true
       },
       close() {
         this.dialogVisible = false
+      },
+      /**
+       * 权限分配提交
+       */
+      authSubmit() {
+        this.submitAuthorization().then(result => {
+          this.dialogVisible = false;
+          this.$message.success({showClose: true, message: result.msg, duration: 4000})
+        }).catch(error => this.$message.error({showClose: true, message: error, duration: 4000}))
       }
     },
     // created() {

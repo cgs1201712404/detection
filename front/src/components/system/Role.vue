@@ -12,7 +12,7 @@
           <el-button type="success" icon="el-icon-circle-plus-outline">添加角色</el-button>
         </el-form-item>
         <el-form-item>
-          <el-button type="danger" icon="el-icon-download">批量删除</el-button>
+          <el-button type="danger" icon="el-icon-download" @click="batchRemoveRoles">批量删除</el-button>
         </el-form-item>
         <el-form-item style="margin-left: 2em">
           <el-input placeholder="请输入角色名"></el-input>
@@ -23,7 +23,7 @@
       </el-form>
     </el-row>
     <el-row class="table-row">
-      <el-table border :data="roles">
+      <el-table border :data="roles" @selection-change="selectionChange">
         <el-table-column
           type="selection">
         </el-table-column>
@@ -42,7 +42,7 @@
           <template slot-scope="scope">
             <el-button size="small" type="warning" @click="grantPermissions(scope.$index,scope.row)">分配权限</el-button>
             <el-button size="small" type="success">编辑</el-button>
-            <el-button size="small" type="danger">删除</el-button>
+            <el-button size="small" type="danger" @click="removeRole(scope.$index,scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -77,6 +77,7 @@
     },
     data() {
       return {
+        selRoles: [],
         pagination: {
           page: 1,
           limit: 10,
@@ -87,7 +88,8 @@
     methods: {
       ...mapActions([
         'mockRoles',
-        'setRoleDialog'
+        'setRoleDialog',
+        'removeRoleAct'
       ]),
       handleSizeChange() {
 
@@ -96,11 +98,44 @@
 
       },
       grantPermissions(index, row) {
-        console.log(row);
         this.setRoleDialog(row);
         this.$refs.auth.open();
+      },
+      removeRole(index, row) {
+        this.$confirm('是否删除该角色?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.removeRoleAct(row);
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        }).catch(() => {
+
+        });
+      },
+      batchRemoveRoles() {
+        this.$confirm('确认批量删除?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        }).catch(() => {
+
+        });
+      },
+
+      selectionChange(selection) {
+        this.selRoles = selection;
       }
     },
+
     created() {
       this.mockRoles();
     }

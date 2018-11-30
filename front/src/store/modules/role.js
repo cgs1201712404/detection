@@ -5,6 +5,9 @@
  \* Description: 角色权限 state
  \*/
 
+import API from '../../api/api_role'
+import util from '../../common/util'
+
 const state = {
   // 角色分页数据
   roles: [],
@@ -371,99 +374,22 @@ const actions = {
       commit('setRoleDialog', roles[0])
     }
   },
-
   setRoleDialog({commit, state}, role) {
     commit('setRoleDialog', role);
   },
-  initWholePermissions({commit}) {
-    let allPermissions = [
-      {
-        path: '/map',
-        name: 'map',
-        label: '地图监控',
-      },
-      {
-        path: '/realTime',
-        name: 'realTime',
-        label: '实时数据',
-      },
-      {
-        path: '/history',
-        name: 'history',
-        label: '历史数据',
-      },
-      {
-        path: '/control',
-        name: 'control',
-        label: '设备控制',
-        permission: [{value: 'manipulate', label: '操作'}]
-      },
-      {
-        path: '/maintaining',
-        name: 'maintaining',
-        label: '设备维护',
-        permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
-      },
-      {
-        path: '/surveillance',
-        name: 'surveillance',
-        label: '视频监控',
-        permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
-      },
-      {
-        path: '/processing',
-        name: 'processing',
-        label: '报警处理',
-        permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
-      },
-      {
-        path: '/configuration',
-        name: 'configuration',
-        label: '报警配置',
-        permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
-      },
-      {
-        path: '/notification',
-        name: 'notification',
-        label: '报警通知',
-        permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
-      },
-      {
-        path: '/daily',
-        name: 'daily',
-        label: '日报',
-        permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
-      },
-      {
-        path: '/monthly',
-        name: 'monthly',
-        label: '月报',
-        permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
-      },
-      {
-        path: '/analysis',
-        name: 'analysis',
-        label: '报表分析',
-      },
-      {
-        path: '/user',
-        name: 'user',
-        label: '用户管理',
-        permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}, {value: 'add', label: '新建'}]
-      },
-      {
-        path: '/role',
-        name: 'role',
-        label: '角色权限管理',
-      },
-      {
-        path: '/logger',
-        name: 'logger',
-        label: '日志管理',
-        permission: [{value: 'edit', label: '编辑'}, {value: 'export', label: '导出'}]
-      }
-    ];
-    commit('setWholePermissions', allPermissions)
+
+  submitAuthorization({commit, state}) {
+    return new Promise((resolve, reject) => {
+      let params = state.roleDialog;
+      console.log(params);
+      API.authorization(params).then(result => {
+        resolve(result);
+      }, err => reject(err)).catch(error => reject(error))
+    })
+  },
+
+  removeRoleAct({commit, state}, role) {
+    commit('removeRole', role);
   }
 };
 
@@ -476,6 +402,10 @@ const mutations = {
   },
   setWholePermissions(state, entity) {
     state.wholePermissions = entity;
+  },
+
+  removeRole(state, entity) {
+    util.removeElement(state.roles, entity, 'id');
   }
 };
 
