@@ -48,6 +48,8 @@
       </el-table>
       <authorization-dialog ref="auth">
       </authorization-dialog>
+      <add-role-dialog>
+      </add-role-dialog>
     </el-row>
     <el-row class="pagination-row">
       <el-pagination
@@ -66,10 +68,11 @@
 <script>
   import {mapActions, mapGetters} from 'vuex';
   import AuthorizationDialog from "./AuthorizationDialog";
+  import AddRoleDialog from "./AddRoleDialog";
 
   export default {
     name: "Role",
-    components: {AuthorizationDialog},
+    components: {AddRoleDialog, AuthorizationDialog},
     computed: {
       ...mapGetters([
         'roles'
@@ -89,7 +92,8 @@
       ...mapActions([
         'mockRoles',
         'setRoleDialog',
-        'removeRoleAct'
+        'removeRoleAct',
+        'removeRolesAct'
       ]),
       handleSizeChange() {
 
@@ -122,10 +126,13 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          });
+          if (this.selRoles && this.selRoles.length === 0) {
+            this.$message({type: 'warning', message: '请选择待删除角色!'});
+          } else {
+            this.removeRolesAct(this.selRoles);
+            // this.selRoles = [];
+            this.$message({type: 'success', message: '删除成功!'});
+          }
         }).catch(() => {
 
         });

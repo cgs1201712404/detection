@@ -19,7 +19,7 @@
     </el-header>
 
     <el-container>
-      <el-aside class="aside">
+      <el-aside width="250px" class="aside">
         <el-row class="nav-area">
           <!--导航菜单-->
           <el-menu router unique-opened>
@@ -88,7 +88,7 @@
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .header {
     background: #00bfff;
     padding: 0;
@@ -122,7 +122,7 @@
 
   .aside {
     border-right: 1px gray solid;
-    height: 800px;
+    height: 100%;
 
     .user-area {
       background-color: gray;

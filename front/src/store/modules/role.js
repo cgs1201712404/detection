@@ -390,6 +390,10 @@ const actions = {
 
   removeRoleAct({commit, state}, role) {
     commit('removeRole', role);
+  },
+
+  removeRolesAct({commit, state}, roles) {
+    roles.forEach(role => commit('removeRole', role))
   }
 };
 
