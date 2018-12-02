@@ -185,4 +185,112 @@ export default {
     }
   ],
 
+  defaultPermissionGroup: [
+    {
+      path: '/map',
+      name: 'map',
+      label: '地图监控',
+      checked: true,
+    },
+    {
+      path: '/realTime',
+      name: 'realTime',
+      label: '实时数据',
+      checked: true,
+    },
+    {
+      path: '/history',
+      name: 'history',
+      label: '历史数据',
+      checked: true,
+    },
+    {
+      path: '/control',
+      name: 'control',
+      label: '设备控制',
+      checked: true,
+    },
+    {
+      path: '/maintaining',
+      name: 'maintaining',
+      label: '设备维护',
+      checked: true,
+      permission: [{value: 'edit', label: '编辑', checked: true}, {value: 'export', label: '导出', checked: true}]
+    },
+    {
+      path: '/surveillance',
+      name: 'surveillance',
+      label: '视频监控',
+      checked: true,
+      permission: [{value: 'edit', label: '编辑', checked: true}, {value: 'export', label: '导出', checked: true}]
+    },
+    {
+      path: '/processing',
+      name: 'processing',
+      label: '报警处理',
+      checked: true,
+      permission: [{value: 'edit', label: '编辑', checked: true}, {value: 'export', label: '导出', checked: true}]
+    },
+    {
+      path: '/configuration',
+      name: 'configuration',
+      label: '报警配置',
+      checked: true,
+      permission: [{value: 'remove', label: '删除', checked: true},
+        {value: 'add', label: '新增', checked: true},
+        {value: 'edit', label: '编辑', checked: true}]
+    },
+    {
+      path: '/notification',
+      name: 'notification',
+      label: '报警通知',
+      checked: true,
+    },
+    {
+      path: '/daily',
+      name: 'daily',
+      label: '日报',
+      checked: true,
+      permission: [{value: 'export', label: '导出', checked: true}]
+    },
+    {
+      path: '/monthly',
+      name: 'monthly',
+      label: '月报',
+      checked: true,
+      permission: [{value: 'export', label: '导出', checked: true}]
+    },
+    {
+      path: '/analysis',
+      name: 'analysis',
+      label: '报表分析',
+      checked: true,
+    },
+    {
+      path: '/user',
+      name: 'user',
+      label: '用户管理',
+      checked: false,
+      permission: [{value: 'remove', label: '删除', checked: false},
+        {value: 'add', label: '新增', checked: false},
+        {value: 'edit', label: '编辑', checked: false}]
+    },
+    {
+      path: '/role',
+      name: 'role',
+      label: '角色权限管理',
+      checked: false,
+      permission: [{value: 'remove', label: '删除', checked: false},
+        {value: 'add', label: '新增', checked: false},
+        {value: 'edit', label: '编辑', checked: false},
+        {value: 'grant', label: '分配权限', checked: false}]
+    },
+    {
+      path: '/logger',
+      name: 'logger',
+      label: '日志管理',
+      checked: false,
+    }
+  ]
+
 }

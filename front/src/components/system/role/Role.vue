@@ -9,7 +9,7 @@
     <el-row style="margin-top: 2em">
       <el-form :inline="true">
         <el-form-item>
-          <el-button type="success" icon="el-icon-circle-plus-outline">添加角色</el-button>
+          <el-button type="success" icon="el-icon-circle-plus-outline" @click="addRole">添加角色</el-button>
         </el-form-item>
         <el-form-item>
           <el-button type="danger" icon="el-icon-download" @click="batchRemoveRoles">批量删除</el-button>
@@ -41,15 +41,17 @@
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button size="small" type="warning" @click="grantPermissions(scope.$index,scope.row)">分配权限</el-button>
-            <el-button size="small" type="success">编辑</el-button>
+            <el-button size="small" type="success" @click="editRole(scope.$index,scope.row)">编辑</el-button>
             <el-button size="small" type="danger" @click="removeRole(scope.$index,scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
       <authorization-dialog ref="auth">
       </authorization-dialog>
-      <add-role-dialog>
+      <add-role-dialog ref="addDialog">
       </add-role-dialog>
+      <edit-role-dialog ref="editDialog">
+      </edit-role-dialog>
     </el-row>
     <el-row class="pagination-row">
       <el-pagination
@@ -69,10 +71,11 @@
   import {mapActions, mapGetters} from 'vuex';
   import AuthorizationDialog from "./AuthorizationDialog";
   import AddRoleDialog from "./AddRoleDialog";
+  import EditRoleDialog from "./EditRoleDialog";
 
   export default {
     name: "Role",
-    components: {AddRoleDialog, AuthorizationDialog},
+    components: {EditRoleDialog, AddRoleDialog, AuthorizationDialog},
     computed: {
       ...mapGetters([
         'roles'
@@ -105,6 +108,10 @@
         this.setRoleDialog(row);
         this.$refs.auth.open();
       },
+      editRole(index, row) {
+        this.setRoleDialog(row);
+        this.$refs.editDialog.open();
+      },
       removeRole(index, row) {
         this.$confirm('是否删除该角色?', '提示', {
           confirmButtonText: '确定',
@@ -136,6 +143,12 @@
         }).catch(() => {
 
         });
+      },
+      /**
+       * 新建角色按钮回调函数
+       */
+      addRole() {
+        this.$refs.addDialog.open();
       },
 
       selectionChange(selection) {

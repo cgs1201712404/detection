@@ -4,6 +4,7 @@
  \* @time: 2018/11/15 12:01
  \* Description: 用户state，用于存放用户相关数据（用户、权限组、菜单）
  \*/
+import util from '../../common/util'
 
 const state = {
   // 当前用户
@@ -109,7 +110,7 @@ const actions = {
   mockUsers({commit}) {
     let users = [
       {
-        userName: 'tracy4262',
+        userName: 'tracy0',
         password: '123456',
         name: '彭诗杰',
         gender: '男',
@@ -118,7 +119,7 @@ const actions = {
         position: '技术总监',
       },
       {
-        userName: 'tracy4262',
+        userName: 'tracy1',
         password: '123456',
         name: '彭诗杰',
         gender: '男',
@@ -127,7 +128,7 @@ const actions = {
         position: '技术总监',
       },
       {
-        userName: 'tracy4262',
+        userName: 'tracy2',
         password: '123456',
         name: '彭诗杰',
         gender: '男',
@@ -136,7 +137,7 @@ const actions = {
         position: '技术总监',
       },
       {
-        userName: 'tracy4262',
+        userName: 'tracy3',
         password: '123456',
         name: '彭诗杰',
         gender: '男',
@@ -145,7 +146,7 @@ const actions = {
         position: '技术总监',
       },
       {
-        userName: 'tracy4262',
+        userName: 'tracy4',
         password: '123456',
         name: '彭诗杰',
         gender: '男',
@@ -154,7 +155,7 @@ const actions = {
         position: '技术总监',
       },
       {
-        userName: 'tracy4262',
+        userName: 'tracy5',
         password: '123456',
         name: '彭诗杰',
         gender: '男',
@@ -163,7 +164,7 @@ const actions = {
         position: '技术总监',
       },
       {
-        userName: 'tracy4262',
+        userName: 'tracy6',
         password: '123456',
         name: '彭诗杰',
         gender: '男',
@@ -173,6 +174,18 @@ const actions = {
       }
     ];
     commit('setUsers', users)
+  },
+  removeUserAct({commit}, user) {
+    /**
+     * 向服务器发送删除用户请求，根据返回结果进行响应
+     */
+    commit('removeUser', user)
+  },
+  removeUsersAct({commit}, users) {
+    /**
+     * 向服务器发送删除用户请求，根据返回结果进行响应
+     */
+    users.forEach(user => commit('removeUser', user))
   }
 };
 
@@ -182,6 +195,9 @@ const mutations = {
   },
   setUsers(state, entity) {
     state.users = entity
+  },
+  removeUser(state, entity) {
+    util.removeElement(state.users, entity, 'userName');
   }
 };
 

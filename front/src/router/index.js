@@ -31,7 +31,7 @@ const Analysis = resolve => require(['@/components/report/Analysis'], resolve);
 const Daily = resolve => require(['@/components/report/Daily'], resolve);
 const Monthly = resolve => require(['@/components/report/Monthly'], resolve);
 const User = resolve => require(['@/components/system/User'], resolve);
-const Role = resolve => require(['@/components/system/Role'], resolve);
+const Role = resolve => require(['@/components/system/role/Role'], resolve);
 const Permission = resolve => require(['@/components/system/Permission'], resolve);
 
 import Logger from '@/components/system/Logger'

@@ -13,8 +13,8 @@ const state = {
   roles: [],
   // 被选中分配权限的角色
   roleDialog: {},
-  // 该系统所能被分配的全部权限
-  wholePermissions: []
+  // 新建角色时，权限的default值
+  newPermissions: []
 };
 
 const getters = {
@@ -23,9 +23,6 @@ const getters = {
   },
   roleDialog: state => {
     return state.roleDialog
-  },
-  wholePermissions: state => {
-    return state.wholePermissions
   }
 };
 
@@ -378,10 +375,29 @@ const actions = {
     commit('setRoleDialog', role);
   },
 
+  /**
+   * 修改角色信息
+   * @param commit
+   * @param state
+   * @param role
+   * @return {Promise<any>}
+   */
+  updateRole({commit, state}, role) {
+    return new Promise((resolve, reject) => {
+      let params = {
+        roleName: role.roleName,
+        note: role.note
+      };
+      API.updateRole(params).then(result => {
+        commit('setRoleDialog', role);
+        resolve(result);
+      }, err => reject(err)).catch(error => reject(error))
+    })
+  },
+
   submitAuthorization({commit, state}) {
     return new Promise((resolve, reject) => {
       let params = state.roleDialog;
-      console.log(params);
       API.authorization(params).then(result => {
         resolve(result);
       }, err => reject(err)).catch(error => reject(error))

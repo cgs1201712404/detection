@@ -12,6 +12,7 @@
         <el-col :span="2" class="topbar-logo">
           <a href="/"><img src=""></a>
         </el-col>
+
         <el-col :span="4" class="topbar-title">
           <span style="font-size: 25px;color: #fff;">智能环保监控管理系统</span>
         </el-col>

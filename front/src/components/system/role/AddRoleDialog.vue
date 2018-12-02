@@ -19,18 +19,18 @@
         </el-form>
         <el-row>
           <el-button type="text">分配权限</el-button>
-          <el-button type="success">全选</el-button>
-          <el-button type="warning">全不选</el-button>
+          <el-button type="success" @click="selectAll">全选</el-button>
+          <el-button type="warning" @click="unselectAll">全不选</el-button>
         </el-row>
-        <el-row style="margin-top: 2em">
+        <el-row style="margin-top: 2em" v-for="menuPermission in roleForm.permissionGroup" :key="menuPermission.name">
           <el-col :span="6">
-            <el-checkbox label="菜单权限" border></el-checkbox>
+            <el-checkbox :label="menuPermission.label" v-model="menuPermission.checked" border></el-checkbox>
           </el-col>
           <el-col :span="18">
-            <el-checkbox-group>
-              <el-checkbox-button label="数据权限"></el-checkbox-button>
-              <el-checkbox-button label="数据权限"></el-checkbox-button>
-            </el-checkbox-group>
+            <!--<el-checkbox-group v-model="menuPermission.permission">-->
+            <el-checkbox-button v-for="dataPermission in menuPermission.permission" :label="dataPermission.label"
+                                :key="dataPermission.value" v-model="dataPermission.checked"></el-checkbox-button>
+            <!--</el-checkbox-group>-->
           </el-col>
         </el-row>
       </el-row>
@@ -43,17 +43,33 @@
 </template>
 
 <script>
+  import CONSTANTS from '../../../common/constants'
+  import util from "../../../common/util";
+
   export default {
     name: "AddRoleDialog",
     computed: {},
     data() {
       return {
-        dialogVisible: true,
+        dialogVisible: false,
         roleForm: {
           name: '',
-          note: ''
+          note: '',
+          permissionGroup: CONSTANTS.defaultPermissionGroup
         }
       }
+    },
+    methods: {
+      open() {
+        this.dialogVisible = true;
+      },
+      selectAll() {
+        util.setPermissionGroupChecked(this.roleForm.permissionGroup, true)
+      },
+      unselectAll() {
+        util.setPermissionGroupChecked(this.roleForm.permissionGroup, false)
+      },
+
     }
   }
 </script>

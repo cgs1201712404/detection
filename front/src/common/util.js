@@ -23,7 +23,36 @@ function removeElement(list, entity, attr) {
   }
 }
 
+function deepCopy(obj) {
+  if (typeof obj !== 'object') {
+    return obj;
+  }
+  let newobj = {};
+  for (let attr in obj) {
+    newobj[attr] = deepCopy(obj[attr]);
+  }
+  return newobj;
+}
+
+/**
+ * 设置权限组中checked属性
+ * @param permissionGroup 权限组list
+ * @param value true or false
+ */
+function setPermissionGroupChecked(permissionGroup, value) {
+  for (let menuPermission of permissionGroup) {
+    menuPermission.checked = value;
+    if (contains(Object.getOwnPropertyNames(menuPermission), 'permission')) {
+      for (let dataPermission of menuPermission.permission) {
+        dataPermission.checked = value
+      }
+    }
+  }
+}
+
 export default {
   contains: contains,
-  removeElement: removeElement
+  removeElement: removeElement,
+  copyObject: deepCopy,
+  setPermissionGroupChecked: setPermissionGroupChecked
 }

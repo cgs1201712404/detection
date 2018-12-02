@@ -15,4 +15,11 @@ export default {
    * @return {*}
    */
   authorization: params => API.POST('/role/auth', params),
+
+  /**
+   * 修改角色信息
+   * @param params
+   * @return {*}
+   */
+  updateRole: params => API.POST('/role/update', params),
 }

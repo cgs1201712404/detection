@@ -12,7 +12,7 @@
           <el-button type="success" icon="el-icon-circle-plus-outline">添加用户</el-button>
         </el-form-item>
         <el-form-item>
-          <el-button type="danger" icon="el-icon-download">批量删除</el-button>
+          <el-button type="danger" icon="el-icon-download" @click="batchRemoveUsers">批量删除</el-button>
         </el-form-item>
         <el-form-item style="margin-left: 2em">
           <el-input placeholder="请输入用户姓名"></el-input>
@@ -23,7 +23,10 @@
       </el-form>
     </el-row>
     <el-row class="table-row">
-      <el-table border :data="users">
+      <el-table border :data="users" @selection-change="selUsersChange">
+        <el-table-column
+          type="selection">
+        </el-table-column>
         <el-table-column
           type="index">
         </el-table-column>
@@ -58,7 +61,7 @@
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button size="small" type="success">编辑</el-button>
-            <el-button size="small" type="danger">删除</el-button>
+            <el-button size="small" type="danger" @click="removeUser(scope.$index,scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -89,6 +92,7 @@
     },
     data() {
       return {
+        selUsers: [],
         pagination: {
           page: 1,
           limit: 10,
@@ -98,13 +102,50 @@
     },
     methods: {
       ...mapActions([
-        'mockUsers'
+        'mockUsers',
+        'removeUserAct',
+        'removeUsersAct'
       ]),
       handleSizeChange() {
 
       },
       flipOver() {
 
+      },
+      selUsersChange(selection) {
+        this.selUsers = selection;
+      },
+      removeUser(index, row) {
+        this.$confirm('是否删除该用户?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.removeUserAct(row);
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        }).catch(() => {
+
+        });
+      },
+      batchRemoveUsers() {
+        this.$confirm('确认批量删除?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          if (this.selUsers && this.selUsers.length === 0) {
+            this.$message({type: 'warning', message: '请选择待删除用户!'});
+          } else {
+            this.removeUsersAct(this.selUsers);
+            this.selUsers = [];
+            this.$message({type: 'success', message: '删除成功!'});
+          }
+        }).catch(() => {
+
+        });
       }
     },
     created() {

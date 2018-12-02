@@ -6,17 +6,22 @@
 \*/
 <template id="authorization-dialog">
   <el-dialog :visible.sync="dialogVisible" title="权限分配">
-    <el-card shadow="never" v-for="menuPermission in currentRole.permissionGroup" :key="menuPermission.name">
-      <div slot="header">
-        <span>{{menuPermission.label}}</span>
-        <el-checkbox v-model="menuPermission.checked"></el-checkbox>
-      </div>
-      <el-row>
-        <el-checkbox class="grant-box" v-for="dataPermission in menuPermission.permission" :label="dataPermission.label"
-                     :key="dataPermission.value" v-model="dataPermission.checked">
-        </el-checkbox>
-      </el-row>
-    </el-card>
+    <el-row>
+      <el-button type="text">分配权限</el-button>
+      <el-button type="success" @click="selectAll">全选</el-button>
+      <el-button type="warning" @click="unselectAll">全不选</el-button>
+    </el-row>
+    <el-row style="margin-top: 2em" v-for="menuPermission in currentRole.permissionGroup" :key="menuPermission.name">
+      <el-col :span="6">
+        <el-checkbox :label="menuPermission.label" v-model="menuPermission.checked" border></el-checkbox>
+      </el-col>
+      <el-col :span="18">
+
+        <el-checkbox-button v-for="dataPermission in menuPermission.permission" :label="dataPermission.label"
+                            :key="dataPermission.value" v-model="dataPermission.checked"></el-checkbox-button>
+
+      </el-col>
+    </el-row>
     <span slot="footer">
     <el-button @click="dialogVisible = false">取 消</el-button>
     <el-button type="primary" @click="authSubmit">确 定</el-button>
@@ -25,6 +30,7 @@
 </template>
 
 <script>
+  import util from "../../../common/util";
   import {mapActions, mapGetters} from 'vuex';
 
   export default {
@@ -32,11 +38,8 @@
     computed: {
       ...mapGetters([
         'roles',
-        'roleDialog',
-        'wholePermissions'
+        'roleDialog'
       ]),
-      // state roleDialog的临时变量
-      // currentRole: this.roleDialog
       currentRole() {
         return this.roleDialog;
       }
@@ -56,6 +59,12 @@
       },
       close() {
         this.dialogVisible = false
+      },
+      selectAll() {
+        util.setPermissionGroupChecked(this.currentRole.permissionGroup, true)
+      },
+      unselectAll() {
+        util.setPermissionGroupChecked(this.currentRole.permissionGroup, false)
       },
       /**
        * 权限分配提交
