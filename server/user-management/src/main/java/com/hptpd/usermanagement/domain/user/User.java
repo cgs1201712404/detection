@@ -1,29 +1,30 @@
-package com.hptpd.usermanagement.domain;
+package com.hptpd.usermanagement.domain.user;
 
+import com.hptpd.usermanagement.domain.Role;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 /**
  * \* Created with IntelliJ IDEA.
  * \* @author: 彭诗杰
  * \* Date: 2018/12/6
- * \* Time: 8:53
- * \* Description:
+ * \* Time: 10:02
+ * \* Description: 用户对象
  * \
  */
-
+@Entity
+@Table(name = "user")
 @Data
-@MappedSuperclass
-public class User {
-
-    @Id
-    private String userName;
-
-    @Column(name = "password")
-    private String password;
+@EqualsAndHashCode(callSuper = true)
+public class User extends AbstractUser {
+    public User(String userName, String password) {
+        super(userName, password);
+    }
 
     /**
      * 姓名
@@ -55,5 +56,6 @@ public class User {
     @Column(name = "position")
     private String position;
 
-
+    @OneToOne(mappedBy = "user")
+    private Role role;
 }
