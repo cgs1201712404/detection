@@ -26,6 +26,10 @@ public class User extends AbstractUser {
         super(userName, password);
     }
 
+    public User() {
+
+    }
+
     /**
      * 姓名
      */

@@ -41,7 +41,4 @@ public class DataPermission {
      */
     @Column(name = "request_type")
     private String requestType;
-
-    @ManyToMany
-    private List<RoleMenu> roleMenus;
 }

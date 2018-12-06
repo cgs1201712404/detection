@@ -1,5 +1,7 @@
 package com.hptpd.usermanagement.domain.vo;
 
+import com.hptpd.usermanagement.common.util.AbstractMyBeanUtils;
+import com.hptpd.usermanagement.domain.user.User;
 import lombok.Data;
 
 /**
@@ -41,4 +43,17 @@ public class UserVo {
      * 职务
      */
     private String position;
+
+
+    public static User toDo(UserVo userVo) {
+        User user = new User();
+        AbstractMyBeanUtils.copyProperties(userVo, user);
+        return user;
+    }
+
+    public static UserVo toVo(User user) {
+        UserVo userVo = new UserVo();
+        AbstractMyBeanUtils.copyProperties(user, userVo);
+        return userVo;
+    }
 }

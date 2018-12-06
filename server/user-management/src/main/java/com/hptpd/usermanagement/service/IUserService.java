@@ -1,5 +1,10 @@
 package com.hptpd.usermanagement.service;
 
+import com.hptpd.usermanagement.component.Result;
+import com.hptpd.usermanagement.domain.vo.UserPageVo;
+import com.hptpd.usermanagement.domain.vo.UserVo;
+import org.springframework.data.domain.Pageable;
+
 /**
  * \* Created with IntelliJ IDEA.
  * \* @author: 彭诗杰
@@ -15,5 +20,27 @@ public interface IUserService {
      */
     void init();
 
+    /**
+     * 新建用户
+     *
+     * @param userVo
+     * @return
+     */
+    Result addUser(UserVo userVo);
 
+    /**
+     * 通过姓名查询用户
+     *
+     * @param name
+     * @return
+     */
+    UserPageVo findByName(String name, Pageable pageable);
+
+    /**
+     * 获取所有用户
+     *
+     * @param pageable
+     * @return
+     */
+    UserPageVo getAllUsers(Pageable pageable);
 }

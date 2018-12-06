@@ -21,7 +21,7 @@ import javax.annotation.Resource;
 public class GenerateTestData {
 
     @Resource(name = "userService")
-    public IUserService userService;
+    IUserService userService;
 
     @Test
     public void generateAdminAndFirstUser() {
