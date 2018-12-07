@@ -45,9 +45,17 @@ public class UserController {
 
     @RequestMapping(value = ".json", method = RequestMethod.GET)
     public UserPageVo getAllUsers(@RequestParam(value = "page", defaultValue = "1") Integer page,
-                                    @RequestParam(value = "limit", defaultValue = "10") Integer limit) {
+                                  @RequestParam(value = "limit", defaultValue = "10") Integer limit) {
         UserPageVo userPageVo = userService.getAllUsers(PageRequest.of(page - 1, limit));
         logger.info(userPageVo.toString());
         return userPageVo;
     }
+
+    @RequestMapping(value = "/remove/{name}.html", method = RequestMethod.GET)
+    public Result removeUser(@PathVariable String name) {
+        Result result = userService.removeUser(name);
+        logger.info(result.toString());
+        return result;
+    }
+
 }

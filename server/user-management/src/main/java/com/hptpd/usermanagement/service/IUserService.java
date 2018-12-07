@@ -32,6 +32,7 @@ public interface IUserService {
      * 通过姓名查询用户
      *
      * @param name
+     * @param pageable
      * @return
      */
     UserPageVo findByName(String name, Pageable pageable);
@@ -43,4 +44,12 @@ public interface IUserService {
      * @return
      */
     UserPageVo getAllUsers(Pageable pageable);
+
+    /**
+     * 删除用户
+     *
+     * @param name
+     * @return
+     */
+    Result removeUser(String name);
 }

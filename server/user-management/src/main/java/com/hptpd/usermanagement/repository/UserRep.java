@@ -17,6 +17,5 @@ import org.springframework.stereotype.Repository;
 @Repository("userRep")
 public interface UserRep extends JpaRepository<User, String> {
 
-
     Page<User> findByName(String name, Pageable pageable);
 }

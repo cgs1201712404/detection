@@ -9,10 +9,8 @@ import com.hptpd.usermanagement.domain.vo.UserVo;
 import com.hptpd.usermanagement.repository.AdminRep;
 import com.hptpd.usermanagement.repository.UserRep;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -89,6 +87,22 @@ public class UserServiceImpl implements IUserService {
         Page<User> userPage = userRep.findAll(pageable);
         UserPageVo userPageVo = UserPageVo.toPageVo(userPage);
         return userPageVo;
+    }
+
+    /**
+     * 删除用户
+     *
+     * @param name 用户名
+     * @return
+     */
+    @Override
+    public Result removeUser(String name) {
+        try {
+            userRep.deleteById(name);
+        } catch (Exception e) {
+            Result.setResult(Result.ERROR, "不存在指定用户!");
+        }
+        return Result.setResult(Result.SUCCESS, "删除用户成功!");
     }
 
     private Admin initAdmin() {
