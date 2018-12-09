@@ -89,12 +89,6 @@ const actions = {
               {value: 'edit', label: '编辑', checked: true}]
           },
           {
-            path: '/notification',
-            name: 'notification',
-            label: '报警通知',
-            checked: true,
-          },
-          {
             path: '/daily',
             name: 'daily',
             label: '日报',

@@ -19,16 +19,18 @@ import java.util.List;
 @Data
 public class DataPermission {
 
-    @Id
-    @GenericGenerator(name = "uuid", strategy = "uuid")
-    @GeneratedValue(generator = "uuid")
-    private String id;
-
     /**
      * 数据操作名称
      */
+    @Id
     @Column(name = "name")
     private String name;
+
+    /**
+     * 数据操作label
+     */
+    @Column(name = "label")
+    private String label;
 
     /**
      * 数据操作对应url

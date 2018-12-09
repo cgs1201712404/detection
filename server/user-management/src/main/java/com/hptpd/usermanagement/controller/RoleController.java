@@ -1,6 +1,16 @@
 package com.hptpd.usermanagement.controller;
 
-import org.springframework.web.bind.annotation.RestController;
+import com.hptpd.usermanagement.component.Result;
+import com.hptpd.usermanagement.service.IRoleService;
+import com.hptpd.usermanagement.service.IUserService;
+import com.hptpd.usermanagement.vo.role.RolePageVo;
+import com.hptpd.usermanagement.vo.role.RoleVo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 
 /**
  * \* Created with IntelliJ IDEA.
@@ -11,7 +21,40 @@ import org.springframework.web.bind.annotation.RestController;
  * \
  */
 @RestController
+@RequestMapping("/role")
 public class RoleController {
 
+    private Logger logger = LoggerFactory.getLogger(RoleController.class);
 
+    @Resource
+    private IRoleService roleService;
+
+    @RequestMapping(value = "/add.shtml", method = RequestMethod.POST)
+    public Result addRole(RoleVo roleVo) {
+        Result result = roleService.addRoleDefault(roleVo);
+        logger.info(result.toString());
+        return result;
+    }
+
+    @RequestMapping(value = "/update.shtml", method = RequestMethod.POST)
+    public Result updateRole(RoleVo roleVo) {
+        Result result = roleService.updateRole(roleVo);
+        logger.info(result.toString());
+        return result;
+    }
+
+    @RequestMapping(value = "/remove/{id}.html", method = RequestMethod.GET)
+    public Result removeRole(@PathVariable String id) {
+        Result result = roleService.removeRole(id);
+        logger.info(result.toString());
+        return result;
+    }
+
+    @RequestMapping(value = "/list.html", method = RequestMethod.GET)
+    public RolePageVo getAllRoles(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                                  @RequestParam(value = "limit", defaultValue = "10") Integer limit) {
+        RolePageVo rolePageVo = roleService.getAllRoles(PageRequest.of(page - 1, limit));
+        logger.info(rolePageVo.toString());
+        return rolePageVo;
+    }
 }

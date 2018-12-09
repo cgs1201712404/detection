@@ -1,8 +1,8 @@
 package com.hptpd.usermanagement.service;
 
 import com.hptpd.usermanagement.component.Result;
-import com.hptpd.usermanagement.domain.vo.UserPageVo;
-import com.hptpd.usermanagement.domain.vo.UserVo;
+import com.hptpd.usermanagement.vo.user.UserPageVo;
+import com.hptpd.usermanagement.vo.user.UserVo;
 import org.springframework.data.domain.Pageable;
 
 /**
@@ -26,7 +26,7 @@ public interface IUserService {
      * @param userVo
      * @return
      */
-    Result addUser(UserVo userVo);
+    Result addUserWithRole(UserVo userVo);
 
     /**
      * 通过姓名查询用户
@@ -52,4 +52,12 @@ public interface IUserService {
      * @return
      */
     Result removeUser(String name);
+
+    /**
+     * 更新用户信息，包括给用户指派新的角色
+     *
+     * @param userVo
+     * @return
+     */
+    Result updateUser(UserVo userVo);
 }

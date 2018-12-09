@@ -1,10 +1,12 @@
 package com.hptpd.usermanagement.domain;
 
+import com.google.common.collect.Sets;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 /**
  * \* Created with IntelliJ IDEA.
@@ -19,14 +21,10 @@ import java.util.List;
 @Data
 public class MenuPermission {
 
-    @Id
-    @GenericGenerator(name = "uuid", strategy = "uuid")
-    @GeneratedValue(generator = "uuid")
-    private String id;
-
     /**
      * 菜单名称
      */
+    @Id
     @Column(name = "name")
     private String name;
 
@@ -36,6 +34,21 @@ public class MenuPermission {
     @Column(name = "path")
     private String path;
 
-    @OneToMany(mappedBy = "menuPermission")
-    private List<RoleMenu> roleMenus;
+    /**
+     * 菜单label
+     */
+    @Column(name = "label")
+    private String label;
+
+    @OneToMany(mappedBy = "menuPermission", fetch = FetchType.EAGER)
+    private Set<RoleMenu> roleMenus = Sets.newLinkedHashSet();
+
+    @Override
+    public String toString() {
+        return "MenuPermission{" +
+                "name='" + name + '\'' +
+                ", path='" + path + '\'' +
+                ", label='" + label + '\'' +
+                '}';
+    }
 }

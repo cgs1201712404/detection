@@ -1,8 +1,8 @@
 package com.hptpd.usermanagement.controller;
 
 import com.hptpd.usermanagement.component.Result;
-import com.hptpd.usermanagement.domain.vo.UserPageVo;
-import com.hptpd.usermanagement.domain.vo.UserVo;
+import com.hptpd.usermanagement.vo.user.UserPageVo;
+import com.hptpd.usermanagement.vo.user.UserVo;
 import com.hptpd.usermanagement.service.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,13 +13,14 @@ import javax.annotation.Resource;
 
 /**
  * \* Created with IntelliJ IDEA.
- * \* User: 彭诗杰
- * \* Date: 2018/12/6
- * \* Time: 22:02
- * \* Description: 用户controller
+ * \* @author: 彭诗杰
+ * \* @date: 2018/12/7
+ * \* @time: 17:16
+ * \* Description:
  * \
  */
-@RestController("/user")
+@RestController
+@RequestMapping(("/user"))
 public class UserController {
 
     private Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -29,7 +30,7 @@ public class UserController {
 
     @RequestMapping(value = "/add.shtml", method = RequestMethod.POST)
     public Result addUser(UserVo userVo) {
-        Result result = userService.addUser(userVo);
+        Result result = userService.addUserWithRole(userVo);
         logger.info(result.toString());
         return result;
     }
@@ -43,7 +44,7 @@ public class UserController {
         return userPageVo;
     }
 
-    @RequestMapping(value = ".json", method = RequestMethod.GET)
+    @RequestMapping(value = "/list.html", method = RequestMethod.GET)
     public UserPageVo getAllUsers(@RequestParam(value = "page", defaultValue = "1") Integer page,
                                   @RequestParam(value = "limit", defaultValue = "10") Integer limit) {
         UserPageVo userPageVo = userService.getAllUsers(PageRequest.of(page - 1, limit));
@@ -57,5 +58,4 @@ public class UserController {
         logger.info(result.toString());
         return result;
     }
-
 }

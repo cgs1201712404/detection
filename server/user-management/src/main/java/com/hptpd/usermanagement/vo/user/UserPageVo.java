@@ -1,4 +1,4 @@
-package com.hptpd.usermanagement.domain.vo;
+package com.hptpd.usermanagement.vo.user;
 
 import com.google.common.collect.Lists;
 import com.hptpd.usermanagement.common.util.AbstractMyBeanUtils;
@@ -10,9 +10,9 @@ import java.util.List;
 
 /**
  * \* Created with IntelliJ IDEA.
- * \* User: 彭诗杰
- * \* Date: 2018/12/6
- * \* Time: 23:13
+ * \* @author: 彭诗杰
+ * \* @date: 2018/12/8
+ * \* @time: 2:27
  * \* Description:
  * \
  */

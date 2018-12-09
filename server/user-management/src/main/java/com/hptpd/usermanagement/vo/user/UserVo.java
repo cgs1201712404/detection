@@ -1,7 +1,8 @@
-package com.hptpd.usermanagement.domain.vo;
+package com.hptpd.usermanagement.vo.user;
 
 import com.hptpd.usermanagement.common.util.AbstractMyBeanUtils;
 import com.hptpd.usermanagement.domain.user.User;
+import com.hptpd.usermanagement.vo.role.RoleVo;
 import lombok.Data;
 
 /**
@@ -44,6 +45,10 @@ public class UserVo {
      */
     private String position;
 
+    /**
+     * 角色
+     */
+    private RoleVo roleVo;
 
     public static User toDo(UserVo userVo) {
         User user = new User();

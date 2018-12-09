@@ -1,55 +1,62 @@
 package com.hptpd.usermanagement.test;
 
-import com.hptpd.usermanagement.component.Result;
-import com.hptpd.usermanagement.domain.vo.UserPageVo;
-import com.hptpd.usermanagement.domain.vo.UserVo;
+import com.hptpd.usermanagement.domain.user.User;
 import com.hptpd.usermanagement.repository.UserRep;
 import com.hptpd.usermanagement.service.IUserService;
+import com.hptpd.usermanagement.vo.user.UserPageVo;
+import com.hptpd.usermanagement.vo.user.UserVo;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Optional;
 
 /**
  * \* Created with IntelliJ IDEA.
  * \* User: 彭诗杰
  * \* Date: 2018/12/6
  * \* Time: 22:31
- * \* Description:
+ * \* Description: 用户模块测试
  * \
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class UserTest {
-    private org.slf4j.Logger logger = LoggerFactory.getLogger(UserTest.class);
+
+    private Logger logger = LoggerFactory.getLogger(UserTest.class);
 
     @Resource(name = "userService")
-    IUserService userService;
+    private IUserService userService;
 
     @Resource(name = "userRep")
     private UserRep userRep;
 
     @Test
+    @Transactional
     public void addUserTest() {
         UserVo userVo = new UserVo();
-        userVo.setUserName("pengshijie");
+        userVo.setUserName("ceshi1");
         userVo.setName("彭诗杰");
         userVo.setPassword("123456");
         userVo.setGender("男");
         userVo.setCellPhone("18670687350");
         userVo.setDepartment("研发中心");
-        logger.info(userService.addUser(userVo).toString());
+        logger.info(userService.addUserWithRole(userVo).toString());
+        Optional<User> userOptional = userRep.findById(userVo.getUserName());
+        userOptional.ifPresent(Assert::assertNotNull);
     }
 
     @Test
     public void findUserByNameTest() {
         UserPageVo userPageVo = userService.findByName("彭诗杰", PageRequest.of(0, 10));
-        Assert.assertSame(userPageVo.getTotal(), 2);
+        Assert.assertSame(userPageVo.getTotal().intValue(), 1);
         logger.info(userPageVo.toString());
     }
 
@@ -61,9 +68,13 @@ public class UserTest {
     }
 
     @Test
+    @Transactional
     public void removeUserTest() {
-        Result result = userService.removeUser("tracy4262");
-        logger.info(result.toString());
-        Assert.assertSame("测试结果有误", result.getErrCode(), Result.SUCCESS);
+        userService.removeUser("pengshijie");
+        Optional<User> userOptional = userRep.findById("pengshijie");
+        Assert.assertFalse("测试结果有误", userOptional.isPresent());
     }
+
+
+
 }

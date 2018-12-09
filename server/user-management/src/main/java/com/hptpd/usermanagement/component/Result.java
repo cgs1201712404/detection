@@ -6,6 +6,7 @@ package com.hptpd.usermanagement.component;
  * \* Time: 21:11
  * \* Description:
  * \
+ *
  * @author 彭诗杰
  */
 @SuppressWarnings("ALL")
@@ -51,7 +52,6 @@ public class Result {
     public void setMsg(String msg) {
         this.msg = msg;
     }
-
 
 
     public String getData() {
