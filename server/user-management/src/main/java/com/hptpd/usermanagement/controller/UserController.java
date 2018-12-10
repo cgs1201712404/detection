@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.Resource;
 
 /**
@@ -20,7 +19,7 @@ import javax.annotation.Resource;
  * \
  */
 @RestController
-@RequestMapping(("/user"))
+@RequestMapping("/user")
 public class UserController {
 
     private Logger logger = LoggerFactory.getLogger(UserController.class);

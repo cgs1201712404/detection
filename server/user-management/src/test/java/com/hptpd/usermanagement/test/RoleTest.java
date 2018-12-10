@@ -57,7 +57,6 @@ public class RoleTest {
     @Test
     @Transactional
     public void updateRoleTest() {
-
         roleService.updateRole(new RoleVo("402880e567921e230167921e3a3b0000",
                 "修改后的部门经理", "这是修改后的部门经理"));
         Optional<Role> roleOptional = roleRep.findById("402880e567921e230167921e3a3b0000");

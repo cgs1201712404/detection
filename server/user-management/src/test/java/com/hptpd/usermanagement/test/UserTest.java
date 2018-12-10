@@ -75,6 +75,19 @@ public class UserTest {
         Assert.assertFalse("测试结果有误", userOptional.isPresent());
     }
 
-
-
+    @Test
+    @Transactional
+    public void updateUserTest() {
+        UserVo userVo = new UserVo();
+        userVo.setUserName("pengshijie");
+        userVo.setName("彭诗杰");
+        userVo.setPassword("123456");
+        userVo.setGender("男");
+        userVo.setCellPhone("18670687350");
+        userVo.setDepartment("研发中心");
+        userVo.setPosition("技术总监");
+        userService.updateUser(userVo);
+        Optional<User> userOptional = userRep.findById("pengshijie");
+        userOptional.ifPresent(user -> Assert.assertEquals(user.getPosition(), "技术总监"));
+    }
 }
