@@ -1,8 +1,12 @@
 package com.hptpd.usermanagement.test;
 
+import com.hptpd.usermanagement.component.Result;
+import com.hptpd.usermanagement.domain.Role;
 import com.hptpd.usermanagement.domain.user.User;
+import com.hptpd.usermanagement.repository.RoleRep;
 import com.hptpd.usermanagement.repository.UserRep;
 import com.hptpd.usermanagement.service.IUserService;
+import com.hptpd.usermanagement.vo.role.RoleVo;
 import com.hptpd.usermanagement.vo.user.UserPageVo;
 import com.hptpd.usermanagement.vo.user.UserVo;
 import org.junit.Assert;
@@ -37,6 +41,9 @@ public class UserTest {
 
     @Resource(name = "userRep")
     private UserRep userRep;
+
+    @Resource(name = "roleRep")
+    private RoleRep roleRep;
 
     @Test
     @Transactional
@@ -86,8 +93,33 @@ public class UserTest {
         userVo.setCellPhone("18670687350");
         userVo.setDepartment("研发中心");
         userVo.setPosition("技术总监");
-        userService.updateUser(userVo);
+        Result result = userService.updateUser(userVo);
         Optional<User> userOptional = userRep.findById("pengshijie");
         userOptional.ifPresent(user -> Assert.assertEquals(user.getPosition(), "技术总监"));
+        Assert.assertEquals(result.getMsg(), "更新用户信息成功！");
+    }
+
+    @Test
+    @Transactional
+    public void updateUserWithRoleTest() {
+        Optional<Role> roleManangerOp = roleRep.findById("402880e567980dc50167980dddb20000");
+        if (roleManangerOp.isPresent()) {
+            RoleVo roleVo = RoleVo.toVo(roleManangerOp.get());
+            UserVo userVo = new UserVo();
+            userVo.setUserName("pengshijie");
+            userVo.setName("彭诗杰");
+            userVo.setPassword("123456");
+            userVo.setGender("男");
+            userVo.setCellPhone("18670687350");
+            userVo.setDepartment("研发中心");
+            userVo.setPosition("技术总监");
+            userVo.setRoleVo(roleVo);
+            Result result = userService.updateUser(userVo);
+            Assert.assertEquals(result.getMsg(), "更新用户信息并指派新角色成功！");
+            User user = UserVo.toDo(userVo);
+            Optional<Role> roleOptional = roleRep.findByUser(user);
+            roleOptional.ifPresent(role -> Assert.assertEquals(role.getName(), "经理"));
+        }
+
     }
 }
