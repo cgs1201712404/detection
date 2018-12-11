@@ -7,6 +7,7 @@
 
 import API from '../../api/api_role'
 import util from '../../common/util'
+import CONTANTS from '../../common/constants'
 
 const state = {
   // 角色分页数据
@@ -377,7 +378,6 @@ const actions = {
   getAllRolesPaging({commit, state}, params) {
     return new Promise((resolve, reject) => {
       API.getRoles(params).then(result => {
-        // console.log(result);
         if (result && result.roles) {
           commit('setRoles', result.roles);
           resolve(result.roles);
@@ -390,8 +390,28 @@ const actions = {
     })
   },
 
+  /**
+   * 根据角色id获取角色基本和权限信息，并设置为当前选中角色
+   * @param commit
+   * @param state
+   * @param role
+   */
   setRoleDialog({commit, state}, role) {
-    commit('setRoleDialog', role);
+    return new Promise((resolve, reject) => {
+      API.findRoleById(role.id).then(result => {
+        console.log(result);
+        if (result.errCode === CONTANTS.SUCCESS) {
+          commit('setRoleDialog', JSON.parse(result.data));
+          resolve(result.msg);
+        } else {
+          reject(result.msg)
+        }
+      }, error => {
+          reject(error);
+      }).catch(err => {
+          reject(err);
+      })
+    })
   },
 
   /**

@@ -39,7 +39,7 @@ public class RoleMenu {
     @ManyToOne(cascade = CascadeType.MERGE)
     private MenuPermission menuPermission;
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "roleMenu", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @Fetch(FetchMode.SUBSELECT)
     private Set<DataPermission> dataPermissions = Sets.newLinkedHashSet();
 

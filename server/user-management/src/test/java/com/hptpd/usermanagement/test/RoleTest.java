@@ -1,5 +1,6 @@
 package com.hptpd.usermanagement.test;
 
+import com.hptpd.usermanagement.common.util.JsonUtil;
 import com.hptpd.usermanagement.component.Result;
 import com.hptpd.usermanagement.domain.Role;
 import com.hptpd.usermanagement.repository.RoleRep;
@@ -52,6 +53,15 @@ public class RoleTest {
         Role role = roleService.addRole(roleVo);
         logger.info(role.toString());
         Assert.assertNotNull("测试未通过", role);
+    }
+
+    @Test
+    public void findRoleByIdTest() {
+        Result result = roleService.findRoleById("402880e567980dc50167980dddb20000");
+        logger.info(result.toString());
+        RoleVo roleVo = JsonUtil.jsonToObject(result.getData(), RoleVo.class);
+        Assert.assertEquals(roleVo.getPermissionGroup().get(0).getName(), "map");
+        Assert.assertEquals(roleVo.getPermissionGroup().get(1).getName(), "realTime");
     }
 
     @Test

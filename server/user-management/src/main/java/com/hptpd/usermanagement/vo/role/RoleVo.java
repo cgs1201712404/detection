@@ -1,5 +1,6 @@
 package com.hptpd.usermanagement.vo.role;
 
+import com.google.common.collect.Lists;
 import com.hptpd.usermanagement.common.util.StringUtil;
 import com.hptpd.usermanagement.domain.DataPermission;
 import com.hptpd.usermanagement.domain.Role;
@@ -58,10 +59,6 @@ public class RoleVo {
         return new RoleVo(role.getId(), role.getName(), role.getNote());
     }
 
-
-    @Resource(name = "permissionInitializer")
-    private static PermissionInitializer permissionInitializer;
-
     /**
      * 将Role转为RoleVo，包括Role对象的权限数据深层次遍历
      *
@@ -71,25 +68,25 @@ public class RoleVo {
     public static RoleVo toVoDeep(Role role) {
         RoleVo roleVo = toVo(role);
 
-        List<MenuVo> baseMenus = permissionInitializer.generateBaseMenu();
+        List<MenuVo> baseMenus = PermissionInitializer.generateBaseMenu();
         for (MenuVo baseMenu : baseMenus) {
             // 设置菜单权限
             for (RoleMenu roleMenu : role.getRoleMenus()) {
                 MenuVo menuVo = MenuVo.toVo(roleMenu.getMenuPermission());
                 if (menuVo.equals(baseMenu)) {
                     baseMenu.setChecked(true);
-                    break;
                 }
+
                 // 设置数据权限
                 for (DataVo baseData : baseMenu.getPermission()) {
                     for (DataPermission dataPermission : roleMenu.getDataPermissions()) {
                         DataVo dataVo = DataVo.toVo(dataPermission);
                         if (dataVo.equals(baseData)) {
                             baseData.setChecked(true);
-                            break;
                         }
                     }
                 }
+
             }
         }
         roleVo.setPermissionGroup(baseMenus);

@@ -70,6 +70,11 @@ public class RolePermissionServiceImpl implements IRoleService, IPermissionServi
         return flag;
     }
 
+    /**
+     * 基本角色初始化
+     *
+     * @return
+     */
     @Override
     public List<Role> roleInit() {
         return roleInitializer.roleInit();
@@ -187,8 +192,9 @@ public class RolePermissionServiceImpl implements IRoleService, IPermissionServi
                     roleMenu.setMenuPermission(menuPermission);
 
                     for (DataVo dataVo : menuVo.getPermission()) {
-                        DataPermission dataPermission = dataPermissionRep.findById(dataVo.getValue()).get();
+                        DataPermission dataPermission = dataPermissionRep.findById(dataVo.getId()).get();
                         roleMenu.addDataPermission(dataPermission);
+                        dataPermission.setRoleMenu(roleMenu);
                     }
                     roleMenuRep.save(roleMenu);
                 }

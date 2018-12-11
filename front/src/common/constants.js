@@ -8,6 +8,9 @@
 
 export default {
 
+  SUCCESS: 0,
+  ERROR: 1,
+
   classifications: [
     {
       label: '污水类',

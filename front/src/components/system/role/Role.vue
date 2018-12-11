@@ -106,8 +106,11 @@
 
       },
       grantPermissions(index, row) {
-        this.setRoleDialog(row);
-        this.$refs.auth.open();
+        this.setRoleDialog(row).then(msg => {
+          this.$refs.auth.open();
+        }).catch(error => {
+          this.$message({type: 'error', message: error.toString()});
+        })
       },
       editRole(index, row) {
         this.setRoleDialog(row);

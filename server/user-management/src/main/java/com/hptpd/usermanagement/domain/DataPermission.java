@@ -1,10 +1,9 @@
 package com.hptpd.usermanagement.domain;
 
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.List;
+import java.io.Serializable;
 
 /**
  * \* Created with IntelliJ IDEA.
@@ -17,12 +16,14 @@ import java.util.List;
 @Entity
 @Table(name = "data_permission")
 @Data
-public class DataPermission {
+public class DataPermission implements Serializable{
+
+    @Id
+    private String id;
 
     /**
      * 数据操作名称
      */
-    @Id
     @Column(name = "name")
     private String name;
 
@@ -43,4 +44,8 @@ public class DataPermission {
      */
     @Column(name = "request_type")
     private String requestType;
+
+    @ManyToOne
+    private RoleMenu roleMenu;
+
 }

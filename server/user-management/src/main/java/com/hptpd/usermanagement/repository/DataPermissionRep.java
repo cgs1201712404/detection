@@ -6,10 +6,10 @@ import org.springframework.stereotype.Repository;
 
 /**
  * \* Created with IntelliJ IDEA.
- * \* User: 彭诗杰
- * \* Date: 2018/12/7
- * \* Time: 23:49
- * \* Description: 数据控制权限Rep
+ * \* @author: 彭诗杰
+ * \* @date: 2018/12/6
+ * \* @time: 10:21
+ * \* Description: 用户Rep
  * \
  */
 @Repository("dataPermissionRep")

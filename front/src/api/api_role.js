@@ -28,5 +28,7 @@ export default {
    * @param params
    * @returns {*}
    */
-  getRoles: params => API.GET('/user-management/role/list.html', params)
+  getRoles: params => API.GET('/user-management/role/list.html', params),
+
+  findRoleById: id => API.GET('/user-management/role/' + id + '.json')
 }
