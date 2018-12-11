@@ -22,4 +22,11 @@ export default {
    * @return {*}
    */
   updateRole: params => API.POST('/role/update', params),
+
+  /**
+   * 获取角色列表
+   * @param params
+   * @returns {*}
+   */
+  getRoles: params => API.GET('/user-management/role/list.html', params)
 }

@@ -1,10 +1,15 @@
 package com.hptpd.usermanagement.service.comp;
 
+import com.google.common.collect.Lists;
 import com.hptpd.usermanagement.domain.Role;
 import com.hptpd.usermanagement.repository.RoleRep;
+import com.hptpd.usermanagement.service.IRoleService;
+import com.hptpd.usermanagement.vo.role.MenuVo;
+import com.hptpd.usermanagement.vo.role.RoleVo;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * \* Created with IntelliJ IDEA.
@@ -17,11 +22,24 @@ import javax.annotation.Resource;
 @Component("roleInitializer")
 public class RoleInitializer {
 
-    @Resource(name = "roleRep")
-    private RoleRep roleRep;
+    @Resource(name = "permissionInitializer")
+    private PermissionInitializer permissionInitializer;
 
-    public void roleInit() {
+    @Resource(name = "rolePermissionService")
+    private IRoleService roleService;
 
+    public List<Role> roleInit() {
+        List<Role> roles = Lists.newLinkedList();
+        roles.add(managerRoleInit());
+        return roles;
+    }
+
+    private Role managerRoleInit() {
+        RoleVo roleVo = new RoleVo("经理", "这是经理权限的角色");
+        List<MenuVo> menuVos = permissionInitializer.simulateTestMenuData();
+        Role role = roleService.addRole(roleVo);
+        roleService.grantPermissions(roleVo, menuVos);
+        return role;
     }
 
 }

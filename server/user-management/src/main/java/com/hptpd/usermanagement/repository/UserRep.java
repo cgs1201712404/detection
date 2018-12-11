@@ -17,5 +17,12 @@ import org.springframework.stereotype.Repository;
 @Repository("userRep")
 public interface UserRep extends JpaRepository<User, String> {
 
+    /**
+     * 通过用户姓名查询用户
+     *
+     * @param name
+     * @param pageable
+     * @return
+     */
     Page<User> findByName(String name, Pageable pageable);
 }

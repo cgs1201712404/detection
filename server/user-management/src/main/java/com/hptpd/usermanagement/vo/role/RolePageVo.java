@@ -4,6 +4,7 @@ import com.google.common.collect.Sets;
 import com.hptpd.usermanagement.common.util.AbstractMyBeanUtils;
 import com.hptpd.usermanagement.component.PageBase;
 import com.hptpd.usermanagement.domain.Role;
+import com.hptpd.usermanagement.domain.RoleMenu;
 import org.springframework.data.domain.Page;
 
 import java.util.Set;
@@ -16,7 +17,7 @@ import java.util.Set;
  * \* Description:
  * \
  */
-public class RolePageVo extends PageBase{
+public class RolePageVo extends PageBase {
 
     private Set<RoleVo> roles;
 
@@ -40,5 +41,14 @@ public class RolePageVo extends PageBase{
         rolePageVo.setLimit(rolePage.getNumberOfElements());
         rolePageVo.setTotal(rolePage.getTotalElements());
         return rolePageVo;
+    }
+
+    @Override
+    public String toString() {
+        return "RolePageVo{" +
+                "roles=" + roles +
+                ", total=" + total +
+                ", limit=" + limit +
+                '}';
     }
 }

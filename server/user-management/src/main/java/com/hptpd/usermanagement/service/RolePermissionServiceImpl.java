@@ -1,5 +1,6 @@
 package com.hptpd.usermanagement.service;
 
+import com.hptpd.usermanagement.common.util.JsonUtil;
 import com.hptpd.usermanagement.common.util.StringUtil;
 import com.hptpd.usermanagement.component.Result;
 import com.hptpd.usermanagement.domain.DataPermission;
@@ -11,6 +12,7 @@ import com.hptpd.usermanagement.repository.MenuPermissionRep;
 import com.hptpd.usermanagement.repository.RoleMenuRep;
 import com.hptpd.usermanagement.repository.RoleRep;
 import com.hptpd.usermanagement.service.comp.PermissionInitializer;
+import com.hptpd.usermanagement.service.comp.RoleInitializer;
 import com.hptpd.usermanagement.vo.role.DataVo;
 import com.hptpd.usermanagement.vo.role.MenuVo;
 import com.hptpd.usermanagement.vo.role.RolePageVo;
@@ -39,6 +41,9 @@ public class RolePermissionServiceImpl implements IRoleService, IPermissionServi
     @Resource(name = "permissionInitializer")
     private PermissionInitializer initializer;
 
+    @Resource(name = "roleInitializer")
+    private RoleInitializer roleInitializer;
+
     @Resource(name = "roleRep")
     private RoleRep roleRep;
 
@@ -65,6 +70,11 @@ public class RolePermissionServiceImpl implements IRoleService, IPermissionServi
         return flag;
     }
 
+    @Override
+    public List<Role> roleInit() {
+        return roleInitializer.roleInit();
+    }
+
     /**
      * 新建角色，单纯在数据库中写入角色表
      *
@@ -77,6 +87,7 @@ public class RolePermissionServiceImpl implements IRoleService, IPermissionServi
         role.setName(roleVo.getName());
         role.setNote(roleVo.getNote());
         roleRep.save(role);
+        roleVo.setId(role.getId());
         return role;
     }
 
@@ -183,6 +194,26 @@ public class RolePermissionServiceImpl implements IRoleService, IPermissionServi
                 }
             }
             return Result.setResult(Result.SUCCESS, "权限分配成功！");
+        } else {
+            return Result.setResult(Result.ERROR, "该角色不存在！");
+        }
+    }
+
+    /**
+     * 通过角色id获取角色相关信息，包括权限信息
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Result findRoleById(String id) {
+        if (StringUtil.isEmpty(id)) {
+            return Result.setResult(Result.ERROR, "角色id为空值！");
+        }
+        Optional<Role> roleOptional = roleRep.findById(id);
+        if (roleOptional.isPresent()) {
+            RoleVo roleVo = RoleVo.toVoDeep(roleOptional.get());
+            return Result.setResult(Result.SUCCESS, "找到该角色！", JsonUtil.objectToJson(roleVo));
         } else {
             return Result.setResult(Result.ERROR, "该角色不存在！");
         }

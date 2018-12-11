@@ -18,5 +18,11 @@ import java.util.List;
 @Repository("roleMenuRep")
 public interface RoleMenuRep extends JpaRepository<RoleMenu, String> {
 
+    /**
+     * 通过角色查询与角色对应的RoleMenu角色菜单中间实体
+     *
+     * @param role
+     * @return
+     */
     List<RoleMenu> findByRole(Role role);
 }

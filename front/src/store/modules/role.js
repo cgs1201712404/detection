@@ -365,6 +365,31 @@ const actions = {
       commit('setRoleDialog', roles[0])
     }
   },
+
+  /**
+   * 分页获取所有角色
+   *
+   * @param commit
+   * @param state
+   * @param params
+   * @returns {Promise<any>}
+   */
+  getAllRolesPaging({commit, state}, params) {
+    return new Promise((resolve, reject) => {
+      API.getRoles(params).then(result => {
+        // console.log(result);
+        if (result && result.roles) {
+          commit('setRoles', result.roles);
+          resolve(result.roles);
+        }
+      }, error => {
+        reject(error);
+      }).catch(err => {
+        reject(err);
+      })
+    })
+  },
+
   setRoleDialog({commit, state}, role) {
     commit('setRoleDialog', role);
   },

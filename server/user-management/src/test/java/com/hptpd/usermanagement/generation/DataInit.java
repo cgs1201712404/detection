@@ -1,6 +1,8 @@
 package com.hptpd.usermanagement.generation;
 
+import com.hptpd.usermanagement.domain.Role;
 import com.hptpd.usermanagement.service.IPermissionService;
+import com.hptpd.usermanagement.service.IRoleService;
 import com.hptpd.usermanagement.service.IUserService;
 import com.hptpd.usermanagement.vo.user.UserPageVo;
 import static org.junit.Assert.*;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * \* Created with IntelliJ IDEA.
@@ -30,10 +33,20 @@ public class DataInit {
     @Resource(name = "userService")
     private IUserService userService;
 
+    @Resource(name = "rolePermissionService")
+    private IRoleService roleService;
+
     @Test
     public void dataAndMenuPermissionInit() {
         boolean result = permissionService.initPermissions();
         assertTrue(result);
+    }
+
+    @Test
+    public void managerRoleInit() {
+        List<Role> roles = roleService.roleInit();
+        assertEquals(roles.size(), 1);
+        assertEquals(roles.get(0).getName(), "经理");
     }
 
     @Test

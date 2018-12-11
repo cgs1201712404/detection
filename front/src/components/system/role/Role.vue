@@ -31,7 +31,7 @@
           type="index">
         </el-table-column>
         <el-table-column
-          prop="roleName"
+          prop="name"
           label="角色名称">
         </el-table-column>
         <el-table-column
@@ -94,6 +94,7 @@
     methods: {
       ...mapActions([
         'mockRoles',
+        'getAllRolesPaging',
         'setRoleDialog',
         'removeRoleAct',
         'removeRolesAct'
@@ -153,11 +154,15 @@
 
       selectionChange(selection) {
         this.selRoles = selection;
+      },
+      compInit() {
+        this.getAllRolesPaging({page: this.pagination.page, limit: this.pagination.limit})
       }
     },
 
     created() {
-      this.mockRoles();
+      // this.mockRoles();
+      this.compInit();
     }
   }
 </script>

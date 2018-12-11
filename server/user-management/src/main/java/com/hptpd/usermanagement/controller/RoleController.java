@@ -57,4 +57,16 @@ public class RoleController {
         logger.info(rolePageVo.toString());
         return rolePageVo;
     }
+
+    /**
+     * 通过角色id获取角色相关信息，包括角色的菜单权限和数据权限
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/{id}.json", method = RequestMethod.GET)
+    public Result getRoleById(@PathVariable String id) {
+        Result result = roleService.findRoleById(id);
+        logger.info(result.toString());
+        return result;
+    }
 }

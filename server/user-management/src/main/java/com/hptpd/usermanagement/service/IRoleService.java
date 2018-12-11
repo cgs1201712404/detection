@@ -20,6 +20,12 @@ import java.util.List;
 public interface IRoleService {
 
     /**
+     * 基本角色初始化工作
+     * @return
+     */
+    List<Role> roleInit();
+
+    /**
      * 新建角色，单纯在数据库中写入角色表
      *
      * @param roleVo
@@ -67,4 +73,12 @@ public interface IRoleService {
      * @return
      */
     Result grantPermissions(RoleVo roleVo, List<MenuVo> menuVos);
+
+    /**
+     * 通过角色id获取角色相关信息，包括权限信息
+     *
+     * @param id
+     * @return
+     */
+    Result findRoleById(String id);
 }
