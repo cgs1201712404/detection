@@ -9,7 +9,7 @@
   <el-dialog :visible.sync="dialogVisible" title="添加角色">
     <el-card shadow="never">
       <el-row>
-        <el-form ref="form" v-model="roleForm" label-width="6em" label-position="'left'">
+        <el-form ref="addRoleForm" v-model="roleForm" label-width="6em" label-position="'left'">
           <el-form-item label="角色名称：">
             <el-input v-model="roleForm.name"></el-input>
           </el-form-item>
@@ -27,17 +27,15 @@
             <el-checkbox :label="menuPermission.label" v-model="menuPermission.checked" border></el-checkbox>
           </el-col>
           <el-col :span="18">
-            <!--<el-checkbox-group v-model="menuPermission.permission">-->
             <el-checkbox-button v-for="dataPermission in menuPermission.permission" :label="dataPermission.label"
-                                :key="dataPermission.value" v-model="dataPermission.checked"></el-checkbox-button>
-            <!--</el-checkbox-group>-->
+                                :key="dataPermission.id" v-model="dataPermission.checked"></el-checkbox-button>
           </el-col>
         </el-row>
       </el-row>
     </el-card>
     <span slot="footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary">确 定</el-button>
+    <el-button @click="cancel('addRoleForm')">取 消</el-button>
+    <el-button type="primary" @click="submitRole('addRoleForm')">确 定</el-button>
   </span>
   </el-dialog>
 </template>
@@ -45,6 +43,7 @@
 <script>
   import CONSTANTS from '../../../common/constants'
   import util from "../../../common/util";
+  import {mapActions} from 'vuex';
 
   export default {
     name: "AddRoleDialog",
@@ -60,6 +59,9 @@
       }
     },
     methods: {
+      ...mapActions([
+        'addRoleAct',
+      ]),
       open() {
         this.dialogVisible = true;
       },
@@ -69,7 +71,24 @@
       unselectAll() {
         util.setPermissionGroupChecked(this.roleForm.permissionGroup, false)
       },
-
+      submitRole(fromName) {
+        this.addRoleAct(this.roleForm).then(result => {
+          this.dialogVisible = false;
+          this.$message({type: 'success', message: result.msg});
+          this.resetForm(fromName)
+        }).catch(error => {
+          this.$message({type: 'error', message: error.toString()});
+        })
+      },
+      cancel(formName) {
+        this.dialogVisible = false;
+        this.resetForm(formName)
+      },
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+        this.roleForm.name = '';
+        this.roleForm.note = ''
+      }
     }
   }
 </script>

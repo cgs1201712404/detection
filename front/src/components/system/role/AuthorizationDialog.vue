@@ -18,7 +18,7 @@
       <el-col :span="18">
 
         <el-checkbox-button v-for="dataPermission in menuPermission.permission" :label="dataPermission.label"
-                            :key="dataPermission.value" v-model="dataPermission.checked"></el-checkbox-button>
+                            :key="dataPermission.id" v-model="dataPermission.checked"></el-checkbox-button>
 
       </el-col>
     </el-row>

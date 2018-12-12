@@ -11,7 +11,7 @@
       <el-row>
         <el-form ref="form" v-model="role" label-width="6em" label-position="'left'">
           <el-form-item label="角色名称：">
-            <el-input v-model="role.roleName"></el-input>
+            <el-input v-model="role.name"></el-input>
           </el-form-item>
           <el-form-item label="备注：">
             <el-input v-model="role.note"></el-input>

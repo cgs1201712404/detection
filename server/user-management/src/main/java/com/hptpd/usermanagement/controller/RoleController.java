@@ -30,14 +30,14 @@ public class RoleController {
     private IRoleService roleService;
 
     @RequestMapping(value = "/add.shtml", method = RequestMethod.POST)
-    public Result addRole(RoleVo roleVo) {
+    public Result addRole(@RequestBody RoleVo roleVo) {
         Result result = roleService.addRoleDefault(roleVo);
         logger.info(result.toString());
         return result;
     }
 
     @RequestMapping(value = "/update.shtml", method = RequestMethod.POST)
-    public Result updateRole(RoleVo roleVo) {
+    public Result updateRole(@RequestBody RoleVo roleVo) {
         Result result = roleService.updateRole(roleVo);
         logger.info(result.toString());
         return result;
@@ -56,6 +56,13 @@ public class RoleController {
         RolePageVo rolePageVo = roleService.getAllRoles(PageRequest.of(page - 1, limit));
         logger.info(rolePageVo.toString());
         return rolePageVo;
+    }
+
+    @RequestMapping(value = "/auth.shtml", method = RequestMethod.POST)
+    public Result grantPermissions(@RequestBody RoleVo roleVo) {
+        Result result = roleService.grantPermissions(roleVo, roleVo.getPermissionGroup());
+        logger.info(result.toString());
+        return result;
     }
 
     /**

@@ -45,7 +45,4 @@ public class DataPermission implements Serializable{
     @Column(name = "request_type")
     private String requestType;
 
-    @ManyToOne
-    private RoleMenu roleMenu;
-
 }

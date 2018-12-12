@@ -218,50 +218,47 @@ export default {
       name: 'maintaining',
       label: '设备维护',
       checked: true,
-      permission: [{value: 'edit', label: '编辑', checked: true}, {value: 'export', label: '导出', checked: true}]
+      permission: [{id: 'maintaining:edit', value: 'edit', label: '编辑', checked: true},
+        {id: 'maintaining:export', value: 'export', label: '导出', checked: true}]
     },
     {
       path: '/surveillance',
       name: 'surveillance',
       label: '视频监控',
       checked: true,
-      permission: [{value: 'edit', label: '编辑', checked: true}, {value: 'export', label: '导出', checked: true}]
+      permission: [{id: 'surveillance:edit', value: 'edit', label: '编辑', checked: true},
+        {id: 'surveillance:export', value: 'export', label: '导出', checked: true}]
     },
     {
       path: '/processing',
       name: 'processing',
       label: '报警处理',
       checked: true,
-      permission: [{value: 'edit', label: '编辑', checked: true}, {value: 'export', label: '导出', checked: true}]
+      permission: [{id: 'processing:edit', value: 'edit', label: '编辑', checked: true},
+        {id: 'processing:export', value: 'export', label: '导出', checked: true}]
     },
     {
       path: '/configuration',
       name: 'configuration',
       label: '报警配置',
       checked: true,
-      permission: [{value: 'remove', label: '删除', checked: true},
-        {value: 'add', label: '新增', checked: true},
-        {value: 'edit', label: '编辑', checked: true}]
-    },
-    {
-      path: '/notification',
-      name: 'notification',
-      label: '报警通知',
-      checked: true,
+      permission: [{id: 'configuration:remove', value: 'remove', label: '删除', checked: true},
+        {id: 'configuration:add', value: 'add', label: '新增', checked: true},
+        {id: 'configuration:edit', value: 'edit', label: '编辑', checked: true}]
     },
     {
       path: '/daily',
       name: 'daily',
       label: '日报',
       checked: true,
-      permission: [{value: 'export', label: '导出', checked: true}]
+      permission: [{id: 'daily:export', value: 'export', label: '导出', checked: true}]
     },
     {
       path: '/monthly',
       name: 'monthly',
       label: '月报',
       checked: true,
-      permission: [{value: 'export', label: '导出', checked: true}]
+      permission: [{id: 'monthly:export', value: 'export', label: '导出', checked: true}]
     },
     {
       path: '/analysis',
@@ -274,19 +271,19 @@ export default {
       name: 'user',
       label: '用户管理',
       checked: false,
-      permission: [{value: 'remove', label: '删除', checked: false},
-        {value: 'add', label: '新增', checked: false},
-        {value: 'edit', label: '编辑', checked: false}]
+      permission: [{id: 'user:remove', value: 'remove', label: '删除', checked: false},
+        {id: 'user:add', value: 'add', label: '新增', checked: false},
+        {id: 'user:edit', value: 'edit', label: '编辑', checked: false}]
     },
     {
       path: '/role',
       name: 'role',
       label: '角色权限管理',
       checked: false,
-      permission: [{value: 'remove', label: '删除', checked: false},
-        {value: 'add', label: '新增', checked: false},
-        {value: 'edit', label: '编辑', checked: false},
-        {value: 'grant', label: '分配权限', checked: false}]
+      permission: [{id: 'role:remove', value: 'remove', label: '删除', checked: false},
+        {id: 'role:add', value: 'add', label: '新增', checked: false},
+        {id: 'role:edit', value: 'edit', label: '编辑', checked: false},
+        {id: 'role:grant', value: 'grant', label: '分配权限', checked: false}]
     },
     {
       path: '/logger',

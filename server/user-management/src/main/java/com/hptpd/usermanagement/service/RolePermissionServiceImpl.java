@@ -1,5 +1,6 @@
 package com.hptpd.usermanagement.service;
 
+import com.google.common.collect.Sets;
 import com.hptpd.usermanagement.common.util.JsonUtil;
 import com.hptpd.usermanagement.common.util.StringUtil;
 import com.hptpd.usermanagement.component.Result;
@@ -25,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * \* Created with IntelliJ IDEA.
@@ -104,12 +106,17 @@ public class RolePermissionServiceImpl implements IRoleService, IPermissionServi
      */
     @Override
     public Result updateRole(RoleVo roleVo) {
+
+        if (StringUtil.isEmpty(roleVo.getId())) {
+            return Result.setResult(Result.ERROR, "发送的角色id为空值！");
+        }
+
         Optional<Role> roleOptional = roleRep.findById(roleVo.getId());
         if (roleOptional.isPresent()) {
             roleOptional.get().setName(roleVo.getName());
             roleOptional.get().setNote(roleVo.getNote());
             roleRep.save(roleOptional.get());
-            return Result.setResult(Result.SUCCESS, "更新角色信息！");
+            return Result.setResult(Result.SUCCESS, "更新角色信息！", JsonUtil.objectToJson(roleVo));
         }
         return Result.setResult(Result.ERROR, "不存在此角色！");
     }
@@ -130,9 +137,18 @@ public class RolePermissionServiceImpl implements IRoleService, IPermissionServi
         if (!roleOptional.isPresent()) {
             return Result.setResult(Result.ERROR, "此角色不存在!");
         }
-
+        removeRoleRelations(id);
         roleRep.deleteById(id);
         return Result.setResult(Result.SUCCESS, "角色删除成功!");
+    }
+
+    private void removeRoleRelations(String roleId) {
+        Optional<Role> roleOptional = roleRep.findById(roleId);
+        if (roleOptional.isPresent()) {
+            for (RoleMenu roleMenu : roleOptional.get().getRoleMenus()) {
+                roleMenu.removeSelf(roleMenuRep);
+            }
+        }
     }
 
     /**
@@ -156,7 +172,8 @@ public class RolePermissionServiceImpl implements IRoleService, IPermissionServi
     @Override
     public Result addRoleDefault(RoleVo roleVo) {
         Role role = this.addRole(roleVo);
-        return this.grantPermissions(RoleVo.toVo(role), roleVo.getPermissionGroup());
+        this.grantPermissions(RoleVo.toVo(role), roleVo.getPermissionGroup());
+        return Result.setResult(Result.SUCCESS, "新增角色成功！", JsonUtil.objectToJson(roleVo));
     }
 
     /**
@@ -190,11 +207,13 @@ public class RolePermissionServiceImpl implements IRoleService, IPermissionServi
                     MenuPermission menuPermission = menuPermissionRep.findById(menuVo.getName()).get();
                     RoleMenu roleMenu = new RoleMenu(roleOptional.get(), menuPermission);
                     roleMenu.setMenuPermission(menuPermission);
-
-                    for (DataVo dataVo : menuVo.getPermission()) {
-                        DataPermission dataPermission = dataPermissionRep.findById(dataVo.getId()).get();
-                        roleMenu.addDataPermission(dataPermission);
-                        dataPermission.setRoleMenu(roleMenu);
+                    if (null != menuVo.getPermission() && !menuVo.getPermission().isEmpty()) {
+                        Set<DataPermission> dataPermissions = Sets.newLinkedHashSet();
+                        for (DataVo dataVo : menuVo.getPermission()) {
+                            DataPermission dataPermission = dataPermissionRep.findById(dataVo.getId()).get();
+                            dataPermissions.add(dataPermission);
+                        }
+                        roleMenu.setDataPermissions(dataPermissions);
                     }
                     roleMenuRep.save(roleMenu);
                 }

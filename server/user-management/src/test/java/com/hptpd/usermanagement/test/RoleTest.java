@@ -74,10 +74,9 @@ public class RoleTest {
     }
 
     @Test
-    @Transactional
     public void removeRoleTest() {
-        roleService.removeRole("402880e567921e230167921e3a3b0000");
-        Optional<Role> roleOptional = roleRep.findById("402880e567921e230167921e3a3b0000");
+        roleService.removeRole("8aa7945367a1a0f50167a1a381240014");
+        Optional<Role> roleOptional = roleRep.findById("8aa7945367a1a0f50167a1a381240014");
         Assert.assertFalse(roleOptional.isPresent());
     }
 

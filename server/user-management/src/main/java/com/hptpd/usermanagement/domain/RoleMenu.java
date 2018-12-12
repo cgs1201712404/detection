@@ -3,10 +3,7 @@ package com.hptpd.usermanagement.domain;
 import com.google.common.collect.Sets;
 import com.hptpd.usermanagement.repository.RoleMenuRep;
 import lombok.Data;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -36,11 +33,10 @@ public class RoleMenu {
     @ManyToOne
     private Role role;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private MenuPermission menuPermission;
 
-    @OneToMany(mappedBy = "roleMenu", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @Fetch(FetchMode.SUBSELECT)
+    @ManyToMany(cascade = {CascadeType.PERSIST})
     private Set<DataPermission> dataPermissions = Sets.newLinkedHashSet();
 
     private void removeMenuPermission(RoleMenuRep rep) {

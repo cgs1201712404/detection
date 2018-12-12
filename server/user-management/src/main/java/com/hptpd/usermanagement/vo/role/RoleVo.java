@@ -92,4 +92,13 @@ public class RoleVo {
         roleVo.setPermissionGroup(baseMenus);
         return roleVo;
     }
+
+    @Override
+    public String toString() {
+        return "RoleVo{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", note='" + note + '\'' +
+                '}';
+    }
 }

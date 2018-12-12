@@ -9,19 +9,23 @@ import * as API from './'
 
 export default {
 
+  addRole: params => API.POST('/user-management/role/add.shtml', params),
+
+  removeRole: id => API.GET('/user-management/role/remove/' + id + '.html'),
+
   /**
    * 角色授权
    * @param params
    * @return {*}
    */
-  authorization: params => API.POST('/role/auth', params),
+  authorization: params => API.POST('/user-management/role/auth.shtml', params),
 
   /**
    * 修改角色信息
    * @param params
    * @return {*}
    */
-  updateRole: params => API.POST('/role/update', params),
+  updateRole: params => API.POST('/user-management/role/update.shtml', params),
 
   /**
    * 获取角色列表

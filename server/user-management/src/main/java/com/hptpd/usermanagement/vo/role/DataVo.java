@@ -4,6 +4,8 @@ import com.hptpd.usermanagement.common.PermissionConstant;
 import com.hptpd.usermanagement.domain.DataPermission;
 import lombok.Data;
 
+import java.util.Objects;
+
 /**
  * \* Created with IntelliJ IDEA.
  * \* @author: 彭诗杰
@@ -53,6 +55,7 @@ public class DataVo {
 
     public static DataVo toVo(DataPermission dataPermission) {
         DataVo dataVo = new DataVo();
+        dataVo.setId(dataPermission.getId());
         dataVo.setValue(dataPermission.getName());
         dataVo.setLabel(dataPermission.getLabel());
         dataVo.setUrl(dataPermission.getUrl());
@@ -87,20 +90,12 @@ public class DataVo {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        if (!super.equals(o)) {
-            return false;
-        }
-
         DataVo dataVo = (DataVo) o;
-
-        return value.equals(dataVo.value) && url.equals(dataVo.url);
+        return Objects.equals(id, dataVo.id);
     }
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + value.hashCode();
-        result = 31 * result + url.hashCode();
-        return result;
+        return Objects.hash(id);
     }
 }

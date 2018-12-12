@@ -7,7 +7,7 @@
 
 import API from '../../api/api_role'
 import util from '../../common/util'
-import CONTANTS from '../../common/constants'
+import CONSTANTS from '../../common/constants'
 
 const state = {
   // 角色分页数据
@@ -380,7 +380,7 @@ const actions = {
       API.getRoles(params).then(result => {
         if (result && result.roles) {
           commit('setRoles', result.roles);
-          resolve(result.roles);
+          resolve(result);
         }
       }, error => {
         reject(error);
@@ -399,17 +399,16 @@ const actions = {
   setRoleDialog({commit, state}, role) {
     return new Promise((resolve, reject) => {
       API.findRoleById(role.id).then(result => {
-        console.log(result);
-        if (result.errCode === CONTANTS.SUCCESS) {
+        if (result.errCode === CONSTANTS.SUCCESS) {
           commit('setRoleDialog', JSON.parse(result.data));
-          resolve(result.msg);
+          resolve(result);
         } else {
           reject(result.msg)
         }
       }, error => {
-          reject(error);
+        reject(error);
       }).catch(err => {
-          reject(err);
+        reject(err);
       })
     })
   },
@@ -424,16 +423,52 @@ const actions = {
   updateRole({commit, state}, role) {
     return new Promise((resolve, reject) => {
       let params = {
-        roleName: role.roleName,
+        id: role.id,
+        name: role.name,
         note: role.note
       };
       API.updateRole(params).then(result => {
-        commit('setRoleDialog', role);
-        resolve(result);
+        if (result.errCode === CONSTANTS.SUCCESS) {
+          console.log(result)
+          commit('updateRoles', JSON.parse(result.data));
+          commit('setRoleDialog', role);
+          resolve(result);
+        } else {
+          reject(result.msg)
+        }
       }, err => reject(err)).catch(error => reject(error))
     })
   },
 
+  /**
+   * 添加角色
+   * @param commit
+   * @param state
+   * @param role
+   */
+  addRoleAct({commit, state}, role) {
+    return new Promise((resolve, reject) => {
+      API.addRole(role).then(result => {
+        if (result.errCode === CONSTANTS.SUCCESS) {
+          commit('addRole', JSON.parse(result.data))
+          resolve(result);
+        } else {
+          reject(result.msg)
+        }
+      }, error => {
+        reject(error)
+      }).catch(err => {
+        reject(err)
+      })
+    });
+  },
+
+  /**
+   * 分配权限
+   * @param commit
+   * @param state
+   * @returns {Promise<any>}
+   */
   submitAuthorization({commit, state}) {
     return new Promise((resolve, reject) => {
       let params = state.roleDialog;
@@ -443,8 +478,27 @@ const actions = {
     })
   },
 
+  /**
+   * 删除角色
+   * @param commit
+   * @param state
+   * @param role
+   */
   removeRoleAct({commit, state}, role) {
-    commit('removeRole', role);
+    return new Promise((resolve, reject) => {
+      API.removeRole(role.id).then(result => {
+        if (result.errCode === CONSTANTS.SUCCESS) {
+          commit('removeRole', role);
+          resolve(result);
+        } else {
+          reject(result.msg);
+        }
+      }, error => {
+        reject(error);
+      }).catch(err => {
+        reject(err);
+      })
+    });
   },
 
   removeRolesAct({commit, state}, roles) {
@@ -456,6 +510,15 @@ const mutations = {
   setRoles(state, entity) {
     state.roles = entity
   },
+
+  updateRoles(state, entity) {
+    state.roles.forEach((role, index) => {
+      if (role.id === entity.id) {
+        role.name = entity.name;
+        role.note = entity.note
+      }
+    })
+  },
   setRoleDialog(state, entity) {
     state.roleDialog = entity
   },
@@ -465,6 +528,10 @@ const mutations = {
 
   removeRole(state, entity) {
     util.removeElement(state.roles, entity, 'id');
+  },
+
+  addRole(state, entity) {
+    state.roles.push(entity);
   }
 };
 

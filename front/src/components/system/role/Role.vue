@@ -113,8 +113,11 @@
         })
       },
       editRole(index, row) {
-        this.setRoleDialog(row);
-        this.$refs.editDialog.open();
+        this.setRoleDialog(row).then(result => {
+          this.$refs.editDialog.open();
+        }).catch(error => {
+          this.$message({type: 'error', message: error.toString()});
+        })
       },
       removeRole(index, row) {
         this.$confirm('是否删除该角色?', '提示', {
@@ -122,11 +125,17 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.removeRoleAct(row);
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          });
+          this.removeRoleAct(row).then(result => {
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            });
+          }).catch(error => {
+            this.$message({
+              type: 'error',
+              message: error.toString()
+            });
+          })
         }).catch(() => {
 
         });
@@ -159,12 +168,15 @@
         this.selRoles = selection;
       },
       compInit() {
-        this.getAllRolesPaging({page: this.pagination.page, limit: this.pagination.limit})
+        this.getAllRolesPaging({
+          page: this.pagination.page,
+          limit: this.pagination.limit
+        }).then(result => {
+          this.pagination.total = result.total;
+        })
       }
     },
-
     created() {
-      // this.mockRoles();
       this.compInit();
     }
   }
