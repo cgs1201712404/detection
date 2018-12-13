@@ -14,6 +14,7 @@ import com.hptpd.usermanagement.repository.RoleMenuRep;
 import com.hptpd.usermanagement.repository.RoleRep;
 import com.hptpd.usermanagement.service.comp.PermissionInitializer;
 import com.hptpd.usermanagement.service.comp.RoleInitializer;
+import com.hptpd.usermanagement.vo.IdName;
 import com.hptpd.usermanagement.vo.role.DataVo;
 import com.hptpd.usermanagement.vo.role.MenuVo;
 import com.hptpd.usermanagement.vo.role.RolePageVo;
@@ -122,6 +123,34 @@ public class RolePermissionServiceImpl implements IRoleService, IPermissionServi
     }
 
     /**
+     * 批量删除角色
+     *
+     * @param ids
+     * @return
+     */
+    @Override
+    public Result batchRemoveRoles(String[] ids) {
+        if (null == ids || ids.length <= 0) {
+            return Result.setResult(Result.ERROR, "角色id值为空！");
+        }
+        for (String roleId : ids) {
+            removeRoleService(roleId);
+        }
+        return Result.setResult(Result.SUCCESS, "批量删除角色成功！");
+    }
+
+    /**
+     * 以IdName形式获取所有的角色，
+     *
+     * @return
+     */
+    @Override
+    public List<IdName> getAllRoles() {
+        List<Role> roles = roleRep.findAll();
+        return IdName.fromRoles(roles);
+    }
+
+    /**
      * 删除角色，根据角色名删除
      *
      * @param id
@@ -137,9 +166,13 @@ public class RolePermissionServiceImpl implements IRoleService, IPermissionServi
         if (!roleOptional.isPresent()) {
             return Result.setResult(Result.ERROR, "此角色不存在!");
         }
+        removeRoleService(id);
+        return Result.setResult(Result.SUCCESS, "角色删除成功!");
+    }
+
+    private void removeRoleService(String id) {
         removeRoleRelations(id);
         roleRep.deleteById(id);
-        return Result.setResult(Result.SUCCESS, "角色删除成功!");
     }
 
     private void removeRoleRelations(String roleId) {
@@ -243,4 +276,5 @@ public class RolePermissionServiceImpl implements IRoleService, IPermissionServi
             return Result.setResult(Result.ERROR, "该角色不存在！");
         }
     }
+
 }

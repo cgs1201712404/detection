@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -34,32 +34,32 @@ public class User extends AbstractUser {
      * 姓名
      */
     @Column(name = "name")
-    private String name;
+    private String name = "";
 
     /**
      * 性别
      */
     @Column(name = "gender")
-    private String gender;
+    private String gender = "";
 
     /**
      * 手机
      */
     @Column(name = "cell_phone")
-    private String cellPhone;
+    private String cellPhone = "";
 
     /**
      * 部门
      */
     @Column(name = "department")
-    private String department;
+    private String department = "";
 
     /**
      * 职务
      */
     @Column(name = "position")
-    private String position;
+    private String position = "";
 
-    @OneToOne(mappedBy = "user")
+    @ManyToOne
     private Role role;
 }

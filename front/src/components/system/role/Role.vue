@@ -22,7 +22,7 @@
         </el-form-item>
       </el-form>
     </el-row>
-    <el-row class="table-row">
+    <el-row class="table-row" v-loading="loading" element-loading-text="正在加载">
       <el-table border :data="roles" @selection-change="selectionChange">
         <el-table-column
           type="selection">
@@ -83,6 +83,7 @@
     },
     data() {
       return {
+        loading: false,
         selRoles: [],
         pagination: {
           page: 1,
@@ -149,9 +150,14 @@
           if (this.selRoles && this.selRoles.length === 0) {
             this.$message({type: 'warning', message: '请选择待删除角色!'});
           } else {
-            this.removeRolesAct(this.selRoles);
-            // this.selRoles = [];
-            this.$message({type: 'success', message: '删除成功!'});
+            this.removeRolesAct(this.selRoles).then(result => {
+              this.$message({type: 'success', message: '删除成功!'});
+            }).catch(error => {
+              this.$message({
+                type: 'error',
+                message: error.toString()
+              });
+            })
           }
         }).catch(() => {
 
@@ -168,11 +174,16 @@
         this.selRoles = selection;
       },
       compInit() {
+        this.loading = true;
         this.getAllRolesPaging({
           page: this.pagination.page,
           limit: this.pagination.limit
         }).then(result => {
+          this.loading = false;
           this.pagination.total = result.total;
+        }).catch(err => {
+          this.loading = false;
+          this.$message({type: 'error', message: err.toString()});
         })
       }
     },

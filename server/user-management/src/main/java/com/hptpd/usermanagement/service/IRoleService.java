@@ -2,6 +2,7 @@ package com.hptpd.usermanagement.service;
 
 import com.hptpd.usermanagement.component.Result;
 import com.hptpd.usermanagement.domain.Role;
+import com.hptpd.usermanagement.vo.IdName;
 import com.hptpd.usermanagement.vo.role.MenuVo;
 import com.hptpd.usermanagement.vo.role.RolePageVo;
 import com.hptpd.usermanagement.vo.role.RoleVo;
@@ -21,6 +22,7 @@ public interface IRoleService {
 
     /**
      * 基本角色初始化工作
+     *
      * @return
      */
     List<Role> roleInit();
@@ -81,4 +83,20 @@ public interface IRoleService {
      * @return
      */
     Result findRoleById(String id);
+
+    /**
+     * 批量删除角色
+     *
+     * @param ids
+     * @return
+     */
+    Result batchRemoveRoles(String[] ids);
+
+    /**
+     * 以IdName形式获取所有的角色，
+     *
+     * @return
+     */
+    List<IdName> getAllRoles();
+
 }

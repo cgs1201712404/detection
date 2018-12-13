@@ -116,9 +116,11 @@ public class UserTest {
             userVo.setRoleVo(roleVo);
             Result result = userService.updateUser(userVo);
             Assert.assertEquals(result.getMsg(), "更新用户信息并指派新角色成功！");
-            User user = UserVo.toDo(userVo);
-            Optional<Role> roleOptional = roleRep.findByUser(user);
-            roleOptional.ifPresent(role -> Assert.assertEquals(role.getName(), "经理"));
+            Optional<User> userOptional = userRep.findById(userVo.getUserName());
+            if (userOptional.isPresent()) {
+                Role role = userOptional.get().getRole();
+                Assert.assertEquals(role.getName(), "经理");
+            }
         }
 
     }

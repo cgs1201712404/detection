@@ -5,10 +5,14 @@
  \* Description: 用户state，用于存放用户相关数据（用户、权限组、菜单）
  \*/
 import util from '../../common/util'
+import API from "../../api/api_user";
+import CONSTANTS from '../../common/constants'
 
 const state = {
   // 当前用户
   currentUser: {},
+  // 被选中的用户
+  userDialog: {},
   // 用户列表分页
   users: []
 };
@@ -175,6 +179,51 @@ const actions = {
     ];
     commit('setUsers', users)
   },
+
+  /**
+   * 分页获取所有用户
+   * @param params
+   * @param commit
+   */
+  getAllUsersPaging({commit}, params) {
+    return new Promise((resolve, reject) => {
+      API.getUsers(params).then(result => {
+        if (result && result.users) {
+          commit('setUsers', result.users);
+          resolve(result);
+        }
+      }, error => {
+        reject(error);
+      }).catch(err => {
+        reject(err);
+      })
+    })
+  },
+
+  /**
+   * 新增用户
+   * @param commit
+   * @param user
+   */
+  addUserAct({commit}, user) {
+    return new Promise((resolve, reject) => {
+      API.addUser(user).then(result => {
+        if (result.errCode === CONSTANTS.SUCCESS) {
+          commit('addUser', user);
+          resolve(result);
+        } else {
+          reject(result.msg)
+        }
+      }, error => {
+        reject(error)
+      }).catch(err => {
+        reject(err)
+      })
+    });
+  },
+
+  // 编辑用户信息还没完成
+
   removeUserAct({commit}, user) {
     /**
      * 向服务器发送删除用户请求，根据返回结果进行响应
@@ -193,11 +242,17 @@ const mutations = {
   setCurrentUser(state, entity) {
     state.currentUser = entity
   },
+  setUserDialog(state, entity) {
+    state.userDialog = entity
+  },
   setUsers(state, entity) {
     state.users = entity
   },
   removeUser(state, entity) {
     util.removeElement(state.users, entity, 'userName');
+  },
+  addUser(state, entity) {
+    state.users.push(entity)
   }
 };
 

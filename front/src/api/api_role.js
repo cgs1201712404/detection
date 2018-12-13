@@ -13,6 +13,8 @@ export default {
 
   removeRole: id => API.GET('/user-management/role/remove/' + id + '.html'),
 
+  batchRemoveRoles: ids => API.POST('/user-management/role/batch/remove.shtml', ids),
+
   /**
    * 角色授权
    * @param params
@@ -32,7 +34,13 @@ export default {
    * @param params
    * @returns {*}
    */
-  getRoles: params => API.GET('/user-management/role/list.html', params),
+  getRolesPaging: params => API.GET('/user-management/role/list.html', params),
+
+  /**
+   * 以idName形式获取所有角色
+   * @returns {*}
+   */
+  getRoles: () => API.GET('/user-management/role/id_name/list.json'),
 
   findRoleById: id => API.GET('/user-management/role/' + id + '.json')
 }

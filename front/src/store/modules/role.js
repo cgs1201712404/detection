@@ -15,7 +15,9 @@ const state = {
   // 被选中分配权限的角色
   roleDialog: {},
   // 新建角色时，权限的default值
-  newPermissions: []
+  newPermissions: [],
+  // 所有的角色IdNames
+  idNames: []
 };
 
 const getters = {
@@ -24,6 +26,9 @@ const getters = {
   },
   roleDialog: state => {
     return state.roleDialog
+  },
+  idNames: state => {
+    return state.idNames
   }
 };
 
@@ -377,7 +382,7 @@ const actions = {
    */
   getAllRolesPaging({commit, state}, params) {
     return new Promise((resolve, reject) => {
-      API.getRoles(params).then(result => {
+      API.getRolesPaging(params).then(result => {
         if (result && result.roles) {
           commit('setRoles', result.roles);
           resolve(result);
@@ -386,6 +391,26 @@ const actions = {
         reject(error);
       }).catch(err => {
         reject(err);
+      })
+    })
+  },
+
+  /**
+   * 以IdName形式获取所有角色
+   * @param commit
+   * @param state
+   */
+  getAllRoles({commit, state}) {
+    return new Promise((resolve, reject) => {
+      API.getRoles().then(idNames => {
+        if (idNames && idNames.length > 0) {
+          commit('setRoleIdNames', idNames)
+          resolve();
+        }
+      }, error => {
+        reject(error)
+      }).catch(err => {
+        reject(err)
       })
     })
   },
@@ -429,7 +454,6 @@ const actions = {
       };
       API.updateRole(params).then(result => {
         if (result.errCode === CONSTANTS.SUCCESS) {
-          console.log(result)
           commit('updateRoles', JSON.parse(result.data));
           commit('setRoleDialog', role);
           resolve(result);
@@ -450,7 +474,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       API.addRole(role).then(result => {
         if (result.errCode === CONSTANTS.SUCCESS) {
-          commit('addRole', JSON.parse(result.data))
+          commit('addRole', JSON.parse(result.data));
           resolve(result);
         } else {
           reject(result.msg)
@@ -501,8 +525,27 @@ const actions = {
     });
   },
 
+  /**
+   * 批量删除角色
+   * @param commit
+   * @param state
+   * @param roles
+   */
   removeRolesAct({commit, state}, roles) {
-    roles.forEach(role => commit('removeRole', role))
+    return new Promise((resolve, reject) => {
+      let ids = roles.map((role => role.id));
+      console.log(ids);
+      API.batchRemoveRoles(ids).then(result => {
+        if (result.errCode === CONSTANTS.SUCCESS) {
+          roles.forEach(role => commit('removeRole', role));
+          resolve(result);
+        }
+      }, error => {
+        reject(error)
+      }).catch(err => {
+        reject(err);
+      })
+    });
   }
 };
 
@@ -524,6 +567,10 @@ const mutations = {
   },
   setWholePermissions(state, entity) {
     state.wholePermissions = entity;
+  },
+
+  setRoleIdNames(state, entity) {
+    state.idNames = entity;
   },
 
   removeRole(state, entity) {

@@ -157,7 +157,7 @@ public class UserServiceImpl implements IUserService {
         Boolean flag = false;
         if (null != user && null != role) {
             user.setRole(role);
-            role.setUser(user);
+            role.getUsers().add(user);
             userRep.save(user);
             flag = true;
         }

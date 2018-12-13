@@ -33,8 +33,8 @@ public class Role {
     @Column(name = "note")
     private String note;
 
-    @OneToOne
-    private User user;
+    @OneToMany(mappedBy = "role")
+    private Set<User> users = Sets.newLinkedHashSet();
 
     @OneToMany(mappedBy = "role", cascade = CascadeType.REMOVE)
     private Set<RoleMenu> roleMenus = Sets.newLinkedHashSet();

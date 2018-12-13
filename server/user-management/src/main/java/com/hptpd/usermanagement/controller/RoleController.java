@@ -3,6 +3,7 @@ package com.hptpd.usermanagement.controller;
 import com.hptpd.usermanagement.component.Result;
 import com.hptpd.usermanagement.service.IRoleService;
 import com.hptpd.usermanagement.service.IUserService;
+import com.hptpd.usermanagement.vo.IdName;
 import com.hptpd.usermanagement.vo.role.RolePageVo;
 import com.hptpd.usermanagement.vo.role.RoleVo;
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * \* Created with IntelliJ IDEA.
@@ -50,12 +52,26 @@ public class RoleController {
         return result;
     }
 
+    @RequestMapping(value = "/batch/remove.shtml", method = RequestMethod.POST)
+    public Result batchRemoveRoles(@RequestBody String[] ids) {
+        Result result = roleService.batchRemoveRoles(ids);
+        logger.info(result.toString());
+        return result;
+    }
+
     @RequestMapping(value = "/list.html", method = RequestMethod.GET)
     public RolePageVo getAllRoles(@RequestParam(value = "page", defaultValue = "1") Integer page,
                                   @RequestParam(value = "limit", defaultValue = "10") Integer limit) {
         RolePageVo rolePageVo = roleService.getAllRoles(PageRequest.of(page - 1, limit));
         logger.info(rolePageVo.toString());
         return rolePageVo;
+    }
+
+    @RequestMapping(value = "/id_name/list.json", method = RequestMethod.GET)
+    public List<IdName> getAllRoles() {
+        List<IdName> idNames = roleService.getAllRoles();
+        logger.info(idNames.toString());
+        return idNames;
     }
 
     @RequestMapping(value = "/auth.shtml", method = RequestMethod.POST)

@@ -9,7 +9,7 @@
   <el-dialog :visible.sync="dialogVisible" title="添加角色">
     <el-card shadow="never">
       <el-row>
-        <el-form ref="addRoleForm" v-model="roleForm" label-width="6em" label-position="'left'">
+        <el-form ref="addRoleForm" :model="roleForm" label-width="6em" label-position="'left'">
           <el-form-item label="角色名称：">
             <el-input v-model="roleForm.name"></el-input>
           </el-form-item>

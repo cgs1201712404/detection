@@ -9,7 +9,7 @@
     <el-row style="margin-top: 2em">
       <el-form :inline="true">
         <el-form-item>
-          <el-button type="success" icon="el-icon-circle-plus-outline">添加用户</el-button>
+          <el-button type="success" icon="el-icon-circle-plus-outline" @click="addUser">添加用户</el-button>
         </el-form-item>
         <el-form-item>
           <el-button type="danger" icon="el-icon-download" @click="batchRemoveUsers">批量删除</el-button>
@@ -22,7 +22,7 @@
         </el-form-item>
       </el-form>
     </el-row>
-    <el-row class="table-row">
+    <el-row class="table-row" v-loading="loading" element-loading-text="正在加载">
       <el-table border :data="users" @selection-change="selUsersChange">
         <el-table-column
           type="selection">
@@ -47,7 +47,7 @@
           label="性别">
         </el-table-column>
         <el-table-column
-          prop="phone"
+          prop="cellPhone"
           label="手机">
         </el-table-column>
         <el-table-column
@@ -60,11 +60,13 @@
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button size="small" type="success">编辑</el-button>
+            <el-button size="small" type="success" @click="editUser(scope.$index,scope.row)">编辑</el-button>
             <el-button size="small" type="danger" @click="removeUser(scope.$index,scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
+      <user-dialog ref="userDialog" :contextOp="contextOp">
+      </user-dialog>
     </el-row>
     <el-row class="pagination-row">
       <el-pagination
@@ -82,9 +84,11 @@
 
 <script>
   import {mapActions, mapGetters} from 'vuex';
+  import UserDialog from "./UserDialog";
 
   export default {
     name: "User",
+    components: {UserDialog},
     computed: {
       ...mapGetters([
         'users'
@@ -92,6 +96,8 @@
     },
     data() {
       return {
+        contextOp: 'add',
+        loading: false,
         selUsers: [],
         pagination: {
           page: 1,
@@ -102,7 +108,7 @@
     },
     methods: {
       ...mapActions([
-        'mockUsers',
+        'getAllUsersPaging',
         'removeUserAct',
         'removeUsersAct'
       ]),
@@ -114,6 +120,10 @@
       },
       selUsersChange(selection) {
         this.selUsers = selection;
+      },
+      addUser() {
+        this.contextOp = 'add';
+        this.$refs.userDialog.open();
       },
       removeUser(index, row) {
         this.$confirm('是否删除该用户?', '提示', {
@@ -146,10 +156,24 @@
         }).catch(() => {
 
         });
+      },
+      editUser(index, row) {
+        this.contextOp = 'edit';
+        this.$refs.userDialog.open(row);
+      },
+      initComp() {
+        this.loading = true;
+        this.getAllUsersPaging({}).then(result => {
+          this.loading = false;
+        }).catch(error => {
+          this.loading = false;
+          this.$message({type: 'error', message: error.toString()});
+        })
+        // this.mockUsers();
       }
     },
     created() {
-      this.mockUsers();
+      this.initComp();
     }
   }
 </script>

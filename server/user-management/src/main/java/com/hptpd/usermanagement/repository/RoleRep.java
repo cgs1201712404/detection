@@ -16,11 +16,4 @@ import java.util.Optional;
  */
 public interface RoleRep extends JpaRepository<Role, String> {
 
-    /**
-     * 通过用户查询该用户的角色
-     *
-     * @param user
-     * @return
-     */
-    Optional<Role> findByUser(User user);
 }

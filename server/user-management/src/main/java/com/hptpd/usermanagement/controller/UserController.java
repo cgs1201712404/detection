@@ -28,7 +28,7 @@ public class UserController {
     private IUserService userService;
 
     @RequestMapping(value = "/add.shtml", method = RequestMethod.POST)
-    public Result addUser(UserVo userVo) {
+    public Result addUser(@RequestBody UserVo userVo) {
         Result result = userService.addUserWithRole(userVo);
         logger.info(result.toString());
         return result;

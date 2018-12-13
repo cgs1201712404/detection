@@ -29,7 +29,9 @@ function deepCopy(obj) {
   }
   let newobj = {};
   for (let attr in obj) {
-    newobj[attr] = deepCopy(obj[attr]);
+    if (attr !== null) {
+      newobj[attr] = deepCopy(obj[attr]);
+    }
   }
   return newobj;
 }
