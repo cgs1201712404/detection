@@ -100,24 +100,34 @@
     methods: {
       ...mapActions([
         'getAllRoles',
-        'addUserAct'
+        'addUserAct',
+        'updateUserAct'
       ]),
       cancel(userForm) {
         this.$refs[userForm].resetFields();
         this.dialogVisible = false;
       },
       submitUser(userForm) {
-
         // 表单验证
         this.$refs[userForm].validate((valid) => {
           if (valid) {
-            console.log(this.userForm)
-            this.addUserAct(this.userForm).then(result => {
-              this.dialogVisible = false;
-              this.$message({type: 'success', message: result.msg});
-            }).catch(error => {
-              this.$message({type: 'error', message: error.toString()});
-            })
+            if (this.contextOp === 'add') {
+              this.addUserAct(this.userForm).then(result => {
+                util.elemResetForm(userForm, this);
+                this.dialogVisible = false;
+                this.$message({type: 'success', message: result.msg});
+              }).catch(error => {
+                this.$message({type: 'error', message: error.toString()});
+              })
+            } else if (this.contextOp === 'update') {
+              this.updateUserAct(this.userForm).then(result => {
+                this.dialogVisible = false;
+                util.elemResetForm(userForm, this);
+                this.$message({type: 'success', message: result.msg});
+              }).catch(error => {
+                this.$message({type: 'error', message: error.toString()});
+              })
+            }
           } else {
             return false;
           }
@@ -127,7 +137,6 @@
         this.dialogVisible = true;
         if (user) {
           this.userForm = util.copyObject(user);
-          this.setRoleId(this.idNames[0].id);
         }
       },
       setRoleId(roleId) {

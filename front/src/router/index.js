@@ -105,14 +105,14 @@ let router = new Router({
           // iconCls: 'icon iconfont icon-shebeiweihu',
           menuShow: false
         },
-        {
-          path: '/surveillance',
-          component: Surveillance,
-          name: 'surveillance',
-          label: '视频监控',
-          // iconCls: 'icon iconfont icon-shipinjiankong',
-          menuShow: false
-        },
+        // {
+        //   path: '/surveillance',
+        //   component: Surveillance,
+        //   name: 'surveillance',
+        //   label: '视频监控',
+        //   // iconCls: 'icon iconfont icon-shipinjiankong',
+        //   menuShow: false
+        // },
       ]
     },
     {
@@ -140,14 +140,14 @@ let router = new Router({
           // iconCls: 'icon iconfont icon-baojingpeizhi',
           menuShow: false
         },
-        {
-          path: '/notification',
-          component: Notification,
-          name: 'notification',
-          label: '报警通知',
-          // iconCls: 'icon iconfont icon-baijingtongzhi',
-          menuShow: false
-        },
+        // {
+        //   path: '/notification',
+        //   component: Notification,
+        //   name: 'notification',
+        //   label: '报警通知',
+        //   // iconCls: 'icon iconfont icon-baijingtongzhi',
+        //   menuShow: false
+        // },
       ]
     },
     {
@@ -175,14 +175,14 @@ let router = new Router({
           // iconCls: 'icon iconfont icon-yuebao',
           menuShow: false
         },
-        {
-          path: '/analysis',
-          component: Analysis,
-          name: 'analysis',
-          label: '报表分析',
-          // iconCls: 'icon iconfont icon-baobiaofenxi',
-          menuShow: false
-        },
+        // {
+        //   path: '/analysis',
+        //   component: Analysis,
+        //   name: 'analysis',
+        //   label: '报表分析',
+        //   // iconCls: 'icon iconfont icon-baobiaofenxi',
+        //   menuShow: false
+        // },
       ]
     },
     {

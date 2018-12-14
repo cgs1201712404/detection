@@ -60,4 +60,12 @@ public interface IUserService {
      * @return
      */
     Result updateUser(UserVo userVo);
+
+    /**
+     * 批量删除用户
+     *
+     * @param userNames
+     * @return
+     */
+    Result batchRemoveUsers(String[] userNames);
 }

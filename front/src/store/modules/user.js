@@ -201,6 +201,28 @@ const actions = {
   },
 
   /**
+   * 分页姓名查询用户
+   * @param commit
+   * @param params
+   */
+  queryUsersByNameAct({commit}, params) {
+    return new Promise((resolve, reject) => {
+      API.queryUsers(params).then(usersPage => {
+        if (usersPage) {
+          commit('setUsers', usersPage.users);
+          resolve();
+        } else {
+          reject()
+        }
+      }, error => {
+        reject(error)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+
+  /**
    * 新增用户
    * @param commit
    * @param user
@@ -209,7 +231,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       API.addUser(user).then(result => {
         if (result.errCode === CONSTANTS.SUCCESS) {
-          commit('addUser', user);
+          commit('addUser', util.copyObject(user));
           resolve(result);
         } else {
           reject(result.msg)
@@ -222,19 +244,60 @@ const actions = {
     });
   },
 
-  // 编辑用户信息还没完成
+  /**
+   * 编辑用户
+   * @param commit
+   * @param user
+   */
+  updateUserAct({commit}, user) {
+    return new Promise((resolve, reject) => {
+      API.updateUser(user).then(result => {
+        if (result.errCode === CONSTANTS.SUCCESS) {
+          commit('updateUserInUsers', util.copyObject(user));
+          resolve(result)
+        } else {
+          reject(result.msg)
+        }
+      }, error => {
+        reject(error)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
 
   removeUserAct({commit}, user) {
-    /**
-     * 向服务器发送删除用户请求，根据返回结果进行响应
-     */
-    commit('removeUser', user)
+    return new Promise((resolve, reject) => {
+      API.removeUser(user.userName).then(result => {
+        if (result.errCode === CONSTANTS.SUCCESS) {
+          commit('removeUser', user);
+          resolve(result)
+        } else {
+          reject(result.msg)
+        }
+      }, error => {
+        reject(error)
+      }).catch(err => {
+        reject(err)
+      })
+    });
   },
+
   removeUsersAct({commit}, users) {
-    /**
-     * 向服务器发送删除用户请求，根据返回结果进行响应
-     */
-    users.forEach(user => commit('removeUser', user))
+    return new Promise((resolve, reject) => {
+      API.batchRemoveUsers(users.map(user => user.userName)).then(result => {
+        if (result.errCode === CONSTANTS.SUCCESS) {
+          users.forEach(user => commit('removeUser', user))
+          resolve(result);
+        } else {
+          reject(result.msg)
+        }
+      }, error => {
+        reject(error)
+      }).catch(err => {
+        reject(err)
+      })
+    })
   }
 };
 
@@ -253,6 +316,18 @@ const mutations = {
   },
   addUser(state, entity) {
     state.users.push(entity)
+  },
+  /**
+   * 更新用户数组中用户
+   * @param state
+   * @param entity
+   */
+  updateUserInUsers(state, entity) {
+    state.users.forEach((user, index, array) => {
+      if (user.userName === entity.userName) {
+        array.splice(index, 1, entity)
+      }
+    })
   }
 };
 
