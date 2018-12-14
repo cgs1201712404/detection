@@ -1,5 +1,6 @@
 package com.hptpd.usermanagement.service;
 
+import com.google.common.collect.Lists;
 import com.hptpd.usermanagement.common.util.AbstractMyBeanUtils;
 import com.hptpd.usermanagement.common.util.StringUtil;
 import com.hptpd.usermanagement.component.Result;
@@ -14,7 +15,9 @@ import com.hptpd.usermanagement.vo.user.UserVo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -86,7 +89,12 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public UserPageVo findByName(String name, Pageable pageable) {
-        Page<User> userPage = userRep.findByName(name, pageable);
+        Page<User> userPage;
+        if (StringUtil.isNotEmpty(name)) {
+            userPage = userRep.findByName(name, pageable);
+        } else {
+            userPage = userRep.findAll(pageable);
+        }
         return UserPageVo.toPageVo(userPage);
     }
 
@@ -116,6 +124,26 @@ public class UserServiceImpl implements IUserService {
             Result.setResult(Result.ERROR, "不存在指定用户!");
         }
         return Result.setResult(Result.SUCCESS, "删除用户成功!");
+    }
+
+    /**
+     * 批量删除用户
+     *
+     * @param userNames
+     * @return
+     */
+    @Override
+    public Result batchRemoveUsers(String[] userNames) {
+        if (null == userNames || userNames.length <= 0) {
+            return Result.setResult(Result.ERROR, "用户名为空值！");
+        }
+        List<User> users = Lists.newLinkedList();
+        for (String userName : userNames) {
+            Optional<User> userOptional = userRep.findById(userName);
+            userOptional.ifPresent(users::add);
+        }
+        userRep.deleteInBatch(users);
+        return Result.setResult(Result.SUCCESS, "批量删除用户成功!");
     }
 
     /**

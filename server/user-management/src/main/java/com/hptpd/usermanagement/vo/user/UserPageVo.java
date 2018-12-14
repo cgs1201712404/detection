@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.hptpd.usermanagement.common.util.AbstractMyBeanUtils;
 import com.hptpd.usermanagement.component.PageBase;
 import com.hptpd.usermanagement.domain.user.User;
+import com.hptpd.usermanagement.vo.role.RoleVo;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -34,10 +35,15 @@ public class UserPageVo extends PageBase {
         for (User user : userPage) {
             UserVo userVo = new UserVo();
             AbstractMyBeanUtils.copyProperties(user, userVo);
+            // 设置用户角色
+            if (null != user.getRole()) {
+                RoleVo roleVo = RoleVo.toVo(user.getRole());
+                userVo.setRoleVo(roleVo);
+            }
             userVos.add(userVo);
         }
         userPageVo.setUsers(userVos);
-        userPageVo.setLimit(userPage.getNumberOfElements());
+        userPageVo.setLimit(userPage.getSize());
         userPageVo.setTotal(userPage.getTotalElements());
         return userPageVo;
     }

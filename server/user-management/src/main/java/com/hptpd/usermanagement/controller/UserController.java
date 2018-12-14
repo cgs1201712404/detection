@@ -34,7 +34,7 @@ public class UserController {
         return result;
     }
 
-    @RequestMapping(value = "/{name}.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/query/{name}.html", method = RequestMethod.GET)
     public UserPageVo findByName(@RequestParam(value = "page", defaultValue = "1") Integer page,
                                  @RequestParam(value = "limit", defaultValue = "10") Integer limit,
                                  @PathVariable String name) {
@@ -54,6 +54,20 @@ public class UserController {
     @RequestMapping(value = "/remove/{name}.html", method = RequestMethod.GET)
     public Result removeUser(@PathVariable String name) {
         Result result = userService.removeUser(name);
+        logger.info(result.toString());
+        return result;
+    }
+
+    @RequestMapping(value = "/batch/remove.shtml", method = RequestMethod.POST)
+    public Result batchRemoveUsers(@RequestBody String[] ids) {
+        Result result = userService.batchRemoveUsers(ids);
+        logger.info(result.toString());
+        return result;
+    }
+
+    @RequestMapping(value = "/update.shtml", method = RequestMethod.POST)
+    public Result updateUser(@RequestBody UserVo userVo) {
+        Result result = userService.updateUser(userVo);
         logger.info(result.toString());
         return result;
     }

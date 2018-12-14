@@ -15,10 +15,10 @@
           <el-button type="danger" icon="el-icon-download" @click="batchRemoveUsers">批量删除</el-button>
         </el-form-item>
         <el-form-item style="margin-left: 2em">
-          <el-input placeholder="请输入用户姓名"></el-input>
+          <el-input v-model="filters.name" placeholder="请输入用户姓名"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" icon="el-icon-search">查询</el-button>
+          <el-button type="primary" icon="el-icon-search" @click="queryUsers">查询</el-button>
         </el-form-item>
       </el-form>
     </el-row>
@@ -99,6 +99,9 @@
         contextOp: 'add',
         loading: false,
         selUsers: [],
+        filters: {
+          name: ''
+        },
         pagination: {
           page: 1,
           limit: 10,
@@ -110,7 +113,8 @@
       ...mapActions([
         'getAllUsersPaging',
         'removeUserAct',
-        'removeUsersAct'
+        'removeUsersAct',
+        'queryUsersByNameAct'
       ]),
       handleSizeChange() {
 
@@ -131,11 +135,13 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.removeUserAct(row);
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          });
+          this.removeUserAct(row).then(result => {
+            this.$message({
+              type: 'success', message: '删除成功!'
+            });
+          }).catch(error => {
+            this.$message({type: 'error', message: error.toString()});
+          })
         }).catch(() => {
 
         });
@@ -149,27 +155,49 @@
           if (this.selUsers && this.selUsers.length === 0) {
             this.$message({type: 'warning', message: '请选择待删除用户!'});
           } else {
-            this.removeUsersAct(this.selUsers);
-            this.selUsers = [];
-            this.$message({type: 'success', message: '删除成功!'});
+            this.removeUsersAct(this.selUsers).then(result => {
+              this.selUsers = [];
+              this.$message({type: 'success', message: '批量删除成功!'});
+            }).catch(error => {
+              this.$message({type: 'error', message: error.toString()});
+            })
           }
         }).catch(() => {
 
         });
       },
+      queryUsers() {
+        this.queryUsersByNameAct(
+          {
+            name: this.filters.name,
+            limit: this.pagination.limit,
+            page: this.pagination.page
+          })
+      },
       editUser(index, row) {
-        this.contextOp = 'edit';
+        this.contextOp = 'update';
         this.$refs.userDialog.open(row);
+      },
+      setPagination(page, limit, total) {
+        if (page) {
+          this.pagination.page = page
+        }
+        if (limit) {
+          this.pagination.limit = limit
+        }
+        if (total) {
+          this.pagination.total = total
+        }
       },
       initComp() {
         this.loading = true;
         this.getAllUsersPaging({}).then(result => {
+          this.setPagination(null, result.limit, result.total);
           this.loading = false;
         }).catch(error => {
           this.loading = false;
           this.$message({type: 'error', message: error.toString()});
         })
-        // this.mockUsers();
       }
     },
     created() {

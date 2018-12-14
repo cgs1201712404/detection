@@ -52,9 +52,14 @@ function setPermissionGroupChecked(permissionGroup, value) {
   }
 }
 
+function resetForm(formName, context) {
+  context.$refs[formName].resetFields();
+}
+
 export default {
   contains: contains,
   removeElement: removeElement,
   copyObject: deepCopy,
-  setPermissionGroupChecked: setPermissionGroupChecked
+  setPermissionGroupChecked: setPermissionGroupChecked,
+  elemResetForm: resetForm
 }
