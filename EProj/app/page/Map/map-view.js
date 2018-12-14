@@ -9,6 +9,7 @@ import {
 import { MapView, Location } from 'react-native-baidumap-sdk'
 import icon from './ic_my_location.png'
 import { Initializer } from 'react-native-baidumap-sdk'
+import IMNavBar from '../../common/IMNavBar'
 
 
 Initializer.init('m9PdoLcLriSn5YlxOfAMC27xBdt17TO2');
@@ -16,6 +17,10 @@ Initializer.init('m9PdoLcLriSn5YlxOfAMC27xBdt17TO2');
 const style = StyleSheet.create({
     textStyle:{
         fontSize:15
+    },
+    searchContent: {
+        color: '#FFF',
+        fontSize: 16,
     },
     textTab:{
         flexDirection: 'row',
@@ -37,16 +42,16 @@ const style = StyleSheet.create({
     margin: 12,
     tintColor: '#616161',
   },
-})
+});
 
 export default class MapViewExample extends Component {
     static navigationOptions = ({ navigation }) => ({
         header:null
     });
 
-  state = {}
+  state = {};
     onStatusChange = status => {
-        this.status = status
+        this.status = status;
         this.cluster.update(status)
     };
 
@@ -55,7 +60,7 @@ export default class MapViewExample extends Component {
             center: cluster.coordinate,
             zoomLevel: this.status.zoomLevel + 1,
         }, 500)
-    }
+    };
 
     markers = Array(100).fill(0).map((_, i) => ({
         coordinate: {
@@ -63,7 +68,7 @@ export default class MapViewExample extends Component {
             longitude: 114 + Math.random(),
         },
         extra: { key: `Marker${i}`+'汉口华侨' },
-    }))
+    }));
 
     renderMarker = item => (
         <MapView.Marker
@@ -71,7 +76,7 @@ export default class MapViewExample extends Component {
             title={item.extra.key}
             coordinate={item.coordinate}
         />
-    )
+    );
   async componentDidMount() {
     await Location.init();
     Location.setOptions({ gps: true });
@@ -82,9 +87,14 @@ export default class MapViewExample extends Component {
     Location.start()
 
   }
-
+    // 返回中间按钮
+    renderTitleItem() {
+        return(
+            <Text style={style.searchContent}>地图监测</Text>
+        );
+    }
   componentWillUnmount() {
-    Location.stop()
+    Location.stop();
     this.listener.remove()
   }
 
@@ -115,7 +125,9 @@ export default class MapViewExample extends Component {
                   renderMarker={this.renderMarker}
               />
           </MapView>
-
+          <IMNavBar
+              titleItem={() => this.renderTitleItem()}
+          />
         <View style={style.button}>
           <TouchableOpacity onPress={this.location}>
             <Image style={style.icon} source={icon} />

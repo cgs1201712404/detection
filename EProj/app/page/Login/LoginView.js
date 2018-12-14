@@ -39,30 +39,6 @@ const  resetLogin = NavigationActions.reset({
         NavigationActions.navigate({routeName:'Tab'})//要跳转到的页面名字
     ]
 });
-
-async function requestCameraPermission() {
-    try {
-        const granted = await PermissionsAndroid.request(
-            PermissionsAndroid.PERMISSIONS.CAMERA,
-            {
-                title: 'Cool Photo App Camera Permission',
-                message:
-                'Cool Photo App needs access to your camera ' +
-                'so you can take awesome pictures.',
-                buttonNeutral: 'Ask Me Later',
-                buttonNegative: 'Cancel',
-                buttonPositive: 'OK',
-            },
-        );
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-            console.log('You can use the camera');
-        } else {
-            console.log('Camera permission denied');
-        }
-    } catch (err) {
-        console.warn(err);
-    }
-}
 export default class LoginView extends Component {
     static navigationOptions = {
         header: null
@@ -78,10 +54,25 @@ export default class LoginView extends Component {
         this._onPress = this._onPress.bind(this);
     }
 
-    componentDidMount() {
-        // this.pressLogin();
-        // alert(zStatusBarHeight);
-        this.requestLocationPermission.bind(this);
+    async componentDidMount() {
+        try {
+            const granted = await PermissionsAndroid.request(
+                PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+                {
+                    //第一次请求拒绝后提示用户你为什么要这个权限
+                    'title': '我要地址查询权限',
+                    'message': '没权限我不能工作，同意就好了'
+                }
+            );
+
+            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                this.show("你已获取了地址查询权限")
+            } else {
+                this.show("获取地址查询失败")
+            }
+        } catch (err) {
+            this.show(err.toString())
+        }
     }
 
     static defaultProps = {
@@ -196,7 +187,7 @@ export default class LoginView extends Component {
                 <MyButtonView style={{width: width / 1.3, marginTop: zdp(75.5)}} modal={1}
                               title={'登 录'}
                               onPress={
-                                  this.requestLocationPermission.bind(this)}/>
+                                  this.pressMain}/>
                 <View style={styles.wtf}>
                     <TouchableOpacity activeOpacity={0.9}
                                       style={{

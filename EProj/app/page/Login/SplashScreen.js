@@ -15,12 +15,6 @@ const  resetAction = NavigationActions.reset({
         NavigationActions.navigate({routeName:'Tab'})//要跳转到的页面名字
     ]
 });
-const  resetLogin = NavigationActions.reset({
-    index: 0,
-    actions: [
-        NavigationActions.navigate({routeName:'Login'})//要跳转到的页面名字
-    ]
-});
 export default class SplashScreen extends Component{
     static navigationOptions = ({ navigation }) => ({
         header:null

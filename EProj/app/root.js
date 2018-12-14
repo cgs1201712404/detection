@@ -55,19 +55,6 @@ export default class RootScene extends Component {
     }
 }
 const Tab = TabNavigator({
-        Device: {
-            screen: Device,
-            navigationOptions:{
-                tabBarLabel: '设备',
-                tabBarIcon: ({ focused, tintColor }) => (
-                    <FontAwesome
-                        name={'home'}
-                        size={20}
-                        color={tintColor}
-                    />
-                )
-            }
-        },
         Map: {
             screen: Map,
             navigationOptions: ({ navigation }) => ({
@@ -80,6 +67,19 @@ const Tab = TabNavigator({
                     />
                 )
             }),
+        },
+        Device: {
+            screen: Device,
+            navigationOptions:{
+                tabBarLabel: '设备',
+                tabBarIcon: ({ focused, tintColor }) => (
+                    <FontAwesome
+                        name={'home'}
+                        size={20}
+                        color={tintColor}
+                    />
+                )
+            }
         },
         Point: {
             screen: Dialog,
