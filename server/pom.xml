@@ -26,6 +26,7 @@
         <module>registration-center</module>
         <module>user-management</module>
         <module>api-gateway</module>
+        <module>central-pivot</module>
     </modules>
 
     <dependencies>
