@@ -5,7 +5,6 @@ import com.hptpd.usermanagement.domain.user.Admin;
 import com.hptpd.usermanagement.domain.user.User;
 import com.hptpd.usermanagement.repository.AdminRep;
 import com.hptpd.usermanagement.repository.UserRep;
-import com.hptpd.usermanagement.vo.user.UserVo;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
