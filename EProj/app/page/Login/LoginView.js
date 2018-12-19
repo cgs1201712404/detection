@@ -138,15 +138,6 @@ export default class LoginView extends Component {
                     </View>
                     <View
                         style={{flex: 1, alignItems: 'center'}}>
-
-                        <StatusBar
-                            hidden={false}
-                            translucent={true}
-                            barStyle={'light-content'}//'default', 'light-content', 'dark-content'
-                            backgroundColor={'#fff6fd00'}
-                            networkActivityIndicatorVisible={false}
-                        />
-
                         <Image source={require('./logo2.png')}
                                style={{
                                    width: zdp(140),

@@ -1,9 +1,9 @@
 /**
- * Copyright 2017-present, Karakal.
+ * Copyright 2018-present, Karakal.
  * All rights reserved.
  *
  * 菜单组件列表组件
- * Created by SEELE on 2017/9/30
+ * Created by lc on 2018/11/30
  *
  */
 import React, { PureComponent } from 'react';

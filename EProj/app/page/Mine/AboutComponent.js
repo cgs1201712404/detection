@@ -7,13 +7,11 @@ import {
     StyleSheet,
     Text,
     View,
-    Platform,
-    ToastAndroid,
-    TouchableHighlight
+    ImageBackground
 } from 'react-native';
 
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
-
+import BouncingBalls from 'react-native-bouncing-ball'
 
 export default class AboutComponent {
     /**
@@ -41,6 +39,17 @@ export default class AboutComponent {
         let config = {};
         config.renderBackground = () => (
             <View key="background">
+                <ImageBackground style={styles.ImageBack} source={require('../../image/background.jpg')}>
+                    <BouncingBalls
+                        amount={10}
+                        animationDuration={5000}
+                        minSpeed={30}
+                        maxSpeed={200}
+                        minSize={40}
+                        maxSize={100}
+                        imageBall={require('../../image/bouncing_ball.png')}
+                    />
+                </ImageBackground>
                 <Image source={{
                     uri: params.bg_url,
                     width: window.width,
@@ -119,6 +128,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'black'
+    },
+    ImageBack:{
+        width: window.width,
+        height: PARALLAX_HEADER_HEIGHT
     },
     background: {
         position: 'absolute',

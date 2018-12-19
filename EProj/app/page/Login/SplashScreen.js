@@ -6,6 +6,7 @@ import {
     StyleSheet,
     AsyncStorage,
     Dimensions,
+    StatusBar
 }from 'react-native';
 const window = Dimensions.get('window');
 import { NavigationActions } from 'react-navigation'
@@ -42,11 +43,15 @@ export default class SplashScreen extends Component{
     render(){
         return(
             <View style={styles.container}>
-                <Image source={{
-                    uri:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1527575081565&di=427ceb602b52565392ba0943b997f290&imgtype=0&src=http%3A%2F%2Fi3.sinaimg.cn%2Ftravel%2Ful%2F2009%2F0318%2FU3059P704DT20090318152814.jpg',
-                    width:window.width,
-                    height:window.height
-                }}/>
+                <StatusBar
+                    animated={true} //指定状态栏的变化是否应以动画形式呈现。目前支持这几种样式：backgroundColor, barStyle和hidden
+                    hidden={false}  //是否隐藏状态栏。
+                    backgroundColor={'rgba(0,0,0,0)'} //状态栏的背景色
+                    translucent={true}//指定状态栏是否透明。设置为true时，应用会在状态栏之下绘制（即所谓“沉浸式”——被状态栏遮住一部分）。常和带有半透明背景色的状态栏搭配使用。
+                    barStyle={'light-content'} // enum('default', 'light-content', 'dark-content')
+                >
+                </StatusBar>
+                <Image source={require('../../image/background.jpg')}/>
             </View>
         )
 
