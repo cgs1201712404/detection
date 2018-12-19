@@ -1,6 +1,5 @@
 package com.hptpd.sewage;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateSettings;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
@@ -32,7 +31,7 @@ import java.util.Map;
 @EnableJpaRepositories(
         entityManagerFactoryRef = "entityManagerFactoryPrimary",
         transactionManagerRef = "transactionManagerPrimary",
-        basePackages = {"com.hptpd.sewage.domain","com.hptpd.sewage.repository"})
+        basePackages = {"com.hptpd.sewage.repository"})
 public class PrimaryConfig {
 
     @Resource
@@ -45,22 +44,31 @@ public class PrimaryConfig {
         return entityManagerFactoryPrimary(builder).getObject().createEntityManager();
     }
 
+    @Resource
+    private JpaProperties jpaProperties;
+
+
+    private Map<String, Object> getVendorProperties() {
+        return jpaProperties.getHibernateProperties(new HibernateSettings());
+    }
+
     @Primary
     @Bean(name = "entityManagerFactoryPrimary")
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryPrimary(EntityManagerFactoryBuilder builder) {
         return builder
                 .dataSource(primaryDataSource)
-                .properties(getVendorProperties())
                 .packages("com.hptpd.sewage.domain")
                 .persistenceUnit("primaryPersistenceUnit")
+                .properties(getVendorProperties())
                 .build();
-    }
-
-    @Resource
-    private JpaProperties jpaProperties;
-
-    private Map<String, Object> getVendorProperties() {
-        return jpaProperties.getHibernateProperties(new HibernateSettings());
+//        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+//        vendorAdapter.setGenerateDdl(true);
+//        vendorAdapter.setDatabase(Database.MYSQL);
+//        LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
+//        factory.setJpaVendorAdapter(vendorAdapter);
+//        factory.setPackagesToScan("com.hptpd.sewage.domain");
+//        factory.setDataSource(primaryDataSource);
+//        return factory;
     }
 
     @Primary
@@ -68,6 +76,4 @@ public class PrimaryConfig {
     public PlatformTransactionManager transactionManagerPrimary(EntityManagerFactoryBuilder builder) {
         return new JpaTransactionManager(entityManagerFactoryPrimary(builder).getObject());
     }
-
-
 }

@@ -1,7 +1,6 @@
 package com.hptpd.sewage.service.component;
 
 import com.hptpd.sewage.vo.JuzhengFactorVo;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
  * \* Created with IntelliJ IDEA.
@@ -23,7 +22,6 @@ public class JuzhengImporterImpl implements IJuzhengImporter {
      */
     @Override
     public JuzhengFactorVo getHistoryData(Integer year, Integer month, String code) {
-
         return null;
     }
 
