@@ -4,7 +4,9 @@ import {
     StyleSheet,
     TouchableOpacity,
     View ,
-    Text
+    Text,
+    StatusBar,
+    Alert
 } from 'react-native'
 import { MapView, Location } from 'react-native-baidumap-sdk'
 import icon from './ic_my_location.png'
@@ -67,16 +69,23 @@ export default class MapViewExample extends Component {
             latitude: 30.5 + Math.random(),
             longitude: 114 + Math.random(),
         },
-        extra: { key: `Marker${i}`+'汉口华侨' },
+        extra: { key: `Marker${i}`+'服务区'},
     }));
 
     renderMarker = item => (
         <MapView.Marker
-            key={item.extra.key}
+            selected
             title={item.extra.key}
             coordinate={item.coordinate}
+            onPress={() => Alert.alert('服务区')}
+            onCalloutPress={() => this.goPoint()}
+
+
         />
     );
+    goPoint =() =>{
+        this.props.navigation.navigate('Point')
+    };
   async componentDidMount() {
     await Location.init();
     Location.setOptions({ gps: true });
@@ -109,6 +118,14 @@ export default class MapViewExample extends Component {
 
       return (
       <View style={StyleSheet.absoluteFill}>
+          <StatusBar
+              animated={true} //指定状态栏的变化是否应以动画形式呈现。目前支持这几种样式：backgroundColor, barStyle和hidden
+              hidden={false}  //是否隐藏状态栏。
+              backgroundColor={'rgba(0,0,0,0)'} //状态栏的背景色
+              translucent={true}//指定状态栏是否透明。设置为true时，应用会在状态栏之下绘制（即所谓“沉浸式”——被状态栏遮住一部分）。常和带有半透明背景色的状态栏搭配使用。
+              barStyle={'light-content'} // enum('default', 'light-content', 'dark-content')
+          >
+          </StatusBar>
           <MapView {...props}
                    zoomLevel={12}
                    center={{

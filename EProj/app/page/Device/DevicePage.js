@@ -20,9 +20,8 @@ export default class DevicePage extends Component{
     static navigationOptions = ({ navigation }) => ({
         header:null
     });
-    constructor() {
-        super();
-
+    constructor(props) {
+        super(props);
         this.state = {
             pickedValue:'选择服务区',
             isRefreshing:true,
@@ -31,15 +30,22 @@ export default class DevicePage extends Component{
         };
         this.dataArr = [];
     }
-    _renderItemView({item}){
+    _renderItemView= item=>{
         return(
+            <TouchableOpacity onPress={()=>this.goDetail()}>
             <ListItem
                 image={item.image}
                 title ={item.title}
             />
 
+            </TouchableOpacity>
+
         )
     }
+
+    goDetail =() =>{
+       this.props.navigation.navigate('Detail')
+    };
     componentDidMount() {
         this._fetchData();
     }
@@ -201,6 +207,7 @@ export default class DevicePage extends Component{
                     ListFooterComponent ={()=>this.renderFooter.bind(this)}
                     // initialNumToRender = {10}
                     keyExtractor={this._keyExtractor}
+
 
                 />
             </View>

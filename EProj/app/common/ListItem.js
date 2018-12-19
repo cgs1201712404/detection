@@ -9,6 +9,7 @@ import {
     TouchableOpacity
 } from "react-native";
 import PropTypes from 'prop-types';
+import ToastUtil from "../utils/ToastUtil";
 
 const {width,height} =Dimensions.get('window');
 
@@ -27,9 +28,11 @@ export default class ListItem extends Component{
             stateColor:'green'
         };
     }
+
     render(){
         return(
-            <View style ={styles.cellStyle}>
+            <View style ={styles.cellStyle} >
+
                 {/* 左边图片 */}
                 <Image source={require('./timg.jpg')} style={styles.imageStyle}/>
                 {/* 中间 */}

@@ -8,11 +8,13 @@ import { StackNavigator, TabNavigator, TabBarBottom ,SwitchNavigator} from 'reac
 import Map from './page/Map/map-view'
 import Mine from './page/Mine/ParallaxScrollViewDemo'
 import Device from './page/Device/DevicePage'
-import Point from './page/Point/PointPage'
+import Point from './page/Point/GMChart'
 import News from './page/Mine/NewsPage'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Login from './page/Login/LoginView'
 import Splash from './page/Login/SplashScreen'
+import History from './page/Point/HistoryData'
+import Detail from './page/Device/DetailPage'
 import Dialog from './test/Per'
 
 import {BackHandler, ToastAndroid} from "react-native";
@@ -82,7 +84,7 @@ const Tab = TabNavigator({
             }
         },
         Point: {
-            screen: Dialog,
+            screen: Point,
             navigationOptions: ({ navigation }) => ({
                 tabBarLabel: '图表',
                 tabBarIcon: ({ focused, tintColor }) => (
@@ -166,6 +168,11 @@ const Navigator = StackNavigator({
     News:{
         screen:News,
     },
-
+    History:{
+        screen:History
+    },
+    Detail:{
+        screen:Detail
+    }
 });
 
