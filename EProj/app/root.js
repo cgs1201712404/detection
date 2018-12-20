@@ -45,7 +45,7 @@ export default class RootScene extends Component {
 
                 onNavigationStateChange={
 
-                    (prevState, currentState) => {
+                    (prevState, currentState)=> {
                         // 只要切换tab,push,pop,这里一定走
                         console.log(prevState);
                         console.log(currentState);
