@@ -14,7 +14,7 @@ import { Initializer } from 'react-native-baidumap-sdk'
 import IMNavBar from '../../common/IMNavBar'
 
 
-Initializer.init('m9PdoLcLriSn5YlxOfAMC27xBdt17TO2');
+Initializer.init('111aqvWQ6X17Zybcj6zQpBU4ukmGO4aH');
 
 const style = StyleSheet.create({
     textStyle:{
