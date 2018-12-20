@@ -12,7 +12,6 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.sql.DataSource;
@@ -23,7 +22,7 @@ import java.util.Map;
  * \* @author: 彭诗杰
  * \* @date: 2018/12/17
  * \* @time: 19:42
- * \* Description: 主数据源
+ * \* Description: 主数据源的JPA配置
  * \
  */
 @Configuration
@@ -61,14 +60,6 @@ public class PrimaryConfig {
                 .persistenceUnit("primaryPersistenceUnit")
                 .properties(getVendorProperties())
                 .build();
-//        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-//        vendorAdapter.setGenerateDdl(true);
-//        vendorAdapter.setDatabase(Database.MYSQL);
-//        LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
-//        factory.setJpaVendorAdapter(vendorAdapter);
-//        factory.setPackagesToScan("com.hptpd.sewage.domain");
-//        factory.setDataSource(primaryDataSource);
-//        return factory;
     }
 
     @Primary
