@@ -1,4 +1,4 @@
-package com.hptpd.centralpivot.station.repository;
+package com.hptpd.centralpivot.station.domain;
 
 import lombok.Data;
 
@@ -45,5 +45,5 @@ public abstract class BaseMonitoringStation {
      * 状态：normal 或者 alarm
      * 正常或报警
      */
-    private Short state;
+    private Boolean state = false;
 }

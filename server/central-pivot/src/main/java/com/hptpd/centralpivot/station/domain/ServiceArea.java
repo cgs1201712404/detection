@@ -1,10 +1,11 @@
-package com.hptpd.centralpivot.station.repository;
+package com.hptpd.centralpivot.station.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 /**
  * \* Created with IntelliJ IDEA.
@@ -20,4 +21,9 @@ import javax.persistence.Entity;
 @EqualsAndHashCode(callSuper = true)
 public class ServiceArea extends BaseMonitoringStation {
 
+    /**
+     * 服务区关系
+     */
+    @OneToOne(mappedBy = "serviceArea")
+    private ServiceAreaRelation serviceAreaRelation;
 }
