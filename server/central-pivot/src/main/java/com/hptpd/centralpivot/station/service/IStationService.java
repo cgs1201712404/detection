@@ -3,6 +3,8 @@ package com.hptpd.centralpivot.station.service;
 import com.hptpd.centralpivot.component.Result;
 import com.hptpd.centralpivot.station.vo.ServiceAreaVo;
 
+import java.util.List;
+
 /**
  * \* Created with IntelliJ IDEA.
  * \* @author: 彭诗杰
@@ -20,4 +22,12 @@ public interface IStationService {
      * @return
      */
     Result addStationWithSewage(ServiceAreaVo serviceAreaVo);
+
+    /**
+     * 获取服务区列表
+     *
+     * @return
+     */
+    List<ServiceAreaVo> getServiceAreas();
+
 }

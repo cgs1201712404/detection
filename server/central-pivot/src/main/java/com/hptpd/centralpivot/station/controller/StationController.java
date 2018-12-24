@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * \* Created with IntelliJ IDEA.
@@ -35,5 +36,14 @@ public class StationController {
         return result;
     }
 
-
+    /**
+     * 获取服务区列表
+     * @return
+     */
+    @RequestMapping(value = "/service_area", method = RequestMethod.GET)
+    public List<ServiceAreaVo> getServiceAreas() {
+        List<ServiceAreaVo> serviceAreaVos = stationService.getServiceAreas();
+        logger.info(serviceAreaVos.toString());
+        return serviceAreaVos;
+    }
 }

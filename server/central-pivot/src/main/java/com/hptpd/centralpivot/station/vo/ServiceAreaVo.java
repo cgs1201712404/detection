@@ -1,8 +1,13 @@
 package com.hptpd.centralpivot.station.vo;
 
+import com.google.common.collect.Lists;
+import com.hptpd.centralpivot.common.util.AbstractMyBeanUtils;
+import com.hptpd.centralpivot.station.domain.ServiceArea;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * \* Created with IntelliJ IDEA.
@@ -54,4 +59,22 @@ public class ServiceAreaVo {
      * 污水服务区id
      */
     private String sewageId;
+
+    public static ServiceAreaVo toVo(ServiceArea serviceArea) {
+        ServiceAreaVo serviceAreaVo = new ServiceAreaVo();
+        AbstractMyBeanUtils.copyProperties(serviceArea, serviceAreaVo);
+        if (serviceArea.getServiceAreaRelation() != null) {
+            serviceAreaVo.setSewageId(serviceArea.getServiceAreaRelation().getSewageAreaId());
+        }
+        return serviceAreaVo;
+    }
+
+    public static List<ServiceAreaVo> toVos(Collection<ServiceArea> serviceAreas) {
+        List<ServiceAreaVo> serviceAreaVos = Lists.newLinkedList();
+        for (ServiceArea serviceArea: serviceAreas) {
+            ServiceAreaVo serviceAreaVo = toVo(serviceArea);
+            serviceAreaVos.add(serviceAreaVo);
+        }
+        return serviceAreaVos;
+    }
 }

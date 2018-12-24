@@ -11,6 +11,7 @@ import com.hptpd.centralpivot.station.vo.ServiceAreaVo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * \* Created with IntelliJ IDEA.
@@ -40,6 +41,16 @@ public class StationServiceImpl implements IStationService {
         ServiceArea serviceArea = addStation(serviceAreaVo);
         return Result.setResult(Result.SUCCESS, "添加污水服务区成功！",
                 JsonUtil.objectToJson(serviceAreaVo));
+    }
+
+    /**
+     * 获取服务区列表
+     *
+     * @return
+     */
+    @Override
+    public List<ServiceAreaVo> getServiceAreas() {
+        return ServiceAreaVo.toVos(serviceAreaRep.findAll());
     }
 
     private ServiceArea addStation(ServiceAreaVo serviceAreaVo) {
