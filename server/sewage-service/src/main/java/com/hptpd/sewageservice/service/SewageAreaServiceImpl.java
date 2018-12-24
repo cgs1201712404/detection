@@ -33,5 +33,4 @@ public class SewageAreaServiceImpl implements ISewageAreaService {
     public void sewageAreaInit() {
         sewageAreaInitializer.sewageAreaInit();
     }
-
 }

@@ -66,6 +66,9 @@ public class SewageAreaInitializer {
         sewageArea.setName("东西湖废水监测点");
         sewageArea.setLon(BigDecimal.valueOf(114.047554));
         sewageArea.setLat(BigDecimal.valueOf(30.706936));
+        sewageArea.setProvince(Constant.DONGXI_PROVINCE);
+        sewageArea.setCity(Constant.DONGXI_CITY);
+        sewageArea.setDistrict(Constant.DONGXI_DISTRICT);
         return sewageAreaRep.save(sewageArea);
     }
 

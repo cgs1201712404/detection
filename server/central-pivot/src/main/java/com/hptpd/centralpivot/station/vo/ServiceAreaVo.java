@@ -36,6 +36,21 @@ public class ServiceAreaVo {
     private BigDecimal lat;
 
     /**
+     * 所在省份
+     */
+    private String province;
+
+    /**
+     * 所在城市
+     */
+    private String city;
+
+    /**
+     * 所在地区
+     */
+    private String district;
+
+    /**
      * 污水服务区id
      */
     private String sewageId;

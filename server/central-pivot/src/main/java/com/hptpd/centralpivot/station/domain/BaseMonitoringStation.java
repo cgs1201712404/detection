@@ -42,6 +42,24 @@ public abstract class BaseMonitoringStation {
     private BigDecimal lat;
 
     /**
+     * 所在省份
+     */
+    @Column(name = "province")
+    private String province;
+
+    /**
+     * 所在城市
+     */
+    @Column(name = "city")
+    private String city;
+
+    /**
+     * 所在地区
+     */
+    @Column(name = "district")
+    private String district;
+
+    /**
      * 状态：normal 或者 alarm
      * 正常或报警
      */
