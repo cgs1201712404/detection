@@ -22,9 +22,9 @@ public class JuzhengImporterImpl implements IJuzhengImporter {
      */
     @Override
     public JuzhengFactorVo getHistoryData(Integer year, Integer month, String code) {
+
         return null;
     }
-
 
     /**
      * 获取巨正的实时数据

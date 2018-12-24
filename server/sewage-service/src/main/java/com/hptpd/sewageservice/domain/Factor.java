@@ -1,6 +1,7 @@
 package com.hptpd.sewageservice.domain;
 
 import com.google.common.collect.Sets;
+import com.hptpd.sewageservice.domain.system.MonitoringSystem;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
@@ -60,7 +61,7 @@ public class Factor {
     private String sensorID;
 
     @ManyToOne
-    private SewageArea sewageArea;
+    private MonitoringSystem monitoringSystem;
 
     @OneToMany(mappedBy = "factor")
     private Set<History> histories = Sets.newLinkedHashSet();

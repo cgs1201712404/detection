@@ -4,6 +4,8 @@ import com.hptpd.centralpivot.station.domain.ServiceAreaRelation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 /**
  * \* Created with IntelliJ IDEA.
  * \* @author: 彭诗杰
@@ -15,4 +17,5 @@ import org.springframework.stereotype.Repository;
 @Repository("serviceAreaRelationRep")
 public interface ServiceAreaRelationRep extends JpaRepository<ServiceAreaRelation, String> {
 
+    Optional<ServiceAreaRelation> findBySewageAreaId(String sewageId);
 }

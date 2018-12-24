@@ -1,6 +1,7 @@
 package com.hptpd.centralpivot.station.domain;
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -18,11 +19,14 @@ import javax.persistence.*;
 public class ServiceAreaRelation {
 
     @Id
+    @GenericGenerator(name = "uuid", strategy = "uuid")
+    @GeneratedValue(generator = "uuid")
     private String id;
 
     @OneToOne
+    @JoinColumn(name = "servicearea_id")
     private ServiceArea serviceArea;
 
-    @Column(name="sewage_id", nullable = false)
+    @Column(name="sewage_id")
     private String sewageAreaId;
 }

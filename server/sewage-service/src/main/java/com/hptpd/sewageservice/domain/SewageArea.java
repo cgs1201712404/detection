@@ -1,6 +1,8 @@
 package com.hptpd.sewageservice.domain;
 
 import com.google.common.collect.Sets;
+import com.hptpd.sewageservice.domain.system.MonitoringSystem;
+import com.hptpd.sewageservice.domain.system.ProcessingSystem;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -61,8 +63,20 @@ public class SewageArea {
     @Column(name = "district")
     private String district;
 
-    @OneToMany(mappedBy = "sewageArea", fetch = FetchType.EAGER)
-    private Set<Factor> factors = Sets.newLinkedHashSet();
+    /**
+     * 污水处理区的多套监测集成商系统
+     */
+    @OneToMany(mappedBy = "sewageArea")
+    private Set<MonitoringSystem> monitoringSystems = Sets.newLinkedHashSet();
+
+    /**
+     * 污水处理区的多套污水处理集成商系统
+     */
+    @OneToMany(mappedBy = "sewageArea")
+    private Set<ProcessingSystem> processingSystems = Sets.newLinkedHashSet();
+
+//    @OneToMany(mappedBy = "sewageArea", fetch = FetchType.EAGER)
+//    private Set<Factor> factors = Sets.newLinkedHashSet();
 
     @Override
     public boolean equals(Object o) {

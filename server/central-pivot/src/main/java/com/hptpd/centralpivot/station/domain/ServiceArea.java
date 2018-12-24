@@ -3,9 +3,7 @@ package com.hptpd.centralpivot.station.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 /**
  * \* Created with IntelliJ IDEA.
@@ -24,6 +22,7 @@ public class ServiceArea extends BaseMonitoringStation {
     /**
      * 服务区关系
      */
-    @OneToOne(mappedBy = "serviceArea")
+    @OneToOne(mappedBy = "serviceArea", cascade = CascadeType.ALL, orphanRemoval = true,
+            fetch = FetchType.LAZY)
     private ServiceAreaRelation serviceAreaRelation;
 }
