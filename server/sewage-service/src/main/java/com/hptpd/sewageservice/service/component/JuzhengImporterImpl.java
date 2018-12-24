@@ -12,6 +12,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -83,6 +84,12 @@ public class JuzhengImporterImpl implements IJuzhengImporter {
                 juzhengFactorVo.setCode(resultSet.getString("TXBZ"));
                 juzhengFactorVo.setName(resultSet.getString("JCYZ_MC"));
                 juzhengFactorVo.setJCYZBM(resultSet.getString("JCYZ_BM"));
+                String strMax =resultSet.getString("WJ_UPLIMIT");
+                BigDecimal max =new BigDecimal(strMax);
+                juzhengFactorVo.setMaxValue(max);
+                String strMin =resultSet.getString("WJ_LOWLIMIT");
+                BigDecimal min =new BigDecimal(strMin);
+                juzhengFactorVo.setMinValue(min);
                 logger.info(juzhengFactorVo.toString());
                 return resultSet;
             }

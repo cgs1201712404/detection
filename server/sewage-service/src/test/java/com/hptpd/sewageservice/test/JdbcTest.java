@@ -1,5 +1,6 @@
 package com.hptpd.sewageservice.test;
 
+import com.hptpd.sewageservice.service.component.IJuzhengImporter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -33,18 +34,22 @@ public class JdbcTest {
     @Qualifier("juzhengJdbcTemplate")
     private JdbcTemplate jdbcTemplate;
 
+    @Resource(name = "iJuzhengImporter")
+    private IJuzhengImporter iJuzhengImporter;
+
     @Test
     public void juzhengMonitorPointTest() {
 
-        String sql = "select * from EM.HB_WRY";
-        jdbcTemplate.query(sql, new RowMapper<Object>() {
-            @Nullable
-            @Override
-            public Object mapRow(ResultSet resultSet, int i) throws SQLException {
-                logger.info(resultSet.getString("WRY_NAME"));
-                logger.info(resultSet.getString("WRY_SHORTNAME"));
-                return resultSet;
-            }
-        });
+//        String sql = "select * from EM.HB_WRY";
+//        jdbcTemplate.query(sql, new RowMapper<Object>() {
+//            @Nullable
+//            @Override
+//            public Object mapRow(ResultSet resultSet, int i) throws SQLException {
+//                logger.info(resultSet.getString("WRY_NAME"));
+//                logger.info(resultSet.getString("WRY_SHORTNAME"));
+//                return resultSet;
+//            }
+//        });
+        iJuzhengImporter.getHistoryData(2018, 12, "pH");
     }
 }
