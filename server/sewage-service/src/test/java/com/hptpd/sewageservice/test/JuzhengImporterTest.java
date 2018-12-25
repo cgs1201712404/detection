@@ -1,7 +1,7 @@
 package com.hptpd.sewageservice.test;
 
 import com.hptpd.sewageservice.service.component.IJuzhengImporter;
-import com.hptpd.sewageservice.vo.JuzhengFactorVo;
+import com.hptpd.sewageservice.vo.juzheng.JuzhengFactorVo;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

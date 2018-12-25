@@ -1,4 +1,4 @@
-package com.hptpd.sewageservice.vo;
+package com.hptpd.sewageservice.vo.juzheng;
 
 import lombok.Data;
 

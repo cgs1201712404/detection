@@ -17,5 +17,11 @@ import java.util.Optional;
 @Repository("serviceAreaRelationRep")
 public interface ServiceAreaRelationRep extends JpaRepository<ServiceAreaRelation, String> {
 
+    /**
+     * 通过污水服务区ID查询ServiceAreaRelation
+     *
+     * @param sewageId
+     * @return
+     */
     Optional<ServiceAreaRelation> findBySewageAreaId(String sewageId);
 }

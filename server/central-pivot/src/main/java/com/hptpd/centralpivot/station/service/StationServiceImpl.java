@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * \* Created with IntelliJ IDEA.
@@ -51,6 +52,18 @@ public class StationServiceImpl implements IStationService {
     @Override
     public List<ServiceAreaVo> getServiceAreas() {
         return ServiceAreaVo.toVos(serviceAreaRep.findAll());
+    }
+
+    /**
+     * 通过id获取服务区基本数据（对于污水服务区相关数据分两次请求）
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public ServiceAreaVo getServiceArea(String id) {
+        Optional<ServiceArea> serviceAreaOptional = serviceAreaRep.findById(id);
+        return serviceAreaOptional.map(ServiceAreaVo::toVo).orElse(null);
     }
 
     private ServiceArea addStation(ServiceAreaVo serviceAreaVo) {

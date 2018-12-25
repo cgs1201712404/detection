@@ -50,10 +50,7 @@ public class StationServiceTest {
         logger.info(result.toString());
         Optional<ServiceAreaRelation> serviceAreaRelationOptional =
                 serviceAreaRelationRep.findBySewageAreaId("10000000000001");
-        if (serviceAreaRelationOptional.isPresent()) {
-            Assert.assertNotNull(serviceAreaRelationOptional.get());
-        }
-
+        serviceAreaRelationOptional.ifPresent(Assert::assertNotNull);
     }
 
     @Test

@@ -30,4 +30,13 @@ public interface IStationService {
      */
     List<ServiceAreaVo> getServiceAreas();
 
+    /**
+     * 通过id获取服务区数据（对于污水服务区相关数据分两次请求）
+     *
+     * @param id
+     * @return
+     */
+    ServiceAreaVo getServiceArea(String id);
+
+
 }

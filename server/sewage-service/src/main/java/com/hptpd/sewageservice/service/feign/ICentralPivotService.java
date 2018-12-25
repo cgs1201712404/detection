@@ -25,6 +25,6 @@ public interface ICentralPivotService {
      * @param serviceAreaVo
      * @return
      */
-    @RequestMapping(value = "/station/service_area", method = RequestMethod.PUT)
+    @RequestMapping(value = "/station/service_areas", method = RequestMethod.PUT)
     Result addAreaWithSewage(@RequestBody ServiceAreaVo serviceAreaVo);
 }

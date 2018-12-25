@@ -1,6 +1,6 @@
 package com.hptpd.sewageservice.service.component;
 
-import com.hptpd.sewageservice.vo.JuzhengFactorVo;
+import com.hptpd.sewageservice.vo.juzheng.JuzhengFactorVo;
 
 /**
  * \* Created with IntelliJ IDEA.

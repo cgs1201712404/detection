@@ -2,8 +2,8 @@ package com.hptpd.sewageservice.service.component;
 
 import com.google.common.collect.Lists;
 import com.hptpd.sewageservice.common.util.StringUtil;
-import com.hptpd.sewageservice.vo.JuzhengData;
-import com.hptpd.sewageservice.vo.JuzhengFactorVo;
+import com.hptpd.sewageservice.vo.juzheng.JuzhengData;
+import com.hptpd.sewageservice.vo.juzheng.JuzhengFactorVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
