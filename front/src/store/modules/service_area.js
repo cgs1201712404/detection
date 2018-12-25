@@ -4,9 +4,8 @@
  \* Date: 2018/7/31 14:58
  \* Description:  服务区state
  \*/
-import Vue from 'vue'
 import constants from '../../common/constants'
-import util from '../../common/util'
+import API from "../../api/api_station";
 
 const state = {
   area: {
@@ -132,6 +131,29 @@ const actions = {
     ];
     commit('setAreaList', areas);
   },
+
+  /**
+   * 从服务器获取服务区列表数据
+   *
+   * @param commit
+   * @param state
+   * @returns {Promise<any>}
+   */
+  initAreaList({commit, state}) {
+    return new Promise((resolve, reject) => {
+      API.getAreas(null).then(backAreas => {
+        let areas = areasFormat(backAreas);
+        console.log(areas);
+        commit('setAreaList', areas);
+        resolve()
+      }, error => {
+        reject(error)
+      }).catch(err => {
+        reject(err)
+      })
+    });
+  },
+
   setAreaList({commit, state}, areas) {
     commit('setAreaList', areas);
   },
@@ -139,18 +161,21 @@ const actions = {
     commit('setATreeList', areas);
   },
   setCurrentArea({commit, state}, area) {
-    // let area = {
-    //   name: '常青花园服务区',
-    //   district: {
-    //     province: '湖北',
-    //     city: '武汉',
-    //     county: '江汉',
-    //     detail: '武汉市江汉区常青三路122号'
-    //   }
-    // };
     commit('setArea', area)
   }
 };
+
+function areasFormat(backendAreas) {
+  let areas = [];
+  if (backendAreas) {
+    backendAreas.forEach(backArea => {
+      backArea.district.province = backArea.province;
+      backArea.district.city = backArea.city;
+      backArea.district.county = backArea.county;
+    })
+  }
+  return areas;
+}
 
 const mutations = {
   setAreaList(state, entity) {

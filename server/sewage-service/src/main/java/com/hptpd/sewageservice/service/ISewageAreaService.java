@@ -1,11 +1,11 @@
 package com.hptpd.sewageservice.service;
 
-import com.hptpd.sewageservice.vo.FactorPageVo;
 import com.hptpd.sewageservice.vo.FactorValuePageVo;
 import com.hptpd.sewageservice.vo.FactorValueVo;
-import com.hptpd.sewageservice.vo.FactorVo;
+import com.hptpd.sewageservice.vo.SystemVo;
+import org.springframework.data.domain.Pageable;
 
-import java.awt.print.Pageable;
+import java.util.List;
 
 /**
  * \* Created with IntelliJ IDEA.
@@ -23,49 +23,67 @@ public interface ISewageAreaService {
     void sewageAreaInit();
 
     /**
-     * 获取污水服务区分页指标数据
+     * 获取污水服务区集成商分页数据
      *
      * @param sewageAreaId
      * @return
      */
-    FactorPageVo getSewageAreaFactors(String sewageAreaId);
+    List<SystemVo> getAreaSystems(String sewageAreaId);
 
     /**
-     * 获取污水服务区单个指标数据
+     * 获取污水服务区单个集成商数据
      *
      * @param sewageAreaId
+     * @param systemCode
+     * @return
+     */
+    SystemVo getAreaSystem(String sewageAreaId, String systemCode);
+
+    /**
+     * 获单个集成商指标分页数据
+     *
+     * @param systemCode
+     * @param pageable
+     * @return
+     */
+    FactorValuePageVo getSystemFactors(String systemCode, Pageable pageable);
+
+    /**
+     * 获取集成商单个指标数据
+     *
+     * @param systemCode
      * @param factorCode
      * @return
      */
-    FactorVo getSewageAreaFactor(String sewageAreaId, String factorCode);
+    FactorValueVo getSystemFactor(String systemCode, String factorCode);
 
     /**
      * 分页获取单个指标历史数据
      *
-     * @param sewageAreaId
+     * @param systemCode
      * @param factorCode
      * @param pageable
      * @return
      */
-    FactorValuePageVo getAreaFactorHistoryValue(String sewageAreaId, String factorCode, Pageable pageable);
+    FactorValuePageVo getSystemFactorHistoryValue(String systemCode, String factorCode, Pageable pageable);
 
     /**
      * 分页获取单个指标实时数据
      *
-     * @param sewageAreaId
+     * @param systemCode
      * @param factorCode
      * @param pageable
      * @return
      */
-    FactorValuePageVo getAreaFactorRealTimeValue(String sewageAreaId, String factorCode, Pageable pageable);
+    FactorValuePageVo getSystemFactorRealTimeValue(String systemCode, String factorCode, Pageable pageable);
 
     /**
      * 获取单个指标最新数据
      *
-     * @param sewageAreaId
+     * @param systemCode
      * @param factorCode
      * @param pageable
      * @return
      */
-    FactorValueVo getAreaFactorLatestValue(String sewageAreaId, String factorCode, Pageable pageable);
+    FactorValueVo getSystemFactorLatestValue(String systemCode, String factorCode, Pageable pageable);
 }

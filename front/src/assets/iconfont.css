@@ -106,6 +106,8 @@
 
 .icon-tuichu:before {
   content: "\e604";
+  font-size: 36px;
+  color: #ffffff;
 }
 
 .icon-renwu:before {

@@ -53,7 +53,7 @@ public class ServiceAreaVo {
     /**
      * 所在地区
      */
-    private String district;
+    private String county;
 
     /**
      * 污水服务区id

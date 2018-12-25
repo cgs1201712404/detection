@@ -57,7 +57,7 @@ public abstract class BaseMonitoringStation {
      * 所在地区
      */
     @Column(name = "district")
-    private String district;
+    private String county;
 
     /**
      * 状态：normal 或者 alarm

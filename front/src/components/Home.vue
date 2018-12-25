@@ -12,9 +12,22 @@
         <el-col :span="2" class="topbar-logo">
           <a href="/"><img src=""></a>
         </el-col>
-
         <el-col :span="4" class="topbar-title">
-          <span style="font-size: 25px;color: #fff;">智能环保监控管理系统</span>
+          <span>智能环保监控管理系统</span>
+        </el-col>
+        <el-col :span="13">
+          <span>&nbsp;</span>
+        </el-col>
+        <el-col :span="3" class="topbar-dropdown">
+          <el-dropdown>
+            <el-button type="text" style="color: #fff; font-size: 1rem">当前用户：{{currentUser.name}}</el-button>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>修改密码</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </el-col>
+        <el-col :span="2" class="topbar-logo">
+          <el-button type="text" @click="quit"><i class="icon iconfont icon-tuichu"></i></el-button>
         </el-col>
       </el-row>
     </el-header>
@@ -73,6 +86,17 @@
       ...mapActions([
         'mockPermissionList',
       ]),
+      quit() {
+        this.$confirm('是否退出该系统?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+
+        }).catch(() => {
+
+        });
+      }
     },
     created() {
       /**
@@ -105,6 +129,8 @@
     }
 
     .topbar-title {
+      font-size: 1.5rem;
+      color: #fff;
       position: relative;
       top: 50%;
       transform: translateY(-50%);

@@ -113,6 +113,7 @@
   import mapUtil from "../../common/map";
   import Gauge from "./Gauge";
 
+
   export default {
     name: "Map",
     components: {Gauge, SearchBar},

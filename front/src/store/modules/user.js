@@ -30,7 +30,8 @@ const actions = {
   mockPermissionList({commit, state}) {
     // 此处应该是先获取后端用户和权限数据
     let currentUser = {
-      name: 'tracy4262',
+      userName:'tracy4262',
+      name: '彭诗杰',
       number: 18673687350,
       role: {
         id: '1',

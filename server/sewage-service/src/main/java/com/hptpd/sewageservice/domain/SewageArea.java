@@ -61,7 +61,7 @@ public class SewageArea {
      * 所在地区
      */
     @Column(name = "district")
-    private String district;
+    private String county;
 
     /**
      * 污水处理区的多套监测集成商系统

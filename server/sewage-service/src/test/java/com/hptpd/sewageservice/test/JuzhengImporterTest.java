@@ -36,4 +36,11 @@ public class JuzhengImporterTest {
         logger.info(juzhengFactorVo.getHistoryData().toString());
         Assert.assertNotNull(juzhengFactorVo.getHistoryData());
     }
+
+    @Test
+    public void getRealTimeTest() {
+        JuzhengFactorVo juzhengFactorVo = iJuzhengImporter.getRealTimeData("pH");
+        logger.info(juzhengFactorVo.toString());
+        Assert.assertNotNull(juzhengFactorVo.getCurrentTimeData());
+    }
 }

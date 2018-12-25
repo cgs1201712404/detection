@@ -2,14 +2,11 @@ package com.hptpd.sewageservice.service;//package com.hptpd.sewage.service;
 
 import com.hptpd.sewageservice.repository.FactorRep;
 import com.hptpd.sewageservice.repository.SewageAreaRep;
-import com.hptpd.sewageservice.vo.FactorPageVo;
-import com.hptpd.sewageservice.vo.FactorValuePageVo;
-import com.hptpd.sewageservice.vo.FactorValueVo;
-import com.hptpd.sewageservice.vo.FactorVo;
+import com.hptpd.sewageservice.vo.*;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.Resource;
-import java.awt.print.Pageable;
+import java.util.List;
 
 /**
  * \* Created with IntelliJ IDEA.
@@ -40,64 +37,89 @@ public class SewageAreaServiceImpl implements ISewageAreaService {
     }
 
     /**
-     * 获取污水服务区分页指标数据
+     * 获取污水服务区集成商分页数据
      *
      * @param sewageAreaId
      * @return
      */
     @Override
-    public FactorPageVo getSewageAreaFactors(String sewageAreaId) {
+    public List<SystemVo> getAreaSystems(String sewageAreaId) {
         return null;
     }
 
     /**
-     * 获取污水服务区单个指标数据
+     * 获取污水服务区单个集成商数据
      *
      * @param sewageAreaId
+     * @param systemCode
+     * @return
+     */
+    @Override
+    public SystemVo getAreaSystem(String sewageAreaId, String systemCode) {
+        return null;
+    }
+
+    /**
+     * 获单个集成商指标分页数据
+     *
+     * @param systemCode
+     * @param pageable
+     * @return
+     */
+    @Override
+    public FactorValuePageVo getSystemFactors(String systemCode, Pageable pageable) {
+        return null;
+    }
+
+    /**
+     * 获取集成商单个指标数据
+     *
+     * @param systemCode
      * @param factorCode
      * @return
      */
     @Override
-    public FactorVo getSewageAreaFactor(String sewageAreaId, String factorCode) {
+    public FactorValueVo getSystemFactor(String systemCode, String factorCode) {
         return null;
     }
 
     /**
      * 分页获取单个指标历史数据
      *
-     * @param sewageAreaId
+     * @param systemCode
      * @param factorCode
      * @param pageable
      * @return
      */
     @Override
-    public FactorValuePageVo getAreaFactorHistoryValue(String sewageAreaId, String factorCode, Pageable pageable) {
+    public FactorValuePageVo getSystemFactorHistoryValue(String systemCode, String factorCode, Pageable pageable) {
         return null;
     }
 
     /**
      * 分页获取单个指标实时数据
      *
-     * @param sewageAreaId
+     * @param systemCode
      * @param factorCode
      * @param pageable
      * @return
      */
     @Override
-    public FactorValuePageVo getAreaFactorRealTimeValue(String sewageAreaId, String factorCode, Pageable pageable) {
+    public FactorValuePageVo getSystemFactorRealTimeValue(String systemCode, String factorCode, Pageable pageable) {
         return null;
     }
 
     /**
      * 获取单个指标最新数据
      *
-     * @param sewageAreaId
+     * @param systemCode
      * @param factorCode
      * @param pageable
      * @return
      */
     @Override
-    public FactorValueVo getAreaFactorLatestValue(String sewageAreaId, String factorCode, Pageable pageable) {
+    public FactorValueVo getSystemFactorLatestValue(String systemCode, String factorCode, Pageable pageable) {
         return null;
     }
+
 }
