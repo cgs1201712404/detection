@@ -36,7 +36,7 @@ public class JuzhengImporterImpl implements IJuzhengImporter {
 
     private String JCYZBM = null;
     private String TXBZ = "JZ000000000001";
-    private String sql;
+//    private String sql;
 
 
     /**
@@ -50,59 +50,16 @@ public class JuzhengImporterImpl implements IJuzhengImporter {
     @Override
     public JuzhengFactorVo getHistoryData(Integer year, Integer month, String code) {
 
-        JuzhengFactorVo juzhengFactorVo = new JuzhengFactorVo();
-        JuzhengData juzhengData = new JuzhengData();
+        JuzhengFactorVo juzhengFactorVo = strSql(code);
+
         List<JuzhengData> juzhengDataList = Lists.newArrayList();
-        List<String> sqlList = Lists.newArrayList();
-        String strCode;
-        if (code.equals("pH")) {
-            strCode = "PH";
-            sql = "select * from EM.HB_WRY_JCYZ where JCYZ_MC =" + "'" + strCode + "'" + "and TXBZ =" + "'" + TXBZ + "'";
-        } else if (code.equals("cod")) {
-            strCode = "COD";
-            sql = "select * from EM.HB_WRY_JCYZ where JCYZ_MC =" + "'" + strCode + "'" + "and TXBZ =" + "'" + TXBZ + "'";
-        } else if (code.equals("nH3N")) {
-            strCode = "氨氮";
-            sql = "select * from EM.HB_WRY_JCYZ where JCYZ_MC =" + "'" + strCode + "'" + "and TXBZ =" + "'" + TXBZ + "'";
-        } else if (code.equals("tP")) {
-            strCode = "总磷";
-            sql = "select * from EM.HB_WRY_JCYZ where JCYZ_MC =" + "'" + strCode + "'" + "and TXBZ =" + "'" + TXBZ + "'";
-        } else if (code.equals("sS")) {
-            strCode = "水中油";
-            sql = "select * from EM.HB_WRY_JCYZ where JCYZ_MC =" + "'" + strCode + "'" + "and TXBZ =" + "'" + TXBZ + "'";
-        } else if (code.equals("flow")) {
-            strCode = "悬浮物";
-            sql = "select * from EM.HB_WRY_JCYZ where JCYZ_MC =" + "'" + strCode + "'" + "and TXBZ =" + "'" + TXBZ + "'";
-        }
-        jdbcTemplate.query(sql, new RowMapper<Object>() {
-            @Nullable
-            @Override
-            public Object mapRow(ResultSet resultSet, int i) throws SQLException {
-                //因子编码
-                JCYZBM = resultSet.getString("JCYZ_BM");
-                TXBZ = resultSet.getString("TXBZ");
-                juzhengFactorVo.setCode(resultSet.getString("TXBZ"));
-                juzhengFactorVo.setName(resultSet.getString("JCYZ_MC"));
-                juzhengFactorVo.setJCYZBM(resultSet.getString("JCYZ_BM"));
-                String strMax = resultSet.getString("WJ_UPLIMIT");
-                if (StringUtil.isNotEmpty(strMax)) {
-                    BigDecimal max = new BigDecimal(strMax);
-                    juzhengFactorVo.setMaxValue(max);
-                }
-                String strMin = resultSet.getString("WJ_LOWLIMIT");
-                if (StringUtil.isNotEmpty(strMin)) {
-                    BigDecimal min = new BigDecimal(strMin);
-                    juzhengFactorVo.setMinValue(min);
-                }
-                logger.info(juzhengFactorVo.toString());
-                return resultSet;
-            }
-        });
+
         String TableName = "_" + year + month;
-        String sqlBM = "select * from EM.PUB_CURRENTTIME" + TableName + " where JCYZ_BM =" + "'" + JCYZBM + "'";
+        String sqlBM = "select * from EM.PUB_CURRENTTIME" + TableName + " where JCYZ_BM =" + "'" + JCYZBM + "'"+ "and TXBZ =" + "'" + TXBZ + "'";
         jdbcTemplate.query(sqlBM, new RowMapper<Object>() {
             @Override
             public Object mapRow(ResultSet resultSet, int i) throws SQLException {
+                JuzhengData juzhengData = new JuzhengData();
                 juzhengData.setJCYZBM(resultSet.getString("JCYZ_BM"));
                 juzhengData.setTXBZ(TXBZ);
                 juzhengData.setDataTime(resultSet.getString("DATATIME"));
@@ -114,8 +71,63 @@ public class JuzhengImporterImpl implements IJuzhengImporter {
                 return resultSet;
             }
         });
+        logger.info(juzhengFactorVo.toString());
         return juzhengFactorVo;
     }
+
+    /**
+     *  指标编码 转换sql 语句
+     * @return  juzhengFactorVo
+     */
+     private JuzhengFactorVo strSql(String code){
+         String strCode;
+         String sql =null;
+         JuzhengFactorVo juzhengFactorVo =new JuzhengFactorVo();
+         if (code.equals("pH")) {
+             strCode = "PH";
+             sql = "select * from EM.HB_WRY_JCYZ where JCYZ_MC =" + "'" + strCode + "'" + "and TXBZ =" + "'" + TXBZ + "'";
+         } else if (code.equals("cod")) {
+             strCode = "COD";
+             sql = "select * from EM.HB_WRY_JCYZ where JCYZ_MC =" + "'" + strCode + "'" + "and TXBZ =" + "'" + TXBZ + "'";
+         } else if (code.equals("nH3N")) {
+             strCode = "氨氮";
+             sql = "select * from EM.HB_WRY_JCYZ where JCYZ_MC =" + "'" + strCode + "'" + "and TXBZ =" + "'" + TXBZ + "'";
+         } else if (code.equals("tP")) {
+             strCode = "总磷";
+             sql = "select * from EM.HB_WRY_JCYZ where JCYZ_MC =" + "'" + strCode + "'" + "and TXBZ =" + "'" + TXBZ + "'";
+         } else if (code.equals("sS")) {
+             strCode = "水中油";
+             sql = "select * from EM.HB_WRY_JCYZ where JCYZ_MC =" + "'" + strCode + "'" + "and TXBZ =" + "'" + TXBZ + "'";
+         } else if (code.equals("flow")) {
+             strCode = "悬浮物";
+             sql = "select * from EM.HB_WRY_JCYZ where JCYZ_MC =" + "'" + strCode + "'" + "and TXBZ =" + "'" + TXBZ + "'";
+         }
+         jdbcTemplate.query(sql, new RowMapper<Object>() {
+             @Nullable
+             @Override
+             public Object mapRow(ResultSet resultSet, int i) throws SQLException {
+                 //因子编码
+                 JCYZBM = resultSet.getString("JCYZ_BM");
+                 TXBZ = resultSet.getString("TXBZ");
+                 juzhengFactorVo.setCode(resultSet.getString("TXBZ"));
+                 juzhengFactorVo.setName(resultSet.getString("JCYZ_MC"));
+                 juzhengFactorVo.setJCYZBM(resultSet.getString("JCYZ_BM"));
+                 String strMax = resultSet.getString("WJ_UPLIMIT");
+                 if (StringUtil.isNotEmpty(strMax)) {
+                     BigDecimal max = new BigDecimal(strMax);
+                     juzhengFactorVo.setMaxValue(max);
+                 }
+                 String strMin = resultSet.getString("WJ_LOWLIMIT");
+                 if (StringUtil.isNotEmpty(strMin)) {
+                     BigDecimal min = new BigDecimal(strMin);
+                     juzhengFactorVo.setMinValue(min);
+                 }
+                 logger.info(juzhengFactorVo.toString());
+                 return resultSet;
+             }
+         });
+        return juzhengFactorVo;
+     }
 
 
     /**
@@ -126,6 +138,25 @@ public class JuzhengImporterImpl implements IJuzhengImporter {
      */
     @Override
     public JuzhengFactorVo getRealTimeData(String code) {
-        return null;
+        JuzhengFactorVo juzhengFactorVo =strSql(code);
+        //根据因子编码查询 实时数据 (PUB_CURRENTTEMP 表)
+        String sqlBM = "select * from EM.PUB_CURRENTTEMP where JCYZ_BM =" + "'" + JCYZBM + "'"+ "and TXBZ =" + "'" + TXBZ + "'";
+        jdbcTemplate.query(sqlBM, new RowMapper<Object>() {
+            @Override
+            public Object mapRow(ResultSet resultSet, int i) throws SQLException {
+                JuzhengData juzhengData = new JuzhengData();
+                juzhengData.setJCYZBM(resultSet.getString("JCYZ_BM"));
+                juzhengData.setTXBZ(TXBZ);
+                juzhengData.setDataTime(resultSet.getString("DATATIME"));
+                juzhengData.setAValue(resultSet.getString("AVALUE"));
+                juzhengData.setCValue(resultSet.getString("CVALUE"));
+                juzhengData.setDataFlag(resultSet.getString("DATAFLAG"));
+                logger.info(juzhengData.getAValue().toString());
+                juzhengFactorVo.setCurrentTimeData(juzhengData);
+                return resultSet;
+            }
+        });
+        logger.info(juzhengFactorVo.toString());
+        return juzhengFactorVo;
     }
 }
