@@ -50,7 +50,7 @@ public class JdbcTest {
 //                return resultSet;
 //            }
 //        });
-//        iJuzhengImporter.getHistoryData(2018, 12, "pH");
-        iJuzhengImporter.getRealTimeData("pH");
+        iJuzhengImporter.getHistoryData(2018, 12, "sS");
+//        iJuzhengImporter.getRealTimeData("pH");
     }
 }

@@ -55,7 +55,7 @@ public class JuzhengImporterImpl implements IJuzhengImporter {
         List<JuzhengData> juzhengDataList = Lists.newArrayList();
 
         String TableName = "_" + year + month;
-        String sqlBM = "select * from EM.PUB_CURRENTTIME" + TableName + " where JCYZ_BM =" + "'" + JCYZBM + "'"+ "and TXBZ =" + "'" + TXBZ + "'";
+        String sqlBM = "select * from EM.PUB_CURRENTTIME" + TableName + " where JCYZ_BM =" + "'" + JCYZBM + "'"+ "and JKXT_MN =" + "'" + TXBZ + "'";
         jdbcTemplate.query(sqlBM, new RowMapper<Object>() {
             @Override
             public Object mapRow(ResultSet resultSet, int i) throws SQLException {
