@@ -4,7 +4,6 @@ import com.hptpd.sewageservice.vo.FactorValuePageVo;
 import com.hptpd.sewageservice.vo.FactorValueVo;
 import com.hptpd.sewageservice.vo.SystemVo;
 import org.springframework.data.domain.Pageable;
-
 import java.util.List;
 
 /**
@@ -23,7 +22,7 @@ public interface ISewageAreaService {
     void sewageAreaInit();
 
     /**
-     * 获取污水服务区集成商分页数据
+     * 获取污水服务区集成商列表数据
      *
      * @param sewageAreaId
      * @return

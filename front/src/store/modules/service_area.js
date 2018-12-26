@@ -5,18 +5,12 @@
  \* Description:  服务区state
  \*/
 import constants from '../../common/constants'
+import util from '../../common/util'
 import API from "../../api/api_station";
 
 const state = {
-  area: {
-    // name: '常青花园服务区',
-    // district: {
-    //   province: '湖北',
-    //   city: '武汉',
-    //   county: '江汉',
-    //   detail: '武汉市江汉区常青三路122号'
-    // }
-  },
+  // 当前服务区
+  area: {},
   pagination: {
     page: 1,
     limit: 10,
@@ -42,7 +36,7 @@ const actions = {
       {
         name: '设计院',
         lat: 39.1128650215,
-        log: 117.2191704349,
+        lon: 117.2191704349,
         district: {
           province: '湖北',
           city: '武汉',
@@ -51,7 +45,7 @@ const actions = {
       }, {
         name: '地质大学',
         lat: 39.9967339449,
-        log: 116.3548912199,
+        lon: 116.3548912199,
         district: {
           province: '湖北',
           city: '武汉',
@@ -60,7 +54,7 @@ const actions = {
       }, {
         name: '武汉大学',
         lat: 30.5441471993,
-        log: 114.3692234779,
+        lon: 114.3692234779,
         district: {
           province: '湖北',
           city: '武汉',
@@ -101,7 +95,7 @@ const actions = {
         name: '设计院',
         lat: 30.6308522809,
         log: 114.2504879481,
-        type: 'normal',
+        state: false,
         district: {
           province: '湖北',
           city: '武汉',
@@ -111,7 +105,7 @@ const actions = {
         name: '地质大学',
         lat: 30.5245586396,
         log: 114.4065534568,
-        type: 'normal',
+        state: false,
         district: {
           province: '湖北',
           city: '武汉',
@@ -121,7 +115,7 @@ const actions = {
         name: '武汉大学',
         lat: 30.5441471993,
         log: 114.3692234779,
-        type: 'alarm',
+        state: false,
         district: {
           province: '湖北',
           city: '武汉',
@@ -133,18 +127,19 @@ const actions = {
   },
 
   /**
-   * 从服务器获取服务区列表数据
+   * 从服务器获取服务区列表数据并填充state中的List与Tree
    *
    * @param commit
    * @param state
    * @returns {Promise<any>}
    */
-  initAreaList({commit, state}) {
+  initAreaListAndTreeAct({commit, state}) {
     return new Promise((resolve, reject) => {
       API.getAreas(null).then(backAreas => {
         let areas = areasFormat(backAreas);
-        console.log(areas);
+        let treeAreas = transAreaListToTree(areas);
         commit('setAreaList', areas);
+        commit('setATreeList', treeAreas);
         resolve()
       }, error => {
         reject(error)
@@ -166,15 +161,53 @@ const actions = {
 };
 
 function areasFormat(backendAreas) {
-  let areas = [];
+  let areas = []
   if (backendAreas) {
     backendAreas.forEach(backArea => {
-      backArea.district.province = backArea.province;
-      backArea.district.city = backArea.city;
-      backArea.district.county = backArea.county;
+      let area = {}
+      area = util.copyObject(backArea);
+      area.district = {}
+      area.district.province = backArea.province;
+      area.district.city = backArea.city;
+      area.district.county = backArea.county;
+      areas.push(area)
     })
   }
   return areas;
+}
+
+/**
+ * 将服务区List转化为Tree组件中可用格式
+ * @param areas
+ * @returns {*}
+ */
+function transAreaListToTree(areas) {
+  let aTreeData = constants.cities.map(function (city) {
+    let label = city.name;
+    let id = city.name;
+    let children = city.counties.map(function (county) {
+      let label = county;
+      let id = county;
+      let children = [];
+      for (let area of areas) {
+        if (area.district.city === city.name && area.district.county === county) {
+          children.push({id: area.name + county + city.name, label: area.name});
+        }
+      }
+      if (children) {
+        for (let index = 0; index < children.length; index++) {
+          if (children[index] && !children[index].id) {
+            children.splice(index, 1);
+          }
+        }
+        return {id: id + city.name, label: label, children: children};
+      }
+    });
+    if (children) {
+      return {id: id, label: label, children: children}
+    }
+  });
+  return aTreeData;
 }
 
 const mutations = {

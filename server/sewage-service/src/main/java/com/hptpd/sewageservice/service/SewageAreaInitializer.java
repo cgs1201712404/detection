@@ -67,7 +67,7 @@ public class SewageAreaInitializer {
         sewageArea.setLat(BigDecimal.valueOf(30.706936));
         sewageArea.setProvince(Constant.DONGXI_PROVINCE);
         sewageArea.setCity(Constant.DONGXI_CITY);
-        sewageArea.setDistrict(Constant.DONGXI_DISTRICT);
+        sewageArea.setCounty(Constant.DONGXI_DISTRICT);
         return sewageAreaRep.save(sewageArea);
     }
 

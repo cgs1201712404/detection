@@ -55,6 +55,8 @@ public class ServiceAreaVo {
      */
     private String county;
 
+    private Boolean state;
+
     /**
      * 污水服务区id
      */

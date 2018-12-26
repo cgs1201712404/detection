@@ -26,11 +26,11 @@ export default {
     let normalMarkers = [];
     let alarmMarkers = [];
     areas.forEach(function (area) {
-      let marker = new BMap.Marker(new BMap.Point(area.log, area.lat));
+      let marker = new BMap.Marker(new BMap.Point(area.lon, area.lat));
       marker.setTitle(area.name);
       // 允许覆盖物在map.clearOverlays方法中被清除
       marker.enableMassClear();
-      if (area.type === 'normal') {
+      if (area.state === false) {
         marker.setIcon(new BMap.Icon('../../static/icon/house_green.png', new BMap.Size(32, 32)));
         normalMarkers.push(marker);
       } else {

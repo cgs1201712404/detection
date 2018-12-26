@@ -112,6 +112,7 @@
   import SearchBar from "../SearchBar";
   import mapUtil from "../../common/map";
   import Gauge from "./Gauge";
+  import {mapActions} from 'vuex';
 
 
   export default {
@@ -128,6 +129,9 @@
       }
     },
     methods: {
+      ...mapActions([
+        'initAreaListAndTreeAct',
+      ]),
       initMap() {
         let map = new BMap.Map('map');
         // map.centerAndZoom('武汉', 12);
@@ -139,7 +143,7 @@
       },
       moveToArea(area) {
         if (this.map && area) {
-          this.map.panTo(new BMap.Point(area.log, area.lat))
+          this.map.panTo(new BMap.Point(area.lon, area.lat))
         }
       },
       showNormal() {
@@ -166,7 +170,7 @@
         this.$store.dispatch('getAreaList', params)
       },
       setCurrentArea(area) {
-        this.$store.dispatch('setArea', area)
+        this.$store.dispatch('setCurrentArea', area)
       },
       getSewageLatest() {
         let params = {};
@@ -229,12 +233,16 @@
       }
     },
     mounted() {
-      this.getServiceAreas();
-      this.getSewageLatest();
-      this.getGasLatest();
-      this.getNoiseLatest();
-      this.getSolidLatest();
-      this.map = this.initMap();
+      this.initAreaListAndTreeAct().then(() => {
+        this.map = this.initMap();
+        this.getSewageLatest();
+        this.getGasLatest();
+        this.getNoiseLatest();
+        this.getSolidLatest();
+      }).catch(error => {
+        console.error(error)
+        this.$message({type: 'error', message: error.toString()});
+      })
     }
   }
 </script>
@@ -246,7 +254,7 @@
 
   .search-div {
     position: absolute;
-    left: 25em;
+    left: 20em;
     top: 10em;
     width: 18em;
     background: #FFFFFF;
