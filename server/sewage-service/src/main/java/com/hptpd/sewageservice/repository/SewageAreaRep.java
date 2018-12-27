@@ -13,6 +13,6 @@ import org.springframework.stereotype.Repository;
  * \
  */
 @Repository("sewageAreaRep")
-public interface SewageAreaRep extends JpaRepository<SewageArea, String> {
+public interface SewageAreaRep extends JpaRepository<SewageArea, String>{
 
 }

@@ -1,6 +1,10 @@
 package com.hptpd.sewageservice.vo;
 
+import com.google.common.collect.Lists;
+import com.hptpd.sewageservice.common.util.AbstractMyBeanUtils;
 import com.hptpd.sewageservice.component.PageBase;
+import com.hptpd.sewageservice.domain.Factor;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -22,6 +26,20 @@ public class FactorPageVo extends PageBase {
 
     public void setFactorVos(List<FactorVo> factorVos) {
         this.factorVos = factorVos;
+    }
+
+    public static FactorPageVo generateFactorPage(Page<Factor> factorPage){
+        FactorPageVo factorPageVo =new FactorPageVo();
+        List<FactorVo> factorVos = Lists.newArrayList();
+        for (Factor factor:factorPage){
+            FactorVo factorVo =new FactorVo();
+            AbstractMyBeanUtils.copyProperties(factor,factorVo);
+            factorVos.add(factorVo);
+        }
+        factorPageVo.setFactorVos(factorVos);
+        factorPageVo.setTotal(factorPage.getTotalElements());
+        factorPageVo.setLimit(factorPage.getNumberOfElements());
+        return factorPageVo;
     }
 
 }

@@ -1,6 +1,7 @@
 package com.hptpd.sewageservice.service.component;
 
 import com.google.common.collect.Lists;
+import com.hptpd.sewageservice.common.Constant;
 import com.hptpd.sewageservice.common.util.StringUtil;
 import com.hptpd.sewageservice.vo.juzheng.JuzhengData;
 import com.hptpd.sewageservice.vo.juzheng.JuzhengFactorVo;
@@ -79,23 +80,23 @@ public class JuzhengImporterImpl implements IJuzhengImporter {
          String strCode;
          String sql =null;
          JuzhengFactorVo juzhengFactorVo =new JuzhengFactorVo();
-         if (code.equals("pH")) {
-             strCode = "PH";
+         if (code.equals(Constant.SYSTEM_PH)) {
+             strCode = Constant.PH;
              sql = "select * from EM.HB_WRY_JCYZ where JCYZ_MC =" + "'" + strCode + "'" + "and TXBZ =" + "'" + TXBZ + "'";
-         } else if (code.equals("cod")) {
-             strCode = "COD";
+         } else if (code.equals(Constant.SYSTEM_COD)) {
+             strCode = Constant.COD;
              sql = "select * from EM.HB_WRY_JCYZ where JCYZ_MC =" + "'" + strCode + "'" + "and TXBZ =" + "'" + TXBZ + "'";
-         } else if (code.equals("nH3N")) {
-             strCode = "氨氮";
+         } else if (code.equals(Constant.SYSTEM_NH3N)) {
+             strCode = Constant.NH3N;
              sql = "select * from EM.HB_WRY_JCYZ where JCYZ_MC =" + "'" + strCode + "'" + "and TXBZ =" + "'" + TXBZ + "'";
-         } else if (code.equals("tP")) {
-             strCode = "总磷";
+         } else if (code.equals(Constant.SYSTEM_TP)) {
+             strCode = Constant.TP;
              sql = "select * from EM.HB_WRY_JCYZ where JCYZ_MC =" + "'" + strCode + "'" + "and TXBZ =" + "'" + TXBZ + "'";
-         } else if (code.equals("sS")) {
-             strCode = "水中油";
+         } else if (code.equals(Constant.SYSTEM_SS)) {
+             strCode = Constant.SS;
              sql = "select * from EM.HB_WRY_JCYZ where JCYZ_MC =" + "'" + strCode + "'" + "and TXBZ =" + "'" + TXBZ + "'";
-         } else if (code.equals("flow")) {
-             strCode = "悬浮物";
+         } else if (code.equals(Constant.SYSTEM_FLOW)) {
+             strCode = Constant.FLOW;
              sql = "select * from EM.HB_WRY_JCYZ where JCYZ_MC =" + "'" + strCode + "'" + "and TXBZ =" + "'" + TXBZ + "'";
          }
          jdbcTemplate.query(sql, new RowMapper<Object>() {

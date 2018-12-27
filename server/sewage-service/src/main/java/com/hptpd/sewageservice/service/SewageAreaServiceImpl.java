@@ -1,16 +1,28 @@
 package com.hptpd.sewageservice.service;//package com.hptpd.sewage.service;
 
+import com.google.common.collect.Lists;
+import com.hptpd.sewageservice.common.util.AbstractMyBeanUtils;
+import com.hptpd.sewageservice.domain.Factor;
+import com.hptpd.sewageservice.domain.History;
+import com.hptpd.sewageservice.domain.RealTime;
+import com.hptpd.sewageservice.domain.SewageArea;
+import com.hptpd.sewageservice.domain.system.MonitoringSystem;
+import com.hptpd.sewageservice.repository.*;
 import com.hptpd.sewageservice.common.Constant;
 import com.hptpd.sewageservice.repository.FactorRep;
 import com.hptpd.sewageservice.repository.SewageAreaRep;
 import com.hptpd.sewageservice.service.component.IJuzhengImporter;
 import com.hptpd.sewageservice.vo.*;
+import org.springframework.data.domain.Page;
 import com.hptpd.sewageservice.vo.juzheng.JuzhengFactorVo;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
 
 /**
  * \* Created with IntelliJ IDEA.
@@ -32,6 +44,17 @@ public class SewageAreaServiceImpl implements ISewageAreaService {
     @Resource(name = "factorRep")
     private FactorRep factorRep;
 
+    @Resource(name = "monitoringRep")
+    private MonitoringRep monitoringRep;
+
+    @Resource(name = "historyRep")
+    private HistoryRep historyRep;
+
+    @Resource(name = "realTimeRep")
+    private RealTimeRep realTimeRep;
+
+
+
     @Resource(name = "iJuzhengImporter")
     private IJuzhengImporter iJuzhengImporter;
 
@@ -51,7 +74,18 @@ public class SewageAreaServiceImpl implements ISewageAreaService {
      */
     @Override
     public List<SystemVo> getAreaSystems(String sewageAreaId) {
-        return null;
+        List<SystemVo> systemVos = Lists.newArrayList();
+
+        SewageArea sewageArea =sewageAreaRep.getOne(sewageAreaId);
+        List<MonitoringSystem> monitoringSystems =monitoringRep.findBySewageArea(sewageArea);
+
+        for (MonitoringSystem monitoringSystem:monitoringSystems){
+            SystemVo systemVo =new SystemVo();
+            systemVo.setName(monitoringSystem.getName());
+            systemVo.setSystemCode(monitoringSystem.getSystemCode());
+            systemVos.add(systemVo);
+        }
+        return systemVos;
     }
 
     /**
@@ -63,7 +97,13 @@ public class SewageAreaServiceImpl implements ISewageAreaService {
      */
     @Override
     public SystemVo getAreaSystem(String sewageAreaId, String systemCode) {
-        return null;
+        Optional<MonitoringSystem> monitoringSystem =monitoringRep.findById(systemCode);
+
+        SystemVo systemVo =new SystemVo();
+        systemVo.setSystemCode(systemCode);
+        systemVo.setName(monitoringSystem.get().getName());
+
+        return systemVo;
     }
 
     /**
@@ -76,7 +116,11 @@ public class SewageAreaServiceImpl implements ISewageAreaService {
      */
     @Override
     public FactorPageVo getSystemFactors(String sewageAreaId, String systemCode, Pageable pageable) {
-        return null;
+        MonitoringSystem monitoringSystem =monitoringRep.getOne(systemCode);
+        Page<Factor> factorPage =factorRep.findByMonitoringSystem(monitoringSystem,pageable);
+        FactorPageVo factorPageVo =FactorPageVo.generateFactorPage(factorPage);
+
+        return factorPageVo;
     }
 
     /**
@@ -89,8 +133,14 @@ public class SewageAreaServiceImpl implements ISewageAreaService {
      */
     @Override
     public FactorVo getSystemFactor(String sewageAreaId, String systemCode, String factorCode) {
-        return null;
+        MonitoringSystem monitoringSystem =monitoringRep.getOne(systemCode);
+        Factor factor =factorRep.findByMonitoringSystemAndCode(monitoringSystem,factorCode);
+        FactorVo factorVo =new FactorVo();
+        AbstractMyBeanUtils.copyProperties(factor,factorVo);
+
+        return factorVo;
     }
+
 
     /**
      * 分页获取单个指标历史数据
@@ -98,11 +148,15 @@ public class SewageAreaServiceImpl implements ISewageAreaService {
      * @param systemCode
      * @param factorCode
      * @param pageable
-     * @return
+     * @return factorValuePageVo
      */
     @Override
     public FactorValuePageVo getSystemFactorHistoryValue(String systemCode, String factorCode, Pageable pageable) {
-        return null;
+        MonitoringSystem monitoringSystem =monitoringRep.getOne(systemCode);
+        Factor factor =factorRep.findByMonitoringSystemAndCode(monitoringSystem,factorCode);
+        Page<History> historyPage =historyRep.findByFactor(factor,pageable);
+        FactorValuePageVo factorValuePageVo =FactorValuePageVo.generate(historyPage);
+        return factorValuePageVo;
     }
 
     /**
@@ -115,7 +169,11 @@ public class SewageAreaServiceImpl implements ISewageAreaService {
      */
     @Override
     public FactorValuePageVo getSystemFactorRealTimeValue(String systemCode, String factorCode, Pageable pageable) {
-        return null;
+        MonitoringSystem monitoringSystem =monitoringRep.getOne(systemCode);
+        Factor factor =factorRep.findByMonitoringSystemAndCode(monitoringSystem,factorCode);
+        Page<RealTime> realTimePage =realTimeRep.findByFactor(factor,pageable);
+        FactorValuePageVo factorValuePageVo =FactorValuePageVo.generateReal(realTimePage);
+        return factorValuePageVo;
     }
 
     /**
