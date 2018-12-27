@@ -62,24 +62,26 @@ public class SewageAreaServiceImpl implements ISewageAreaService {
     /**
      * 获单个集成商指标分页数据
      *
+     * @param sewageAreaId
      * @param systemCode
      * @param pageable
      * @return
      */
     @Override
-    public FactorValuePageVo getSystemFactors(String systemCode, Pageable pageable) {
+    public FactorPageVo getSystemFactors(String sewageAreaId, String systemCode, Pageable pageable) {
         return null;
     }
 
     /**
      * 获取集成商单个指标数据
      *
+     * @param sewageAreaId
      * @param systemCode
      * @param factorCode
      * @return
      */
     @Override
-    public FactorValueVo getSystemFactor(String systemCode, String factorCode) {
+    public FactorVo getSystemFactor(String sewageAreaId, String systemCode, String factorCode) {
         return null;
     }
 

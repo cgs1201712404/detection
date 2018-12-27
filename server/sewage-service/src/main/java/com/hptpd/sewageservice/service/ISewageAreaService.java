@@ -1,9 +1,8 @@
 package com.hptpd.sewageservice.service;
 
-import com.hptpd.sewageservice.vo.FactorValuePageVo;
-import com.hptpd.sewageservice.vo.FactorValueVo;
-import com.hptpd.sewageservice.vo.SystemVo;
+import com.hptpd.sewageservice.vo.*;
 import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 
 /**
@@ -45,7 +44,7 @@ public interface ISewageAreaService {
      * @param pageable
      * @return
      */
-    FactorValuePageVo getSystemFactors(String systemCode, Pageable pageable);
+    FactorPageVo getSystemFactors(String sewageAreaId, String systemCode, Pageable pageable);
 
     /**
      * 获取集成商单个指标数据
@@ -54,7 +53,7 @@ public interface ISewageAreaService {
      * @param factorCode
      * @return
      */
-    FactorValueVo getSystemFactor(String systemCode, String factorCode);
+    FactorVo getSystemFactor(String sewageAreaId, String systemCode, String factorCode);
 
     /**
      * 分页获取单个指标历史数据
