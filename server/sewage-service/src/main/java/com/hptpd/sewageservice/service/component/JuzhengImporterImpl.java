@@ -36,7 +36,6 @@ public class JuzhengImporterImpl implements IJuzhengImporter {
 
     private String JCYZBM = null;
     private String TXBZ = "JZ000000000001";
-//    private String sql;
 
 
     /**
@@ -49,11 +48,8 @@ public class JuzhengImporterImpl implements IJuzhengImporter {
      */
     @Override
     public JuzhengFactorVo getHistoryData(Integer year, Integer month, String code) {
-
         JuzhengFactorVo juzhengFactorVo = strSql(code);
-
         List<JuzhengData> juzhengDataList = Lists.newArrayList();
-
         String TableName = "_" + year + month;
         String sqlBM = "select * from EM.PUB_CURRENTTIME" + TableName + " where JCYZ_BM =" + "'" + JCYZBM + "'"+ "and JKXT_MN =" + "'" + TXBZ + "'";
         jdbcTemplate.query(sqlBM, new RowMapper<Object>() {

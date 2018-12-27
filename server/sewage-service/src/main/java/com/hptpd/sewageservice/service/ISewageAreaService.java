@@ -80,8 +80,7 @@ public interface ISewageAreaService {
      *
      * @param systemCode
      * @param factorCode
-     * @param pageable
      * @return
      */
-    FactorValueVo getSystemFactorLatestValue(String systemCode, String factorCode, Pageable pageable);
+    FactorValueVo getSystemFactorLatestValue(String systemCode, String factorCode);
 }

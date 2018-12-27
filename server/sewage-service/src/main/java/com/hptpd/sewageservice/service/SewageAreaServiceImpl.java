@@ -1,10 +1,14 @@
 package com.hptpd.sewageservice.service;//package com.hptpd.sewage.service;
 
+import com.hptpd.sewageservice.common.Constant;
 import com.hptpd.sewageservice.repository.FactorRep;
 import com.hptpd.sewageservice.repository.SewageAreaRep;
+import com.hptpd.sewageservice.service.component.IJuzhengImporter;
 import com.hptpd.sewageservice.vo.*;
+import com.hptpd.sewageservice.vo.juzheng.JuzhengFactorVo;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -27,6 +31,9 @@ public class SewageAreaServiceImpl implements ISewageAreaService {
 
     @Resource(name = "factorRep")
     private FactorRep factorRep;
+
+    @Resource(name = "iJuzhengImporter")
+    private IJuzhengImporter iJuzhengImporter;
 
     /**
      * 污水服务区数据初始化
@@ -116,12 +123,25 @@ public class SewageAreaServiceImpl implements ISewageAreaService {
      *
      * @param systemCode
      * @param factorCode
-     * @param pageable
      * @return
      */
     @Override
-    public FactorValueVo getSystemFactorLatestValue(String systemCode, String factorCode, Pageable pageable) {
+    public FactorValueVo getSystemFactorLatestValue(String systemCode, String factorCode) {
+        if (systemCode.equals(Constant.JUZHENG_SYS_CODE)) {
+            return getJuzhengLatestValue(factorCode);
+        }
         return null;
+    }
+
+    /**
+     * 获取巨正集成系统最新读数
+     *
+     * @param factorCode
+     * @return
+     */
+    private FactorValueVo getJuzhengLatestValue(String factorCode) {
+        JuzhengFactorVo juzhengFactorVo = iJuzhengImporter.getRealTimeData(factorCode);
+        return FactorValueVo.transFrom(juzhengFactorVo.getCurrentTimeData());
     }
 
 }

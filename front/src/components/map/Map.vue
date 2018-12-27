@@ -134,7 +134,6 @@
       ]),
       initMap() {
         let map = new BMap.Map('map');
-        // map.centerAndZoom('武汉', 12);
         map.centerAndZoom(new BMap.Point(114.2929, 30.5905), 12);
         map.enableScrollWheelZoom();
         // 在地图中加载服务区marker
@@ -240,7 +239,7 @@
         this.getNoiseLatest();
         this.getSolidLatest();
       }).catch(error => {
-        console.error(error)
+        console.error(error);
         this.$message({type: 'error', message: error.toString()});
       })
     }

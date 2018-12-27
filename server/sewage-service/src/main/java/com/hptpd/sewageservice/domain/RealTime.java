@@ -6,6 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * \* Created with IntelliJ IDEA.
@@ -28,7 +29,7 @@ public class RealTime {
     /**
      * 记录时间
      */
-    private String time;
+    private Date time;
 
     /**
      * 标识
