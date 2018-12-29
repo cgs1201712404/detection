@@ -60,6 +60,6 @@ const styles = StyleSheet.create({
         flexDirection:'row', //方向
         justifyContent:'space-between',
         alignItems:'center',
-        paddingTop:Platform.OS === 'ios' ? 15 : 25,
+        paddingTop:Platform.OS === 'ios' ? 30 : 25,
     }
 });
