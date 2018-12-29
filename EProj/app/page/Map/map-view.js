@@ -12,6 +12,7 @@ import { MapView, Location } from 'react-native-baidumap-sdk'
 import icon from './ic_my_location.png'
 import { Initializer } from 'react-native-baidumap-sdk'
 import IMNavBar from '../../common/IMNavBar'
+import ToastUtil from "../../utils/ToastUtil";
 
 
 Initializer.init('111aqvWQ6X17Zybcj6zQpBU4ukmGO4aH');
@@ -51,7 +52,42 @@ export default class MapViewExample extends Component {
         header:null
     });
 
-  state = {};
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            Markers:[],
+            code:'',
+            name:'',
+            lat:'',
+            lon:'',
+            markers:[],
+
+
+        };
+    }
+
+
+    //刷新数据
+    serviceArea =()=>{
+
+        fetch('http://localhost:8088/central-pivot/station/service_areas')
+            .then((response) => response.json())
+            .then((responseData) => {
+
+               this.setState({
+                   Markers:responseData,
+                   name:responseData[0].name,
+                   lat:responseData[0].lat,
+                   lon:responseData[0].lon
+
+               });
+                ToastUtil.showShort(this.state.name);
+                console.log(this.state.Markers.toString())
+
+            })
+            .done()
+    };
     onStatusChange = status => {
         this.status = status;
         this.cluster.update(status)
@@ -64,36 +100,45 @@ export default class MapViewExample extends Component {
         }, 500)
     };
 
-    markers = Array(100).fill(0).map((_, i) => ({
-        coordinate: {
-            latitude: 30.5 + Math.random(),
-            longitude: 114 + Math.random(),
-        },
-        extra: { key: `Marker${i}`+'服务区'},
-    }));
+
+     markers=[
+         {
+             coordinate: {
+                         latitude: 30.516,
+                         longitude: 114.2121,
+                     },
+                     extra: { key: '1'},
+                     name:"111"
+
+         },
+
+         ];
 
     renderMarker = item => (
         <MapView.Marker
             selected
+            // title={item.extra.key}
+            // coordinate={{latitude:this.state.lat,longitude:this.state.lon}}
             title={item.extra.key}
             coordinate={item.coordinate}
-            onPress={() => Alert.alert('服务区')}
+            // onPress={() => Alert.alert('服务区')}
             onCalloutPress={() => this.goPoint()}
-
-
+            color="#cccccc"
         />
     );
     goPoint =() =>{
         this.props.navigation.navigate('Point')
     };
-  async componentDidMount() {
+     async componentDidMount() {
     await Location.init();
-    Location.setOptions({ gps: true });
-    this.listener = Location.addLocationListener(location => {
+      Location.init();
+      Location.setOptions({ gps: true });
+     this.listener = Location.addLocationListener(location => {
       this.setState({ location });
         console.log(location)
     });
-    Location.start()
+    Location.start();
+    this.serviceArea();
 
   }
     // 返回中间按钮
@@ -107,7 +152,7 @@ export default class MapViewExample extends Component {
     this.listener.remove()
   }
 
-  location = () => this.mapView.setStatus({ center: this.state.location }, 1000)
+  location = () => this.mapView.setStatus({ center: this.state.location }, 1000);
 
   render() {
       const props = {
