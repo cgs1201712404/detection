@@ -29,7 +29,6 @@ import java.util.List;
  */
 @Service("iJuzhengImporter")
 public class JuzhengImporterImpl implements IJuzhengImporter {
-    private Logger logger = LoggerFactory.getLogger(JuzhengImporterImpl.class);
 
     @Resource
     @Qualifier("juzhengJdbcTemplate")
@@ -37,7 +36,6 @@ public class JuzhengImporterImpl implements IJuzhengImporter {
 
     private String JCYZBM = null;
     private String TXBZ = "JZ000000000001";
-
 
     /**
      * 获取巨正的历史数据
@@ -68,7 +66,6 @@ public class JuzhengImporterImpl implements IJuzhengImporter {
                 return resultSet;
             }
         });
-        logger.info(juzhengFactorVo.toString());
         return juzhengFactorVo;
     }
 
@@ -119,7 +116,6 @@ public class JuzhengImporterImpl implements IJuzhengImporter {
                      BigDecimal min = new BigDecimal(strMin);
                      juzhengFactorVo.setMinValue(min);
                  }
-                 logger.info(juzhengFactorVo.toString());
                  return resultSet;
              }
          });
@@ -148,12 +144,10 @@ public class JuzhengImporterImpl implements IJuzhengImporter {
                 juzhengData.setAValue(resultSet.getString("AVALUE"));
                 juzhengData.setCValue(resultSet.getString("CVALUE"));
                 juzhengData.setDataFlag(resultSet.getString("DATAFLAG"));
-                logger.info(juzhengData.getAValue().toString());
                 juzhengFactorVo.setCurrentTimeData(juzhengData);
                 return resultSet;
             }
         });
-        logger.info(juzhengFactorVo.toString());
         return juzhengFactorVo;
     }
 }

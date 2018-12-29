@@ -140,6 +140,8 @@ const actions = {
         let treeAreas = transAreaListToTree(areas);
         commit('setAreaList', areas);
         commit('setATreeList', treeAreas);
+        // 设置当前area
+        commit('setArea', areas[0]);
         resolve()
       }, error => {
         reject(error)
@@ -147,6 +149,27 @@ const actions = {
         reject(err)
       })
     });
+  },
+
+  /**
+   * 从服务器获取当前服务区集成商系统
+   *
+   * @param commit
+   * @param state
+   * @param area
+   * @returns {Promise<any>}
+   */
+  getAreaSystemsAct({commit, state}, area) {
+    return new Promise((resolve, reject) => {
+      API.getAreaSystems(area.sewageId).then(systems => {
+        console.log(systems)
+        resolve(systems);
+      }, error => {
+        reject(error)
+      }).catch(err => {
+        reject(err)
+      })
+    })
   },
 
   setAreaList({commit, state}, areas) {

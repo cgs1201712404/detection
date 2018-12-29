@@ -39,7 +39,7 @@ public interface ISewageAreaService {
 
     /**
      * 获单个集成商指标分页数据
-     *
+     * @param sewageAreaId
      * @param systemCode
      * @param pageable
      * @return
@@ -49,6 +49,7 @@ public interface ISewageAreaService {
     /**
      * 获取集成商单个指标数据
      *
+     * @param sewageAreaId
      * @param systemCode
      * @param factorCode
      * @return

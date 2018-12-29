@@ -23,7 +23,22 @@
     <el-dialog
       :title="currentArea.name"
       :visible.sync="dialogVisible"
+      :fullscreen="true"
       width="60%">
+      <div slot="title">
+        <el-row>
+          <el-col :offset="1" :md="3" :xl="3">
+            <h4>{{currentArea.name}}</h4>
+          </el-col>
+          <el-col :md="20" :xl="20">
+            <el-select v-model="currentSystem.name">
+              <el-option v-for="item in currentArea.systems" :key="item.systemCode" :value="item.name"
+                         :label="item.name">
+              </el-option>
+            </el-select>
+          </el-col>
+        </el-row>
+      </div>
       <el-tabs v-model="activeTab" type="card" @tab-click="dialogTabClicked">
         <el-tab-pane label="污水类" name="sewage">
           <el-col :md="8" :xl="8">
@@ -111,15 +126,41 @@
 <script>
   import SearchBar from "../SearchBar";
   import mapUtil from "../../common/map";
+  import util from '../../common/util';
   import Gauge from "./Gauge";
-  import {mapActions} from 'vuex';
+  import {mapActions, mapGetters} from 'vuex';
 
 
   export default {
     name: "Map",
     components: {Gauge, SearchBar},
+    computed: {
+      ...mapGetters([
+        'area',
+      ]),
+      serviceAreas() {
+        return this.$store.state.serviceArea.areaList;
+      },
+      // currentArea() {
+      //   return this.$store.state.serviceArea.area;
+      // },
+      sewageLatest() {
+        return this.$store.state.sewage.latest;
+      },
+      gasLatest() {
+        return this.$store.state.wasteGas.latest;
+      },
+      noiseLatest() {
+        return this.$store.state.noise.latest;
+      },
+      solidLatest() {
+        return this.$store.state.solid.latest;
+      }
+    },
     data() {
       return {
+        currentArea: {},
+        currentSystem: {},
         dialogVisible: false,
         loading: false,
         activeTab: 'sewage',
@@ -131,7 +172,25 @@
     methods: {
       ...mapActions([
         'initAreaListAndTreeAct',
+        'getAreaSystemsAct'
       ]),
+      initPage() {
+        this.initAreaListAndTreeAct().then(() => {
+          this.currentArea = util.copyObject(this.area);
+          this.getAreaSystemsAct(this.currentArea).then(systems => {
+            this.currentArea.systems = systems;
+            this.currentSystem = systems[0];
+            this.map = this.initMap();
+          });
+          this.getSewageLatest();
+          this.getGasLatest();
+          this.getNoiseLatest();
+          this.getSolidLatest();
+        }).catch(error => {
+          console.error(error);
+          this.$message({type: 'error', message: error.toString()});
+        })
+      },
       initMap() {
         let map = new BMap.Map('map');
         map.centerAndZoom(new BMap.Point(114.2929, 30.5905), 12);
@@ -211,37 +270,8 @@
         }
       }
     },
-    computed: {
-      serviceAreas() {
-        return this.$store.state.serviceArea.areaList;
-      },
-      currentArea() {
-        return this.$store.state.serviceArea.area;
-      },
-      sewageLatest() {
-        return this.$store.state.sewage.latest;
-      },
-      gasLatest() {
-        return this.$store.state.wasteGas.latest;
-      },
-      noiseLatest() {
-        return this.$store.state.noise.latest;
-      },
-      solidLatest() {
-        return this.$store.state.solid.latest;
-      }
-    },
     mounted() {
-      this.initAreaListAndTreeAct().then(() => {
-        this.map = this.initMap();
-        this.getSewageLatest();
-        this.getGasLatest();
-        this.getNoiseLatest();
-        this.getSolidLatest();
-      }).catch(error => {
-        console.error(error);
-        this.$message({type: 'error', message: error.toString()});
-      })
+      this.initPage();
     }
   }
 </script>
