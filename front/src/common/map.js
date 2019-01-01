@@ -9,8 +9,8 @@
  * @param context mapContext
  * @param area
  */
-function showGaugeDialog(context, area) {
-  context.setCurrentArea(area);
+function showGaugeDialog(context) {
+  // context.setCurrentArea(context.currentArea);
   context.dialogVisible = true;
 }
 
@@ -39,7 +39,7 @@ export default {
       }
       map.addOverlay(marker);// 将标注添加到地图中
       marker.addEventListener('click', function (event) {
-        showGaugeDialog(context, area);
+        showGaugeDialog(context);
       })
     });
     return {normal: normalMarkers, alarm: alarmMarkers};

@@ -4,6 +4,7 @@
  \* Date: 2018/8/3 16:07
  \* Description:  污水类state
  \*/
+import API from "../../api/api_sewage";
 
 const state = {
   // 当天最新数据
@@ -225,6 +226,64 @@ const actions = {
     };
     commit('setSewageLatest', data)
   },
+
+  /**
+   * 从服务器获取当前服务区水质监测集成商系统
+   *
+   * @param commit
+   * @param state
+   * @param area
+   * @returns {Promise<any>}
+   */
+  getSewageSystemsAct({commit, state}, area) {
+    return new Promise((resolve, reject) => {
+      API.getSewageSystems(area.sewageId).then(systems => {
+        resolve(systems);
+      }, error => {
+        reject(error)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+
+  /**
+   * 从服务器获取当前集成商系统监测指标
+   * @param commit
+   * @param state
+   * @param params {sewageId:'', systemCode: ''}
+   */
+  getSystemFactorsAct({commit, state}, params) {
+    return new Promise((resolve, reject) => {
+      API.getSystemFactors(params).then(factPageVo => {
+        resolve(factPageVo)
+      }, error => {
+        reject(error)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+
+  /**
+   * 从服务器获取监测指标最新值
+   * @param commit
+   * @param state
+   * @param params {sewageId:'', systemCode: '', factorCode: ''}
+   * @returns {Promise}
+   */
+  getFactorLatestValueAct({commit, state}, params) {
+    return new Promise((resolve, reject) => {
+      API.getFactorLatestValue(params).then(factorValue => {
+        resolve(factorValue)
+      }, error => {
+        reject(error)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+
   setSewagePresentList({commit, state}, data) {
     commit('setSewagePresentList', data)
   },

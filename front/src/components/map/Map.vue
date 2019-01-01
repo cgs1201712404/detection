@@ -24,14 +24,14 @@
       :title="currentArea.name"
       :visible.sync="dialogVisible"
       :fullscreen="true"
-      width="60%">
+      @open="gaugeDialogOpen">
       <div slot="title">
         <el-row>
           <el-col :offset="1" :md="3" :xl="3">
             <h4>{{currentArea.name}}</h4>
           </el-col>
           <el-col :md="20" :xl="20">
-            <el-select v-model="currentSystem.name">
+            <el-select v-model="sewageSystem.name">
               <el-option v-for="item in currentArea.systems" :key="item.systemCode" :value="item.name"
                          :label="item.name">
               </el-option>
@@ -41,23 +41,8 @@
       </div>
       <el-tabs v-model="activeTab" type="card" @tab-click="dialogTabClicked">
         <el-tab-pane label="污水类" name="sewage">
-          <el-col :md="8" :xl="8">
-            <gauge :value="sewageLatest.pH" label="PH"></gauge>
-          </el-col>
-          <el-col :md="8" :xl="8">
-            <gauge :value="sewageLatest.cod" label="COD"></gauge>
-          </el-col>
-          <el-col :md="8" :xl="8">
-            <gauge :value="sewageLatest.nH3N" label="氨氮"></gauge>
-          </el-col>
-          <el-col :md="8" :xl="8">
-            <gauge :value="sewageLatest.tP" label="总磷"></gauge>
-          </el-col>
-          <el-col :md="8" :xl="8">
-            <gauge :value="sewageLatest.oil" label="水中油"></gauge>
-          </el-col>
-          <el-col :md="8" :xl="8">
-            <gauge :value="sewageLatest.flow" label="流量"></gauge>
+          <el-col :md="8" :xl="8" v-for="factor in sewageSystem.factors" :key="factor.code">
+            <gauge :value="factor.latest.value" :label="factor.name" ref="sewage"></gauge>
           </el-col>
         </el-tab-pane>
         <el-tab-pane label="大气类" name="wasteGas">
@@ -116,8 +101,8 @@
         </el-tab-pane>
       </el-tabs>
       <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+    <!--<el-button @click="dialogVisible = false">取 消</el-button>-->
+    <el-button type="primary" @click="dialogVisible = false">关 闭</el-button>
   </span>
     </el-dialog>
   </div>
@@ -129,7 +114,6 @@
   import util from '../../common/util';
   import Gauge from "./Gauge";
   import {mapActions, mapGetters} from 'vuex';
-
 
   export default {
     name: "Map",
@@ -160,7 +144,7 @@
     data() {
       return {
         currentArea: {},
-        currentSystem: {},
+        sewageSystem: {},
         dialogVisible: false,
         loading: false,
         activeTab: 'sewage',
@@ -172,20 +156,39 @@
     methods: {
       ...mapActions([
         'initAreaListAndTreeAct',
-        'getAreaSystemsAct'
+        'getSewageSystemsAct',
+        'getSystemFactorsAct',
+        'getFactorLatestValueAct'
       ]),
+      async fillSystemLatestValue(area, system) {
+        let factors = [];
+        try {
+          let factPageVo = await this.getSystemFactorsAct({sewageId: area.sewageId, systemCode: system.systemCode});
+          for (let factor of factPageVo.factorVos) {
+            factor.latest = await this.getFactorLatestValueAct({
+              sewageId: area.sewageId, systemCode: system.systemCode,
+              factorCode: factor.code
+            });
+            factors.push(factor)
+          }
+        } catch (err) {
+          return err
+        }
+        return factors;
+      },
+      /**
+       * 对话框open回调
+       */
+      gaugeDialogOpen() {
+        if (this.$refs.sewage) {
+          this.$refs.sewage.forEach(item => {
+            item.refreshGauge();
+          })
+        }
+      },
       initPage() {
         this.initAreaListAndTreeAct().then(() => {
-          this.currentArea = util.copyObject(this.area);
-          this.getAreaSystemsAct(this.currentArea).then(systems => {
-            this.currentArea.systems = systems;
-            this.currentSystem = systems[0];
-            this.map = this.initMap();
-          });
-          this.getSewageLatest();
-          this.getGasLatest();
-          this.getNoiseLatest();
-          this.getSolidLatest();
+          this.setArea(this.area);
         }).catch(error => {
           console.error(error);
           this.$message({type: 'error', message: error.toString()});
@@ -227,8 +230,36 @@
         let params = {};
         this.$store.dispatch('getAreaList', params)
       },
-      setCurrentArea(area) {
+      setArea(area) {
+        this.currentArea = util.copyObject(this.area);
+        this.getSewageSystemsAct(this.currentArea).then(systems => {
+          this.currentArea.systems = systems;
+          this.setMapSystem(systems[0]);
+        });
+        this.getSewageLatest();
+        this.getGasLatest();
+        this.getNoiseLatest();
+        this.getSolidLatest();
         this.$store.dispatch('setCurrentArea', area)
+      },
+
+      setMapSystem(system) {
+        this.sewageSystem = system;
+        this.map = this.initMap();
+        this.fillSystemLatestValue(this.currentArea, this.sewageSystem).then(factors => {
+          // 设置当前系统因子和因子的最新值
+          this.sewageSystem.factors = factors;
+          // 根据系统因子设置计量器的参数值，在加载过程中设置
+          this.loadGauge()
+        }).catch(error => {
+          console.error(error)
+        })
+      },
+      /**
+       * 加载计量器仪表盘
+       */
+      loadGauge() {
+//        console.log(this.$refs);
       },
       getSewageLatest() {
         let params = {};

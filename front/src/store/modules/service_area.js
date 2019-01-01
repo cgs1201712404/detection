@@ -131,6 +131,7 @@ const actions = {
    *
    * @param commit
    * @param state
+   * @param context 组件上下文环境
    * @returns {Promise<any>}
    */
   initAreaListAndTreeAct({commit, state}) {
@@ -141,6 +142,7 @@ const actions = {
         commit('setAreaList', areas);
         commit('setATreeList', treeAreas);
         // 设置当前area
+        // context.setCurrentArea(areas[0]);
         commit('setArea', areas[0]);
         resolve()
       }, error => {
@@ -151,27 +153,6 @@ const actions = {
     });
   },
 
-  /**
-   * 从服务器获取当前服务区集成商系统
-   *
-   * @param commit
-   * @param state
-   * @param area
-   * @returns {Promise<any>}
-   */
-  getAreaSystemsAct({commit, state}, area) {
-    return new Promise((resolve, reject) => {
-      API.getAreaSystems(area.sewageId).then(systems => {
-        console.log(systems)
-        resolve(systems);
-      }, error => {
-        reject(error)
-      }).catch(err => {
-        reject(err)
-      })
-    })
-  },
-
   setAreaList({commit, state}, areas) {
     commit('setAreaList', areas);
   },
@@ -179,6 +160,7 @@ const actions = {
     commit('setATreeList', areas);
   },
   setCurrentArea({commit, state}, area) {
+
     commit('setArea', area)
   }
 };

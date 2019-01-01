@@ -15,6 +15,8 @@ import com.hptpd.sewageservice.vo.juzheng.JuzhengFactorVo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +31,7 @@ import java.util.Optional;
  * \
  */
 @Service("sewageAreaService")
+@Transactional(rollbackFor = Exception.class)
 public class SewageAreaServiceImpl implements ISewageAreaService {
 
     @Resource(name = "sewageAreaInitializer")

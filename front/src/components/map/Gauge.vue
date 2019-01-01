@@ -7,7 +7,8 @@
 <template id="gauge">
   <el-row>
     <el-card shadow="never">
-      <div :id="label" style="width:100%; height:20em;"></div>
+      <div :id="label" style="width:100%; height:15em;"></div>
+      <div style="text-align: center"><a href="javascript:void(0)">{{label}}</a></div>
     </el-card>
   </el-row>
 </template>
@@ -41,8 +42,8 @@
             {
               name: '业务指标',
               type: 'gauge',
-              detail: {formatter: '{value}%'},
-              data: [{value: this.value, name: this.label}]
+              detail: {formatter: '{value}'},
+              data: [{value: this.value}]
             }
           ]
         };

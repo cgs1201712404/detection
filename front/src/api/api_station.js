@@ -9,8 +9,8 @@
 import * as API from './'
 
 export default {
-  getAreas: params => API.GET('/central-pivot/station/service_areas', params),
-  getAreaSystems: id => API.GET('/sewage-service/sewage/' + id + '/systems')
+  getAreas: params => API.GET('/central-pivot/station/service_areas', params)
+  // getAreaSystems: id => API.GET('/sewage-service/sewage/' + id + '/systems')
 }
 
 

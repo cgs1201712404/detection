@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -130,6 +131,7 @@ public class JuzhengImporterImpl implements IJuzhengImporter {
      * @return
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public JuzhengFactorVo getRealTimeData(String code) {
         JuzhengFactorVo juzhengFactorVo =strSql(code);
         //根据因子编码查询 实时数据 (PUB_CURRENTTEMP 表)
