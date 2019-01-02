@@ -71,14 +71,7 @@ export default class DevicePage extends Component{
             .done();
 
     }
-    // 返回左边按钮
-    renderLeftItem() {
-        return(
-            <TouchableOpacity>
-                <Image source={require('../../image/one.png')} style={styles.navBarLeftItemStyle} />
-            </TouchableOpacity>
-        );
-    }
+
     // 返回中间按钮
     renderTitleItem() {
         return(
@@ -87,15 +80,7 @@ export default class DevicePage extends Component{
             </TouchableOpacity>
         );
     }
-    // 返回右边按钮
-    renderRightItem() {
-        return(
-            <TouchableOpacity
-            >
-                <Image source={require('../../image/one.png')} style={styles.navBarRightItemStyle} />
-            </TouchableOpacity>
-        );
-    }
+
     createAreaData() {
         let data = [];
         let len = area.length;

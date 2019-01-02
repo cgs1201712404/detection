@@ -8,6 +8,7 @@ import com.hptpd.centralpivot.station.domain.ServiceAreaRelation;
 import com.hptpd.centralpivot.station.repository.ServiceAreaRelationRep;
 import com.hptpd.centralpivot.station.repository.ServiceAreaRep;
 import com.hptpd.centralpivot.station.vo.ServiceAreaVo;
+import com.hptpd.centralpivot.station.vo.app.ServiceMarker;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -53,6 +54,19 @@ public class StationServiceImpl implements IStationService {
     public List<ServiceAreaVo> getServiceAreas() {
         return ServiceAreaVo.toVos(serviceAreaRep.findAll());
     }
+
+    /**
+     * 获取服务区列表（APP端）
+     *
+     * @return
+     */
+    @Override
+    public List<ServiceMarker> getServicesMarkers() {
+        List<ServiceMarker> serviceMarkers =ServiceMarker.genarate(serviceAreaRep.findAll());
+
+        return serviceMarkers;
+    }
+
 
     /**
      * 通过id获取服务区基本数据（对于污水服务区相关数据分两次请求）

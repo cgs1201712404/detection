@@ -15,6 +15,7 @@ import LinearGradient from "react-native-linear-gradient";
 import {cusColors} from "../utils/cusColors";
 import ZText from "./ZText";
 
+
 export default class MyButtonView extends Component {
     constructor(props) {
         super(props);

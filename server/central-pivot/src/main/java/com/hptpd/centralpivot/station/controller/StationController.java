@@ -3,6 +3,7 @@ package com.hptpd.centralpivot.station.controller;
 import com.hptpd.centralpivot.component.Result;
 import com.hptpd.centralpivot.station.service.IStationService;
 import com.hptpd.centralpivot.station.vo.ServiceAreaVo;
+import com.hptpd.centralpivot.station.vo.app.ServiceMarker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -47,6 +48,17 @@ public class StationController {
         logger.info(serviceAreaVos.toString());
         return serviceAreaVos;
     }
+    /**
+     *
+     * 获取服务区列表（APP端）
+     * @return
+     */
+    @RequestMapping(value = "/app/service_areas", method = RequestMethod.GET)
+     public List<ServiceMarker> getServiceMarkers(){
+         List<ServiceMarker> serviceMarkers =stationService.getServicesMarkers();
+
+         return serviceMarkers;
+     }
 
     /**
      * 通过id获取服务区数据

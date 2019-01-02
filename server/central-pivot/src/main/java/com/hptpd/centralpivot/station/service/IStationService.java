@@ -2,6 +2,7 @@ package com.hptpd.centralpivot.station.service;
 
 import com.hptpd.centralpivot.component.Result;
 import com.hptpd.centralpivot.station.vo.ServiceAreaVo;
+import com.hptpd.centralpivot.station.vo.app.ServiceMarker;
 
 import java.util.List;
 
@@ -29,6 +30,12 @@ public interface IStationService {
      * @return
      */
     List<ServiceAreaVo> getServiceAreas();
+
+    /**
+     * 获取服务区列表（APP端）
+     * @return
+     */
+    List<ServiceMarker> getServicesMarkers();
 
     /**
      * 通过id获取服务区数据（对于污水服务区相关数据分两次请求）

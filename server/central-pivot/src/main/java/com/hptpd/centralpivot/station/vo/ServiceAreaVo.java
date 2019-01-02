@@ -3,6 +3,7 @@ package com.hptpd.centralpivot.station.vo;
 import com.google.common.collect.Lists;
 import com.hptpd.centralpivot.common.util.AbstractMyBeanUtils;
 import com.hptpd.centralpivot.station.domain.ServiceArea;
+import com.hptpd.centralpivot.station.vo.app.Coordinate;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -62,9 +63,15 @@ public class ServiceAreaVo {
      */
     private String sewageId;
 
+
+
+
     public static ServiceAreaVo toVo(ServiceArea serviceArea) {
         ServiceAreaVo serviceAreaVo = new ServiceAreaVo();
         AbstractMyBeanUtils.copyProperties(serviceArea, serviceAreaVo);
+
+
+
         if (serviceArea.getServiceAreaRelation() != null) {
             serviceAreaVo.setSewageId(serviceArea.getServiceAreaRelation().getSewageAreaId());
         }
